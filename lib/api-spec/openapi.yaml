@@ -3,13 +3,25 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: Kloud Diagnostics & Imaging API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: tests
+    description: Diagnostic tests and search
+  - name: packages
+    description: Health packages
+  - name: bookings
+    description: Booking and cart
+  - name: prescriptions
+    description: Prescription upload
+  - name: locations
+    description: Branch locations
+  - name: testimonials
+    description: Patient testimonials
 paths:
   /healthz:
     get:
@@ -24,6 +36,202 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /tests/search:
+    get:
+      operationId: searchTests
+      tags: [tests]
+      summary: Search diagnostic tests and packages
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search query (test name, health concern)
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [all, blood, imaging, packages]
+          description: Filter by category
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TestSearchResult"
+
+  /packages:
+    get:
+      operationId: listPackages
+      tags: [packages]
+      summary: List all health packages
+      responses:
+        "200":
+          description: List of health packages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HealthPackage"
+
+  /packages/{id}:
+    get:
+      operationId: getPackage
+      tags: [packages]
+      summary: Get a single health package
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Health package
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthPackage"
+        "404":
+          description: Not found
+
+  /bookings:
+    post:
+      operationId: createBooking
+      tags: [bookings]
+      summary: Create a new booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingInput"
+      responses:
+        "201":
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+        "400":
+          description: Validation error
+
+  /bookings/{bookingId}:
+    get:
+      operationId: getBooking
+      tags: [bookings]
+      summary: Track a booking / report status
+      parameters:
+        - name: bookingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Booking details and status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+        "404":
+          description: Booking not found
+
+  /bookings/lookup:
+    get:
+      operationId: lookupBooking
+      tags: [bookings]
+      summary: Look up a booking by mobile number or booking ID
+      parameters:
+        - name: mobile
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: bookingId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Booking found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+        "404":
+          description: Not found
+
+  /prescriptions:
+    post:
+      operationId: submitPrescription
+      tags: [prescriptions]
+      summary: Submit a prescription request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PrescriptionInput"
+      responses:
+        "201":
+          description: Prescription received
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PrescriptionSubmission"
+        "400":
+          description: Validation error
+
+  /locations:
+    get:
+      operationId: listLocations
+      tags: [locations]
+      summary: List all branch locations
+      responses:
+        "200":
+          description: List of locations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Location"
+
+  /testimonials:
+    get:
+      operationId: listTestimonials
+      tags: [testimonials]
+      summary: List patient testimonials
+      responses:
+        "200":
+          description: List of testimonials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Testimonial"
+
+  /stats:
+    get:
+      operationId: getSiteStats
+      tags: [health]
+      summary: Get site-wide stats for counters
+      responses:
+        "200":
+          description: Site stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteStats"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +242,252 @@ components:
       required:
         - status
 
+    DiagnosticTest:
+      type: object
+      required: [id, name, category, price, turnaround]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+          enum: [blood, imaging, packages]
+        price:
+          type: integer
+        mrp:
+          type: ["integer", "null"]
+        turnaround:
+          type: string
+        description:
+          type: ["string", "null"]
+        fastingRequired:
+          type: boolean
+        popular:
+          type: boolean
+
+    TestSearchResult:
+      type: object
+      required: [tests, packages]
+      properties:
+        tests:
+          type: array
+          items:
+            $ref: "#/components/schemas/DiagnosticTest"
+        packages:
+          type: array
+          items:
+            $ref: "#/components/schemas/HealthPackage"
+
+    HealthPackage:
+      type: object
+      required: [id, name, description, price, mrp, parameterCount, category]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        shortDescription:
+          type: string
+        description:
+          type: string
+        price:
+          type: integer
+        mrp:
+          type: integer
+        parameterCount:
+          type: integer
+        category:
+          type: string
+        fastingRequired:
+          type: boolean
+        includes:
+          type: array
+          items:
+            type: string
+        badge:
+          type: ["string", "null"]
+          description: e.g. "Most Popular", "Best Value"
+        popular:
+          type: boolean
+
+    CartItem:
+      type: object
+      required: [itemId, itemType, name, price, quantity]
+      properties:
+        itemId:
+          type: string
+        itemType:
+          type: string
+          enum: [test, package]
+        name:
+          type: string
+        price:
+          type: integer
+        quantity:
+          type: integer
+
+    BookingInput:
+      type: object
+      required: [patientName, patientAge, patientGender, phone, address, pincode, preferredDate, preferredTimeSlot, items, collectionType]
+      properties:
+        patientName:
+          type: string
+        patientAge:
+          type: integer
+        patientGender:
+          type: string
+          enum: [male, female, other]
+        phone:
+          type: string
+        address:
+          type: string
+        pincode:
+          type: string
+        preferredDate:
+          type: string
+          format: date
+        preferredTimeSlot:
+          type: string
+        collectionType:
+          type: string
+          enum: [home, walkin]
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/CartItem"
+        totalAmount:
+          type: integer
+        homeCollectionFee:
+          type: integer
+        notes:
+          type: ["string", "null"]
+
+    Booking:
+      type: object
+      required: [id, bookingId, patientName, phone, status, totalAmount, createdAt, items]
+      properties:
+        id:
+          type: integer
+        bookingId:
+          type: string
+        patientName:
+          type: string
+        phone:
+          type: string
+        address:
+          type: ["string", "null"]
+        preferredDate:
+          type: ["string", "null"]
+        preferredTimeSlot:
+          type: ["string", "null"]
+        collectionType:
+          type: string
+        status:
+          type: string
+          enum: [pending, confirmed, sample_collected, processing, report_ready, cancelled]
+        totalAmount:
+          type: integer
+        homeCollectionFee:
+          type: integer
+        reportUrl:
+          type: ["string", "null"]
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/CartItem"
+        createdAt:
+          type: string
+          format: date-time
+
+    PrescriptionInput:
+      type: object
+      required: [name, phone, preferredArea, preferredTimeSlot]
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        preferredArea:
+          type: string
+        preferredTimeSlot:
+          type: string
+        fileNames:
+          type: array
+          items:
+            type: string
+        notes:
+          type: ["string", "null"]
+
+    PrescriptionSubmission:
+      type: object
+      required: [id, referenceId, message, createdAt]
+      properties:
+        id:
+          type: integer
+        referenceId:
+          type: string
+        message:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    Location:
+      type: object
+      required: [id, name, area, address, phone, hours]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        area:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        email:
+          type: ["string", "null"]
+        hours:
+          type: string
+        mapsUrl:
+          type: string
+        lat:
+          type: ["number", "null"]
+        lng:
+          type: ["number", "null"]
+
+    Testimonial:
+      type: object
+      required: [id, name, rating, text, service, date]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        rating:
+          type: integer
+        text:
+          type: string
+        service:
+          type: string
+        date:
+          type: string
+        area:
+          type: string
+
+    SiteStats:
+      type: object
+      required: [testsCount, locationsCount, yearsExperience, patientsServed, turnaroundHours]
+      properties:
+        testsCount:
+          type: integer
+        locationsCount:
+          type: integer
+        yearsExperience:
+          type: integer
+        patientsServed:
+          type: integer
+        turnaroundHours:
+          type: integer

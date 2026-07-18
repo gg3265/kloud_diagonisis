@@ -1,0 +1,180 @@
+Build a premium, modern, fully responsive website for Kloud Diagnostics & Imaging, a prominent diagnostic testing, blood collection, and medical imaging center with multiple branches across Mumbai, India. This is a real healthcare business — the site must feel trustworthy, clean, clinical-but-warm, and high-end. Think "Apple-level polish meets a diagnostic lab." I want this to genuinely impress a client, so prioritize visual quality, smooth interactions, and a premium feel over generic templates.
+
+1. TECH STACK
+
+Use React + Tailwind CSS for the frontend, with Framer Motion for animations. Use a lightweight Node/Express backend (or Replit DB) only where needed for the file upload and search functionality. Fully responsive — mobile-first, but should look excellent on desktop too. Fast load times, clean component structure.
+
+2. BRAND & VISUAL DESIGN
+
+Color palette (use CSS variables so it's easy to adjust):
+
+
+Primary: Deep Teal #0B7A75 (trust, clinical, calm — avoid generic hospital red/blue)
+Secondary: Soft Aqua/Mint #5FD0C4 (accents, hover states, highlights)
+Deep accent / CTA: Coral-Orange #FF6B4A (used sparingly for "Book Now," "Upload Prescription," urgent buttons — creates contrast against the teal)
+Neutral background: Off-white #F7FAF9 and pure white #FFFFFF for cards
+Dark text: Charcoal #1E2A2E (not pure black — softer, easier to read)
+Success/positive: #3BB273 — Warning/alert: #F2A93B
+Use soft gradients (teal → aqua) sparingly in hero backgrounds and section dividers, not everywhere.
+
+
+Typography:
+
+
+Headings: "Poppins" or "Plus Jakarta Sans" (Google Fonts) — semi-bold/bold, confident, modern, slightly rounded — feels professional but approachable, not sterile.
+Body text: "Inter" or "Nunito Sans" (Google Fonts) — highly legible at small sizes, good for medical detail text, test names, disclaimers.
+Use a clear type scale (e.g., H1 48px/desktop, H2 36px, H3 24px, body 16px, small print 13px). Generous line-height for readability (1.6 for body copy).
+
+
+Effects & animation direction (tasteful, not gimmicky):
+
+
+Smooth scroll-reveal animations (fade + slight upward slide) as sections enter viewport
+Subtle parallax on hero background shapes/blobs
+Hover states: cards lift slightly with soft shadow + border-color transition on hover
+Buttons: smooth scale (1.03x) + color shift on hover, with a satisfying press/tap animation
+Animated counters for stats (e.g., "500,000+ Tests Conducted," "15+ Locations," "20+ Years")
+Soft skeleton-loading shimmer while search results or reports load
+Sticky header that condenses (shrinks height, adds shadow) on scroll
+Micro-interaction on successful file upload (checkmark animation, gentle confetti-free success state)
+A subtle animated pulse/heartbeat-line SVG motif used decoratively in the hero (medical feel without being cheesy)
+Floating WhatsApp + Call Now button, bottom-right, on all pages, with a subtle pulse animation to draw attention
+
+
+3. SITE STRUCTURE / PAGES
+
+
+Home
+About Us
+Services / Test Categories (Pathology, Radiology/Imaging, Health Packages)
+Book a Test (search + cart + checkout flow)
+Upload Prescription
+Health Packages
+Home Sample Collection
+Locations / Branches (Mumbai)
+Reports (track/download report)
+Contact Us
+FAQs
+
+
+4. HEADER / NAVIGATION
+
+
+Logo left ("Kloud Diagnostics & Imaging" wordmark + a clean cloud/droplet-inspired icon mark)
+Nav links: Home | Services | Health Packages | Home Collection | Locations | About | Contact
+Right side: "Track Report" link/icon, a phone number with call icon, and a prominent "Book a Test" CTA button in coral accent color
+Sticky on scroll, condenses smoothly
+Mobile: clean hamburger menu with slide-in drawer, large tap targets
+
+
+5. HERO SECTION (TOP OF HOMEPAGE) — CRITICAL FEATURE
+
+
+Large, confident headline (e.g., "Accurate Diagnostics. Trusted Across Mumbai.") with a short supporting line about NABL-accredited labs, fast reports, and home collection.
+A large, prominent search bar must sit at the very top of the hero — this is the primary interaction of the homepage. It should:
+
+Have placeholder text like "Search for a test, package, or health concern (e.g., CBC, Thyroid, Full Body Checkup)"
+Show a live autocomplete dropdown as the user types, listing matching individual tests AND health packages, each with a price and an "Add" button
+Include a small filter toggle nearby: "All | Blood Tests | Imaging | Health Packages"
+Important: Do NOT display a browsable list/grid of all individual tests anywhere on the site by default. Tests should only appear when a user actively searches for them (in the search dropdown or a /search?q= results page). This keeps the homepage clean and search-driven. Health Packages ARE allowed to be shown openly on the homepage/Packages page (see section 7) since those are meant to be browsed and promoted.
+Below the search bar, show a row of quick-search suggestion "chips" (e.g., "Thyroid Profile," "Diabetes Panel," "Full Body Checkup," "Vitamin D," "CBC") that populate the search bar on click.
+
+
+
+Hero background: soft teal-to-white gradient with subtle abstract medical/lab-themed shapes (DNA strand line art, subtle molecule dots, a faint heartbeat line) — no stock photos of generic "doctors pointing at tablets." If using imagery, use a clean, warm photo of a real-feeling phlebotomist/lab professional or a home-collection visit.
+
+
+6. UPLOAD PRESCRIPTION SECTION — CRITICAL FEATURE
+
+Create a clearly visible, dedicated section (accessible from hero, nav, and its own page) titled something like "Have a Doctor's Prescription? Just Upload It — We'll Handle the Rest."
+
+
+A polished drag-and-drop upload zone that also supports click-to-browse
+Accepts images (JPG, PNG, HEIC) and PDF files, max size ~10MB, multiple files allowed
+Show a live thumbnail/file-name preview after upload with a small "remove" (x) icon per file
+Below the upload zone, a short contact form: Name, Phone Number, Preferred Address/Area (for home collection), Preferred Time Slot
+On submit: a friendly success animation/confirmation ("Prescription received! Our team will call you within 30 minutes with a quote and available slots.")
+Reassurance microcopy near the upload box about data privacy/confidentiality of medical documents
+This flow should NOT require the user to know exact test names — it's designed for people who just have a doctor's handwritten/printed prescription and want the lab to interpret it
+
+
+7. HEALTH PACKAGES SECTION
+
+Unlike individual tests, feature Health Packages openly and attractively on the homepage and on a dedicated Health Packages page, as card grids. Include realistic, editable placeholder packages (client can adjust exact inclusions/pricing later) such as:
+
+
+Kloud Basic Health Checkup — CBC, Blood Sugar (Fasting), Lipid Profile, Urine Routine — ~₹799
+Kloud Full Body Checkup — 70+ parameters: CBC, Liver Function, Kidney Function, Lipid Profile, Thyroid, Blood Sugar, Urine Routine, Vitamin D & B12 — ~₹1,999
+Diabetes Care Package — Fasting & PP Blood Sugar, HbA1c, Lipid Profile, Kidney Function — ~₹899
+Cardiac Risk Package — Lipid Profile, ECG, Blood Sugar, hs-CRP — ~₹1,299
+Thyroid Profile (Total) — T3, T4, TSH — ~₹499
+Women's Wellness Package — CBC, Thyroid, Vitamin D & B12, Iron Studies, Pap Smear add-on — ~₹1,799
+Senior Citizen Care Package — Full Body + Cardiac + Bone Health markers — ~₹2,499
+Fever & Infection Panel — CBC, CRP, Malaria, Dengue, Typhoid — ~₹1,099
+
+
+Each package card should show: name, short description of what's covered, number of parameters, price (with a struck-through "MRP" and a discounted price to show savings), fasting requirement if any, and an "Add to Cart / Book Now" button. Add small badges like "Most Popular" or "Best Value" on 1–2 cards.
+
+8. HOME SAMPLE COLLECTION SECTION
+
+A dedicated section explaining the home collection service:
+
+
+Headline: "Skip the Visit — We Come to You"
+3–4 step visual process (icons + short text): 1) Book online or call 2) Certified phlebotomist visits your home 3) Sample collected safely & hygienically 4) Reports delivered digitally within hours
+Clearly state: "FREE home collection on orders above ₹1,500. A nominal collection fee applies for orders below ₹1,500." Show this as a friendly banner/badge, and reflect this logic dynamically in the booking/cart flow (i.e., if cart total ≥ ₹1,500, show "🎉 You've unlocked FREE home collection"; if below, show the applicable small fee, e.g., ₹150, with a nudge like "Add ₹X more to unlock free home collection").
+Trust icons: certified phlebotomists, safety/hygiene protocol, on-time guarantee, contactless payment option
+
+
+9. TRUST & CREDIBILITY SECTION
+
+Include a section with trust markers to build client confidence (use realistic placeholder claims the client can verify/adjust):
+
+
+NABL & ISO accreditation badges
+Stats counters: years of experience, number of Mumbai locations, tests conducted, patients served, average report turnaround time
+"Why Choose Kloud" grid: Accurate & Certified Labs | Experienced Technicians | Fast Digital Reports | Multiple Mumbai Locations | Affordable Transparent Pricing | Home Collection Available
+
+
+10. LOCATIONS SECTION
+
+A section/page listing Kloud's Mumbai branches as cards (name, area, address placeholder, phone, "Get Directions" button linking to Google Maps, operating hours). Include an embedded Google Map. Use realistic Mumbai area placeholders (e.g., Lalbaug, Byculla, Dadar, Andheri, Borivali) that the client can correct with actual addresses.
+
+11. TESTIMONIALS
+
+A clean testimonial carousel/grid with patient names, star ratings, and short quotes about accuracy, punctuality of home collection, and friendly staff. Use placeholder names/quotes clearly editable later.
+
+12. REPORTS / TRACK ORDER
+
+A simple section/page where a patient can enter their Booking ID or registered mobile number to check status ("Sample Collected → Processing → Report Ready") and download their PDF report securely once ready.
+
+13. FOOTER
+
+
+Logo + short tagline
+Quick links (all main pages)
+Popular health packages links
+Contact info: phone, WhatsApp, email, all branch addresses (collapsed/accordion on mobile)
+Social media icons
+Newsletter/health-tips signup field
+Certifications/accreditation logos row
+Bottom bar: copyright, Privacy Policy, Terms of Service
+
+
+14. BOOKING / CART FLOW
+
+Implement a simple cart that collects: selected tests/packages (from search) or uploaded prescription, patient details (name, age, gender, phone, address, pincode), preferred date/time slot, and shows a running total with the ₹1,500 home-collection-fee logic applied live. End with an order confirmation screen/animation.
+
+15. GENERAL REQUIREMENTS
+
+
+Fully responsive across mobile, tablet, desktop — test at 375px, 768px, 1440px widths
+Accessible: sufficient color contrast, alt text on icons/images, keyboard-navigable search and forms
+Fast, smooth page transitions between routes
+Consistent spacing/padding system (use a Tailwind spacing scale consistently)
+No lorem-ipsum-looking placeholder — write real, professional, warm healthcare copy throughout (you can invent realistic details like accreditation numbers, stats, and testimonials since exact real data isn't provided — keep them clearly plausible and easy for me to edit later)
+Use lucide-react or a similar clean icon set — no clashing icon styles
+Avoid stock "corporate healthcare" clichés (no generic blue gradient hero with a stethoscope stock photo) — aim for a distinctive, premium, slightly editorial design feel
+
+
+Build this as a complete, working, visually polished website — not just a wireframe. Prioritize the hero search bar, prescription upload flow, health packages display, and home-collection pricing logic as the four most important functional pieces.
