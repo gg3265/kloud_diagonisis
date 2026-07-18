@@ -2,14 +2,12 @@ import React from 'react';
 import { useListPackages } from '@workspace/api-client-react';
 import { Button } from '@/components/ui/button';
 import { Activity, ArrowRight } from 'lucide-react';
-import { useCart } from '@/lib/cart-context';
-import { useLocation } from 'wouter';
+import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
 import { motion } from 'framer-motion';
 
 export default function PackagesPage() {
   const { data: packages, isLoading } = useListPackages();
-  const { addItem } = useCart();
-  const [, setLocation] = useLocation();
+  const { openPackageModal } = useBookingModal();
 
   return (
     <div className="bg-gray-50 min-h-screen pb-24 pt-12">
@@ -93,14 +91,18 @@ export default function PackagesPage() {
                     <div className="text-3xl font-bold text-foreground">₹{pkg.price}</div>
                   </div>
                   <Button 
-                    onClick={() => {
-                      addItem({ itemId: pkg.id, itemType: 'package', name: pkg.name, price: pkg.price, quantity: 1 });
-                      setLocation('/book');
-                    }}
-                    className="rounded-xl shadow-md group-hover:bg-primary group-hover:text-white"
-                    variant="outline"
+                    onClick={() => openPackageModal({
+                      id: pkg.id,
+                      name: pkg.name,
+                      price: pkg.price,
+                      mrp: pkg.mrp,
+                      parameterCount: pkg.parameterCount,
+                      includes: pkg.includes,
+                      fastingRequired: pkg.fastingRequired,
+                    } as PackageInfo)}
+                    className="rounded-xl shadow-md"
                   >
-                    Add to Cart
+                    Book Now
                   </Button>
                 </div>
               </motion.div>

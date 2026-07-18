@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
-import { useBookingModal } from '@/lib/booking-modal-context';
+import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
 
 const POPULAR_CHIPS = ['CBC', 'Thyroid Profile', 'Diabetes Panel', 'Full Body Checkup', 'Vitamin D', 'Lipid Profile'];
 
@@ -18,7 +18,7 @@ export default function HomePage() {
   const { data: packages, isLoading: pkgsLoading } = useListPackages();
   const { data: testimonials } = useListTestimonials();
   const { data: locations } = useListLocations();
-  const { openModal } = useBookingModal();
+  const { openModal, openPackageModal } = useBookingModal();
 
   const heroStats = [
     { label: 'Tests Available', value: stats?.testsCount || '500,000+', icon: Beaker },
@@ -265,7 +265,15 @@ export default function HomePage() {
                       )}
                     </div>
                     <Button
-                      onClick={() => openModal(pkg.name)}
+                      onClick={() => openPackageModal({
+                        id: pkg.id,
+                        name: pkg.name,
+                        price: pkg.price,
+                        mrp: pkg.mrp,
+                        parameterCount: pkg.parameterCount,
+                        includes: pkg.includes,
+                        fastingRequired: pkg.fastingRequired,
+                      } as PackageInfo)}
                       className="rounded-xl font-bold"
                     >
                       Book Now

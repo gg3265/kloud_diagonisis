@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useSubmitPrescription } from '@workspace/api-client-react';
 import { Button } from '@/components/ui/button';
-import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, FilePdf, BadgeCheck } from 'lucide-react';
+import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'wouter';
 

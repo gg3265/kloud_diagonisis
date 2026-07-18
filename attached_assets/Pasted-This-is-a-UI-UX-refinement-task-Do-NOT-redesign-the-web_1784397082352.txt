@@ -1,0 +1,401 @@
+This is a UI/UX refinement task. Do NOT redesign the website. Keep the existing premium theme, colors, typography and branding exactly the same. Only improve functionality and user experience.
+
+1. Completely redesign the "Book a Test" modal
+
+The current implementation is confusing because it mixes individual tests and health packages.
+
+I want this flow:
+
+Individual Test Booking
+
+When user clicks Book a Test
+
+Open a clean premium modal similar to Max Lab.
+
+The modal should contain ONLY INDIVIDUAL TESTS.
+
+Do NOT show health packages here.
+
+Replace the current search/cart interface with a cleaner booking experience.
+
+Layout should be:
+
+Top
+
+Book a Test
+
+Book Individual Diagnostic Tests
+
+Below that
+
+Dropdown
+
+Select Test
+
+Searchable dropdown
+
+Typing should instantly filter tests.
+
+Example
+
+CBC
+
+LFT
+
+KFT
+
+HbA1c
+
+Vitamin D
+
+Vitamin B12
+
+Thyroid Profile
+
+Lipid Profile
+
+Dengue NS1
+
+etc.
+
+The dropdown should be smooth, premium and responsive.
+
+No overlapping.
+
+No floating search result boxes.
+
+No broken scrolling.
+
+No z-index issues.
+
+After selecting a test
+
+show
+
+Test Name
+
+Price
+
+Sample Type
+
+Fasting Required
+
+Turnaround Time
+
+Then
+
+Book This Test
+
+When clicked
+
+open the existing booking form.
+
+Keep the current EmailJS template for individual tests exactly the same.
+
+Do not modify template_test_booking.
+
+2. Remove packages completely from Book a Test modal
+
+Currently packages appear inside search.
+
+Remove them completely.
+
+Packages should never appear inside this modal.
+
+3. Health Packages section
+
+Keep the Packages section on homepage.
+
+When user clicks
+
+Book Now
+
+do NOT open search modal.
+
+Instead
+
+directly open
+
+Package Booking Form
+
+Exactly like Max Lab Premium website.
+
+Flow
+
+Package Card
+
+↓
+
+Book Now
+
+↓
+
+Booking Form
+
+↓
+
+Choose
+
+1 Person
+
+or
+
+2 Persons
+
+↓
+
+Show corresponding form
+
+↓
+
+Send package booking email.
+
+Do not mix packages with tests anywhere.
+
+4. Fix search overlap issue
+
+Current issue
+
+Search results overlap cards.
+
+Scrollable container breaks.
+
+Results cover the interface.
+
+Fix professionally.
+
+Requirements
+
+Search should push content naturally.
+
+No overlapping.
+
+Proper spacing.
+
+Correct z-index.
+
+Responsive on all screens.
+
+Smooth animations.
+
+Sticky search bar while scrolling.
+
+No clipping.
+
+5. Improve search UX
+
+While typing
+
+CBC
+
+Only relevant tests should appear.
+
+If nothing matches
+
+show
+
+"No matching test found"
+
+with an illustration.
+
+Add
+
+Recent Searches
+
+(optional)
+
+Popular Tests
+
+below search when empty.
+
+6. Selected Test UI
+
+Instead of current cart
+
+make a premium card.
+
+Example
+
+Complete Blood Count (CBC)
+
+₹199
+
+Sample : Blood
+
+Fasting : No
+
+Report : Same Day
+
+[ Book Test ]
+
+No cart interface.
+
+No subtotal.
+
+No checkout.
+
+Since user books only one test.
+
+7. Booking Form
+
+Keep existing fields
+
+Name
+
+Phone
+
+Email
+
+Age
+
+Gender
+
+Preferred Date
+
+Preferred Time
+
+Address
+
+City
+
+Pincode
+
+Additional Notes
+
+Do not change EmailJS.
+
+8. Package Booking
+
+If
+
+1 Person selected
+
+show only
+
+Person 1
+
+fields.
+
+Email should contain only Person 1.
+
+Do not send empty Person 2 fields.
+
+If
+
+2 Persons selected
+
+show
+
+Person 1
+
+Person 2
+
+Both required.
+
+Send both in EmailJS.
+
+9. Mobile Optimization
+
+Everything must look perfect on
+
+320px
+
+375px
+
+390px
+
+414px
+
+768px
+
+1024px
+
+1440px
+
+No overflow.
+
+No horizontal scrolling.
+
+No clipped buttons.
+
+10. Better Empty States
+
+When no test selected
+
+Show an illustration with
+
+"Search and select a diagnostic test."
+
+When no results
+
+Show
+
+"No tests found."
+
+11. Better Animations
+
+Smooth dropdown animation.
+
+Smooth modal opening.
+
+Hover effects.
+
+Card transitions.
+
+Button ripple.
+
+Premium shadows.
+
+Rounded corners.
+
+Glass effect where appropriate.
+
+No lag.
+
+12. Accessibility
+
+Keyboard navigation.
+
+ESC closes modal.
+
+Arrow keys navigate dropdown.
+
+Enter selects test.
+
+Focus states.
+
+13. Code Cleanup
+
+Remove unused booking/cart code.
+
+Remove package search logic.
+
+Separate
+
+Individual Test Booking
+
+and
+
+Package Booking
+
+into different components.
+
+Avoid duplicate code.
+
+14. Important
+
+Do NOT modify:
+
+Existing website theme
+Colors
+Fonts
+Hero section
+Services section
+Package cards
+EmailJS integration
+Package pricing logic
+Backend logic
+
+Only improve the booking experience.
+
+The final UI should feel comparable to premium diagnostic websites like Max Lab, Dr. Lal PathLabs, or Thyrocare—clean, modern, mobile-friendly, and easy to use.

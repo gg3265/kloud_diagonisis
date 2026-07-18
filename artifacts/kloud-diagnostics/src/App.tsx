@@ -5,7 +5,8 @@ import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { Layout } from '@/components/layout';
 import { CartProvider } from '@/lib/cart-context';
 import { BookingModalProvider } from '@/lib/booking-modal-context';
-import { BookingModal } from '@/components/booking-modal';
+import { TestBookingModal } from '@/components/test-booking-modal';
+import { PackageBookingModal } from '@/components/package-booking-modal';
 import { ScrollToTop } from '@/components/scroll-to-top';
 
 import HomePage from './pages/home';
@@ -61,7 +62,8 @@ function App() {
             <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
               <Router />
             </WouterRouter>
-            <BookingModal />
+            <TestBookingModal />
+            <PackageBookingModal />
           </BookingModalProvider>
         </CartProvider>
       </TooltipProvider>
