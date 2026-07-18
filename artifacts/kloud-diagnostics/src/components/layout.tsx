@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CloudRain, Phone, Menu, X, ShoppingCart, ChevronRight, Activity, Beaker } from 'lucide-react';
+import { CloudRain, Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useCart } from '@/lib/cart-context';
+import { useBookingModal } from '@/lib/booking-modal-context';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -17,87 +17,96 @@ const NAV_LINKS = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [location, setLocation] = useLocation();
-  const { itemCount } = useCart();
+  const [location] = useLocation();
+  const { openModal } = useBookingModal();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location]);
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/90 backdrop-blur-md shadow-sm py-3'
-            : 'bg-white py-5'
+            ? 'bg-white/95 backdrop-blur-md shadow-md py-3'
+            : 'bg-white/95 backdrop-blur-sm py-5 shadow-sm'
         }`}
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 z-50 group">
-            <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center transform transition-transform group-hover:scale-105 group-hover:rotate-3 shadow-md">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 z-50 group">
+            <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center transform transition-all group-hover:scale-105 group-hover:rotate-3 shadow-md">
               <CloudRain className="w-6 h-6" />
             </div>
             <div className="flex flex-col">
-              <span className="font-sans font-bold text-xl leading-none text-primary tracking-tight">Kloud</span>
-              <span className="font-sans font-semibold text-[10px] leading-none text-muted-foreground uppercase tracking-wider">Diagnostics & Imaging</span>
+              <span className="font-sans font-extrabold text-xl leading-none text-primary tracking-tight">Kloud</span>
+              <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8">
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-7">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.path}
                 href={link.path}
-                className={`text-sm font-semibold transition-colors hover:text-primary ${
-                  location === link.path ? 'text-primary' : 'text-foreground/80'
+                className={`text-sm font-semibold transition-colors relative group ${
+                  location === link.path ? 'text-primary' : 'text-foreground/75 hover:text-primary'
                 }`}
               >
                 {link.name}
+                {location === link.path && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
+                )}
               </Link>
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-4">
-            <div className="flex items-center gap-2 text-primary font-bold mr-2">
-              <Phone className="w-4 h-4" />
-              <span>022-4567-8900</span>
-            </div>
-            
-            <Link href="/book">
-              <div className="relative cursor-pointer text-foreground hover:text-primary transition-colors p-2">
-                <ShoppingCart className="w-6 h-6" />
-                {itemCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-accent text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center translate-x-1 -translate-y-1">
-                    {itemCount}
-                  </span>
-                )}
+          {/* Desktop Actions */}
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="tel:9699977171"
+              className="flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors mr-1 text-sm"
+            >
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Phone className="w-4 h-4" />
               </div>
+              9699977171
+            </a>
+
+            <Link href="/upload-prescription">
+              <Button variant="outline" size="sm" className="text-sm font-semibold">
+                Upload Rx
+              </Button>
             </Link>
 
-            <Button variant="secondary" onClick={() => setLocation('/book')}>
+            <Button
+              onClick={() => openModal()}
+              className="gap-2 text-sm font-bold shadow-md"
+              size="sm"
+            >
+              <CalendarCheck className="w-4 h-4" />
               Book a Test
             </Button>
           </div>
 
-          <div className="flex lg:hidden items-center gap-4">
-            <Link href="/book">
-              <div className="relative cursor-pointer text-foreground p-2">
-                <ShoppingCart className="w-6 h-6" />
-                {itemCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-accent text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                    {itemCount}
-                  </span>
-                )}
-              </div>
-            </Link>
+          {/* Mobile */}
+          <div className="flex lg:hidden items-center gap-2">
+            <a href="tel:9699977171" className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+              <Phone className="w-4 h-4" />
+            </a>
             <button
-              className="p-2 -mr-2 text-foreground z-50 relative"
+              className="p-2 -mr-1 text-foreground z-50 relative"
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
             </button>
@@ -112,16 +121,15 @@ export function Header() {
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 260 }}
             className="fixed inset-0 z-40 bg-white flex flex-col pt-24 px-6 pb-6 lg:hidden"
           >
-            <div className="flex-1 flex flex-col gap-6 overflow-y-auto">
+            <div className="flex-1 flex flex-col gap-1 overflow-y-auto">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
-                  onClick={() => setMobileOpen(false)}
-                  className={`text-2xl font-sans font-bold flex items-center justify-between border-b border-border pb-4 ${
+                  className={`text-xl font-bold flex items-center justify-between border-b border-border/50 py-5 ${
                     location === link.path ? 'text-primary' : 'text-foreground'
                   }`}
                 >
@@ -129,16 +137,27 @@ export function Header() {
                   <ChevronRight className="w-5 h-5 text-muted-foreground" />
                 </Link>
               ))}
-              
-              <div className="mt-8 bg-gray-50 rounded-2xl p-6 border border-border">
-                <div className="flex items-center gap-3 text-primary font-bold text-xl mb-4">
-                  <Phone className="w-6 h-6" />
-                  <span>022-4567-8900</span>
-                </div>
-                <p className="text-sm text-muted-foreground mb-6">Call us directly to book a home collection or ask for assistance.</p>
-                <Button className="w-full" size="lg" variant="secondary" onClick={() => { setMobileOpen(false); setLocation('/book'); }}>
+
+              <div className="mt-8 space-y-3">
+                <Button
+                  className="w-full gap-2 h-14 text-base"
+                  onClick={() => { setMobileOpen(false); openModal(); }}
+                >
+                  <CalendarCheck className="w-5 h-5" />
                   Book a Test
                 </Button>
+                <Link href="/upload-prescription">
+                  <Button variant="outline" className="w-full gap-2 h-12 text-sm">
+                    Upload Prescription
+                  </Button>
+                </Link>
+                <a
+                  href="tel:9699977171"
+                  className="w-full flex items-center justify-center gap-2 h-12 rounded-xl bg-primary/10 text-primary font-bold hover:bg-primary/20 transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  Call: 9699977171
+                </a>
               </div>
             </div>
           </motion.div>
@@ -150,85 +169,99 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-white pt-16 pb-8">
+    <footer className="bg-gray-950 text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 border-b border-white/10 pb-12">
-          
+
           <div>
-            <div className="flex items-center gap-2 mb-6 opacity-90">
-              <div className="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center">
+            <div className="flex items-center gap-2.5 mb-6">
+              <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shadow-md">
                 <CloudRain className="w-6 h-6" />
               </div>
               <div className="flex flex-col">
-                <span className="font-sans font-bold text-xl leading-none tracking-tight">Kloud</span>
-                <span className="font-sans font-semibold text-[10px] leading-none text-white/60 uppercase tracking-wider">Diagnostics & Imaging</span>
+                <span className="font-sans font-extrabold text-xl leading-none tracking-tight">Kloud</span>
+                <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
               </div>
             </div>
-            <p className="text-white/70 text-sm leading-relaxed mb-6">
-              Mumbai's premium diagnostic center bringing precision healthcare and warmth together. Accredited excellence.
+            <p className="text-white/60 text-sm leading-relaxed mb-6">
+              Mumbai's trusted diagnostic center. NABL accredited labs delivering precision healthcare with warmth and accuracy.
             </p>
-            <div className="flex gap-4">
-              {/* Accreditations fake badges */}
-              <div className="bg-white/5 border border-white/10 rounded px-3 py-1.5 text-xs font-bold text-white/80">NABL Accredited</div>
-              <div className="bg-white/5 border border-white/10 rounded px-3 py-1.5 text-xs font-bold text-white/80">ISO 9001:2015</div>
+            <div className="flex flex-wrap gap-2">
+              <div className="bg-primary/20 border border-primary/30 rounded-lg px-3 py-1.5 text-xs font-bold text-primary">NABL Accredited</div>
+              <div className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs font-bold text-white/70">ISO 9001:2015</div>
             </div>
           </div>
 
           <div>
-            <h4 className="font-sans font-bold text-lg mb-6">Quick Links</h4>
-            <ul className="space-y-4 text-sm text-white/70">
-              <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-              <li><Link href="/services" className="hover:text-white transition-colors">Our Services</Link></li>
-              <li><Link href="/home-collection" className="hover:text-white transition-colors">Home Collection</Link></li>
-              <li><Link href="/locations" className="hover:text-white transition-colors">Branch Locations</Link></li>
-              <li><Link href="/reports" className="hover:text-white transition-colors">Track Report</Link></li>
+            <h4 className="font-sans font-bold text-base mb-6 text-white">Quick Links</h4>
+            <ul className="space-y-3 text-sm text-white/60">
+              {[
+                { name: 'About Us', path: '/about' },
+                { name: 'Our Services', path: '/services' },
+                { name: 'Health Packages', path: '/packages' },
+                { name: 'Home Collection', path: '/home-collection' },
+                { name: 'Branch Locations', path: '/locations' },
+                { name: 'Track Report', path: '/reports' },
+                { name: 'FAQ', path: '/faq' },
+              ].map(l => (
+                <li key={l.path}><Link href={l.path} className="hover:text-white transition-colors">{l.name}</Link></li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-sans font-bold text-lg mb-6">Popular Packages</h4>
-            <ul className="space-y-4 text-sm text-white/70">
-              <li><Link href="/packages" className="hover:text-white transition-colors">Complete Body Checkup</Link></li>
-              <li><Link href="/packages" className="hover:text-white transition-colors">Senior Citizen Package</Link></li>
-              <li><Link href="/packages" className="hover:text-white transition-colors">Diabetes Care Panel</Link></li>
-              <li><Link href="/packages" className="hover:text-white transition-colors">Women's Health Check</Link></li>
+            <h4 className="font-sans font-bold text-base mb-6 text-white">Popular Tests</h4>
+            <ul className="space-y-3 text-sm text-white/60">
+              {['Complete Blood Count (CBC)', 'Thyroid Profile (T3/T4/TSH)', 'HbA1c (Diabetes)', 'Vitamin D & B12', 'Lipid Profile', 'Liver Function Test', 'Kidney Function Test'].map(t => (
+                <li key={t}><Link href="/packages" className="hover:text-white transition-colors">{t}</Link></li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-sans font-bold text-lg mb-6">Contact</h4>
-            <ul className="space-y-4 text-sm text-white/70">
+            <h4 className="font-sans font-bold text-base mb-6 text-white">Contact Us</h4>
+            <ul className="space-y-5 text-sm">
               <li className="flex items-start gap-3">
-                <Phone className="w-5 h-5 text-accent shrink-0" />
+                <div className="w-9 h-9 rounded-lg bg-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                  <Phone className="w-4 h-4" />
+                </div>
                 <div>
-                  <div className="font-bold text-white">022-4567-8900</div>
-                  <div className="text-xs">Mon-Sat: 7AM - 9PM</div>
+                  <div className="text-white/50 text-xs uppercase tracking-wider mb-1">Call / WhatsApp</div>
+                  <a href="tel:9699977171" className="text-white font-bold hover:text-primary transition-colors text-base">9699977171</a>
+                  <div className="text-white/40 text-xs mt-0.5">Mon–Sat: 7AM – 9PM</div>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <Activity className="w-5 h-5 text-accent shrink-0" />
+                <div className="w-9 h-9 rounded-lg bg-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                  <Activity className="w-4 h-4" />
+                </div>
                 <div>
-                  <div className="text-white">care@klouddiagnostics.in</div>
+                  <div className="text-white/50 text-xs uppercase tracking-wider mb-1">Email</div>
+                  <a href="mailto:klouddiagnostics@gmail.com" className="text-white font-semibold hover:text-primary transition-colors text-sm break-all">klouddiagnostics@gmail.com</a>
                 </div>
               </li>
             </ul>
-            
-            <div className="mt-6">
+
+            <div className="mt-6 space-y-2">
               <Link href="/upload-prescription">
-                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 text-sm h-10">
                   Upload Prescription
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button variant="ghost" className="w-full text-white/60 hover:text-white hover:bg-white/5 text-sm h-10">
+                  Contact Us
                 </Button>
               </Link>
             </div>
           </div>
-
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between text-sm text-white/50">
-          <p>&copy; {new Date().getFullYear()} Kloud Diagnostics & Imaging. All rights reserved.</p>
+        <div className="flex flex-col md:flex-row items-center justify-between text-xs text-white/40">
+          <p>© {new Date().getFullYear()} Kloud Diagnostics & Imaging. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
@@ -238,17 +271,32 @@ export function Footer() {
 
 export function FloatingButtons() {
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3">
-      <a 
-        href="whatsapp://send?phone=+919876543210" 
+    <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3 items-end">
+      {/* Call Button */}
+      <a
+        href="tel:9699977171"
+        className="w-13 h-13 w-[52px] h-[52px] bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group"
+        aria-label="Call us"
+      >
+        <span className="absolute right-full mr-4 bg-gray-900 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
+          Call: 9699977171
+        </span>
+        <Phone className="w-5 h-5" />
+      </a>
+
+      {/* WhatsApp Button */}
+      <a
+        href="https://wa.me/919699977171"
+        target="_blank"
+        rel="noreferrer"
         className="w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group"
         aria-label="Chat on WhatsApp"
       >
-        <span className="absolute right-full mr-4 bg-black/80 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-          Chat on WhatsApp
+        <span className="absolute right-full mr-4 bg-gray-900 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
+          WhatsApp Us
         </span>
-        <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
       </a>
     </div>

@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { useSubmitPrescription } from '@workspace/api-client-react';
 import { Button } from '@/components/ui/button';
-import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck } from 'lucide-react';
+import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, FilePdf, BadgeCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 
 export default function UploadPrescriptionPage() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -11,25 +11,18 @@ export default function UploadPrescriptionPage() {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const submitPrescription = useSubmitPrescription();
+  const [, setLocation] = useLocation();
 
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     preferredArea: '',
-    preferredTimeSlot: 'Morning (8 AM - 12 PM)',
-    notes: ''
+    preferredTimeSlot: 'Anytime',
+    notes: '',
   });
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
+  const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); };
+  const handleDragLeave = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(false); };
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -39,240 +32,312 @@ export default function UploadPrescriptionPage() {
   };
 
   const handleFiles = (newFiles: File[]) => {
-    // Check max size 10MB
-    const validFiles = newFiles.filter(file => {
-      const isOk = file.size <= 10 * 1024 * 1024;
-      if (!isOk) alert(`File ${file.name} is too large. Max 10MB allowed.`);
-      return isOk;
+    const valid = newFiles.filter(file => {
+      if (file.size > 10 * 1024 * 1024) { alert(`"${file.name}" exceeds 10MB limit.`); return false; }
+      return true;
     });
-    setFiles(prev => [...prev, ...validFiles]);
+    setFiles(prev => [...prev, ...valid]);
   };
 
-  const removeFile = (index: number) => {
-    setFiles(prev => prev.filter((_, i) => i !== index));
-  };
+  const removeFile = (index: number) => setFiles(prev => prev.filter((_, i) => i !== index));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (files.length === 0) {
-      alert("Please upload at least one prescription file.");
-      return;
-    }
-    
-    // Convert File objects to names to match the mocked API schema
-    const fileNames = files.map(f => f.name);
-
-    submitPrescription.mutate({
-      data: {
-        ...formData,
-        fileNames
-      }
-    }, {
-      onSuccess: () => setIsSuccess(true)
-    });
+    if (files.length === 0) { alert('Please upload at least one prescription file.'); return; }
+    submitPrescription.mutate(
+      { data: { ...formData, fileNames: files.map(f => f.name) } },
+      { onSuccess: () => setIsSuccess(true) }
+    );
   };
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-20 px-4">
-        <motion.div 
-          initial={{ scale: 0.9, opacity: 0 }}
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex items-center justify-center py-20 px-4">
+        <motion.div
+          initial={{ scale: 0.85, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="bg-white p-10 md:p-16 rounded-[2.5rem] shadow-xl text-center max-w-lg border border-border"
+          transition={{ type: 'spring', damping: 20 }}
+          className="bg-white p-10 md:p-16 rounded-[2.5rem] shadow-2xl text-center max-w-lg border border-orange-100"
         >
-          <div className="w-24 h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-8">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', damping: 15 }}
+            className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8"
+          >
             <CheckCircle2 className="w-12 h-12" />
-          </div>
-          <h1 className="text-4xl font-sans font-bold mb-4">Prescription Received!</h1>
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-            Our medical experts will review your prescription and call you within <strong className="text-foreground">30 minutes</strong> to confirm the exact tests and costs.
+          </motion.div>
+          <h1 className="text-3xl font-extrabold font-sans mb-4 text-foreground">Prescription Received!</h1>
+          <p className="text-muted-foreground text-base mb-4 leading-relaxed">
+            Our medical experts will review your prescription and call you at{' '}
+            <strong className="text-foreground">{formData.phone}</strong> within{' '}
+            <strong className="text-primary">30 minutes</strong> to confirm the exact tests and pricing.
           </p>
-          <Link href="/">
-            <Button size="lg" className="w-full">Back to Home</Button>
-          </Link>
+          <div className="bg-orange-50 rounded-2xl p-4 border border-orange-100 mb-8 text-sm text-left space-y-2">
+            <div className="flex justify-between"><span className="text-muted-foreground">Name</span><span className="font-semibold">{formData.name}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Phone</span><span className="font-semibold">{formData.phone}</span></div>
+            <div className="flex justify-between"><span className="text-muted-foreground">Files Uploaded</span><span className="font-semibold">{files.length} file(s)</span></div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Button size="lg" onClick={() => setLocation('/')} className="w-full">Return to Home</Button>
+            <Button size="lg" variant="outline" onClick={() => { setIsSuccess(false); setFiles([]); setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', notes: '' }); }} className="w-full">
+              Upload Another
+            </Button>
+          </div>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-24 pt-12">
-      <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold font-sans text-foreground mb-4">
-            Have a Doctor's Prescription?
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Just upload it — we'll decode the medical jargon, prepare your cart, and call you back to confirm.
-          </p>
+    <div className="bg-gradient-to-br from-orange-50/50 to-white min-h-screen pb-24">
+      {/* Page header */}
+      <div className="bg-white border-b border-border sticky top-20 z-20">
+        <div className="container mx-auto px-4 md:px-6 py-4 flex items-center gap-4">
+          <button
+            onClick={() => window.history.back()}
+            className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 text-foreground flex items-center justify-center transition-colors shrink-0"
+            aria-label="Go back"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <h1 className="font-extrabold text-xl font-sans leading-none">Upload Prescription</h1>
+            <p className="text-muted-foreground text-xs mt-0.5">Our team will decode it and call you back</p>
+          </div>
         </div>
+      </div>
 
-        <div className="bg-white rounded-[2.5rem] shadow-xl border border-border p-6 md:p-12">
-          <form onSubmit={handleSubmit} className="space-y-12">
-            
-            {/* Upload Zone */}
-            <div>
-              <h2 className="text-xl font-bold font-sans mb-4 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">1</span>
-                Upload Documents
-              </h2>
-              
-              <div 
-                className={`border-3 border-dashed rounded-3xl p-10 text-center transition-all cursor-pointer ${
-                  isDragging 
-                    ? 'border-primary bg-primary/5 scale-[1.02]' 
-                    : 'border-border hover:border-primary/50 hover:bg-gray-50'
-                }`}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <input 
-                  type="file" 
-                  ref={fileInputRef} 
-                  className="hidden" 
-                  multiple 
-                  accept="image/png, image/jpeg, image/jpg, application/pdf" 
-                  onChange={(e) => {
-                    if (e.target.files) handleFiles(Array.from(e.target.files));
-                  }}
-                />
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
-                  <Upload className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold mb-2">Drag & Drop files here</h3>
-                <p className="text-muted-foreground text-sm mb-6">or click to browse from your device</p>
-                <div className="text-xs font-semibold text-foreground/50 uppercase tracking-wider">
-                  Supports JPG, PNG, PDF (Max 10MB)
-                </div>
-              </div>
+      <div className="container mx-auto px-4 md:px-6 max-w-5xl pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
-              {/* File Preview */}
-              <AnimatePresence>
-                {files.length > 0 && (
-                  <motion.div 
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    className="mt-6 space-y-3"
-                  >
-                    {files.map((file, i) => (
-                      <div key={i} className="flex items-center justify-between bg-gray-50 border border-border p-3 rounded-xl">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary shrink-0">
-                            <FileText className="w-5 h-5" />
-                          </div>
-                          <div>
-                            <div className="font-semibold text-sm line-clamp-1">{file.name}</div>
-                            <div className="text-xs text-muted-foreground">{(file.size / 1024 / 1024).toFixed(2)} MB</div>
-                          </div>
-                        </div>
-                        <button 
-                          type="button" 
-                          onClick={() => removeFile(i)}
-                          className="w-8 h-8 rounded-full hover:bg-destructive/10 text-muted-foreground hover:text-destructive flex items-center justify-center transition-colors"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <div className="flex items-center gap-2 mt-4 text-xs font-medium text-muted-foreground justify-center">
-                <ShieldCheck className="w-4 h-4 text-success" />
-                Your medical documents are kept strictly confidential.
-              </div>
+          {/* Sidebar info */}
+          <div className="lg:col-span-1 space-y-5">
+            <div className="bg-white rounded-2xl p-6 border border-orange-100 shadow-sm">
+              <h3 className="font-bold text-base mb-5 flex items-center gap-2 text-foreground">
+                <BadgeCheck className="w-5 h-5 text-orange-500" />
+                How it works
+              </h3>
+              <ol className="space-y-4">
+                {[
+                  { step: '1', title: 'Upload Prescription', desc: 'Drag & drop or browse your files' },
+                  { step: '2', title: 'Expert Review', desc: 'Our team identifies all required tests' },
+                  { step: '3', title: 'We Call You', desc: 'Confirmation within 30 minutes' },
+                  { step: '4', title: 'Book & Test', desc: 'Home collection or walk-in, your choice' },
+                ].map(item => (
+                  <li key={item.step} className="flex items-start gap-3">
+                    <div className="w-7 h-7 rounded-full bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                      {item.step}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm">{item.title}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
 
-            {/* Contact Details */}
-            <div>
-              <h2 className="text-xl font-bold font-sans mb-6 flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">2</span>
-                Your Details
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
-                    <User className="w-4 h-4" /> Full Name
-                  </label>
-                  <input 
-                    required
-                    type="text" 
-                    value={formData.name}
-                    onChange={e => setFormData({...formData, name: e.target.value})}
-                    className="w-full h-12 px-4 rounded-xl border border-input bg-transparent focus:ring-2 focus:ring-primary outline-none transition-all"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
-                    <Phone className="w-4 h-4" /> Mobile Number
-                  </label>
-                  <input 
-                    required
-                    type="tel" 
-                    pattern="[0-9]{10}"
-                    value={formData.phone}
-                    onChange={e => setFormData({...formData, phone: e.target.value})}
-                    className="w-full h-12 px-4 rounded-xl border border-input bg-transparent focus:ring-2 focus:ring-primary outline-none transition-all"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
-                    <MapPin className="w-4 h-4" /> Preferred Area / Location
-                  </label>
-                  <input 
-                    required
-                    type="text" 
-                    value={formData.preferredArea}
-                    onChange={e => setFormData({...formData, preferredArea: e.target.value})}
-                    className="w-full h-12 px-4 rounded-xl border border-input bg-transparent focus:ring-2 focus:ring-primary outline-none transition-all"
-                    placeholder="e.g. Andheri West"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
-                    <Clock className="w-4 h-4" /> Callback Time
-                  </label>
-                  <select 
-                    value={formData.preferredTimeSlot}
-                    onChange={e => setFormData({...formData, preferredTimeSlot: e.target.value})}
-                    className="w-full h-12 px-4 rounded-xl border border-input bg-transparent focus:ring-2 focus:ring-primary outline-none transition-all appearance-none"
-                  >
-                    <option>Anytime</option>
-                    <option>Morning (8 AM - 12 PM)</option>
-                    <option>Afternoon (12 PM - 4 PM)</option>
-                    <option>Evening (4 PM - 8 PM)</option>
-                  </select>
-                </div>
-                
-                <div className="space-y-2 md:col-span-2">
-                  <label className="text-sm font-semibold text-foreground/80">Any specific notes? (Optional)</label>
-                  <textarea 
-                    rows={3}
-                    value={formData.notes}
-                    onChange={e => setFormData({...formData, notes: e.target.value})}
-                    className="w-full p-4 rounded-xl border border-input bg-transparent focus:ring-2 focus:ring-primary outline-none transition-all resize-none"
-                    placeholder="e.g. Doctor asked for fasting sugar..."
-                  />
-                </div>
+            <div className="bg-orange-50 border border-orange-100 rounded-2xl p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <ShieldCheck className="w-5 h-5 text-orange-600" />
+                <h4 className="font-bold text-sm text-orange-900">100% Confidential</h4>
               </div>
+              <p className="text-xs text-orange-800/80 leading-relaxed">
+                Your prescriptions are encrypted and only accessible to our medical team. We never share your data with third parties.
+              </p>
             </div>
 
-            <Button 
-              type="submit" 
-              size="lg" 
-              className="w-full text-lg h-14 rounded-2xl"
-              disabled={submitPrescription.isPending}
-            >
-              {submitPrescription.isPending ? 'Submitting...' : 'Submit Prescription'}
-            </Button>
-          </form>
+            <div className="bg-white rounded-2xl p-5 border border-border text-sm space-y-3">
+              <p className="font-bold text-foreground/70 text-xs uppercase tracking-wider">Accepted formats</p>
+              <div className="flex items-center gap-3 text-foreground/80">
+                <FileImage className="w-4 h-4 text-blue-500" /> JPG & PNG images
+              </div>
+              <div className="flex items-center gap-3 text-foreground/80">
+                <FileText className="w-4 h-4 text-red-500" /> PDF documents
+              </div>
+              <p className="text-xs text-muted-foreground">Max 10MB per file</p>
+            </div>
+          </div>
+
+          {/* Main form */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-3xl shadow-lg border border-border p-6 md:p-9">
+              <form onSubmit={handleSubmit} className="space-y-8">
+
+                {/* Upload Zone */}
+                <div>
+                  <h2 className="text-lg font-extrabold font-sans mb-4 flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xs">1</span>
+                    Upload Your Prescription
+                  </h2>
+
+                  <div
+                    className={`border-2 border-dashed rounded-2xl p-8 md:p-12 text-center cursor-pointer transition-all duration-200 ${
+                      isDragging
+                        ? 'border-orange-400 bg-orange-50 scale-[1.02]'
+                        : 'border-border hover:border-orange-300 hover:bg-orange-50/30'
+                    }`}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      className="hidden"
+                      multiple
+                      accept="image/png, image/jpeg, image/jpg, application/pdf"
+                      onChange={e => { if (e.target.files) handleFiles(Array.from(e.target.files)); }}
+                    />
+                    <motion.div
+                      animate={isDragging ? { scale: 1.1 } : { scale: 1 }}
+                      className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-orange-600"
+                    >
+                      <Upload className="w-7 h-7" />
+                    </motion.div>
+                    <h3 className="text-lg font-bold mb-1">Drag & drop files here</h3>
+                    <p className="text-muted-foreground text-sm mb-4">or click to browse from your device</p>
+                    <span className="inline-block bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold px-4 py-1.5 rounded-full">
+                      JPG · PNG · PDF · Max 10MB
+                    </span>
+                  </div>
+
+                  <AnimatePresence>
+                    {files.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        className="mt-4 space-y-2"
+                      >
+                        {files.map((file, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 10 }}
+                            className="flex items-center justify-between bg-orange-50 border border-orange-100 p-3 rounded-xl"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="w-9 h-9 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600 shrink-0">
+                                <FileText className="w-4 h-4" />
+                              </div>
+                              <div>
+                                <div className="font-semibold text-sm line-clamp-1">{file.name}</div>
+                                <div className="text-xs text-muted-foreground">{(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => removeFile(i)}
+                              className="w-8 h-8 rounded-full hover:bg-red-50 text-muted-foreground hover:text-red-500 flex items-center justify-center transition-colors"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Contact Details */}
+                <div>
+                  <h2 className="text-lg font-extrabold font-sans mb-5 flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xs">2</span>
+                    Your Contact Details
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                      <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
+                        <User className="w-4 h-4 text-orange-500" /> Full Name
+                      </label>
+                      <input
+                        required
+                        type="text"
+                        value={formData.name}
+                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
+                        placeholder="e.g. Priya Sharma"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
+                        <Phone className="w-4 h-4 text-orange-500" /> Mobile Number
+                      </label>
+                      <input
+                        required
+                        type="tel"
+                        pattern="[0-9]{10}"
+                        value={formData.phone}
+                        onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                        className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
+                        placeholder="10-digit mobile number"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
+                        <MapPin className="w-4 h-4 text-orange-500" /> Preferred Area
+                      </label>
+                      <input
+                        required
+                        type="text"
+                        value={formData.preferredArea}
+                        onChange={e => setFormData({ ...formData, preferredArea: e.target.value })}
+                        className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
+                        placeholder="e.g. Andheri West, Mumbai"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
+                        <Clock className="w-4 h-4 text-orange-500" /> Best Time to Call
+                      </label>
+                      <select
+                        value={formData.preferredTimeSlot}
+                        onChange={e => setFormData({ ...formData, preferredTimeSlot: e.target.value })}
+                        className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm appearance-none"
+                      >
+                        <option>Anytime</option>
+                        <option>Morning (8 AM – 12 PM)</option>
+                        <option>Afternoon (12 PM – 4 PM)</option>
+                        <option>Evening (4 PM – 8 PM)</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-2 md:col-span-2">
+                      <label className="text-sm font-semibold text-foreground/80">Additional Notes (optional)</label>
+                      <textarea
+                        rows={2}
+                        value={formData.notes}
+                        onChange={e => setFormData({ ...formData, notes: e.target.value })}
+                        className="w-full p-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all resize-none text-sm"
+                        placeholder="e.g. Doctor advised fasting test, preferred morning slot..."
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full text-base h-14 rounded-2xl bg-orange-600 hover:bg-orange-700 gap-2 font-bold"
+                  disabled={submitPrescription.isPending}
+                >
+                  <Upload className="w-5 h-5" />
+                  {submitPrescription.isPending ? 'Submitting...' : 'Submit Prescription'}
+                </Button>
+
+                <p className="text-center text-xs text-muted-foreground">
+                  By submitting, you agree to our Privacy Policy. Your documents are 100% confidential.
+                </p>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>
