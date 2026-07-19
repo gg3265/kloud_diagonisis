@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CloudRain, Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MessageSquare, MapPin } from 'lucide-react';
+import { Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
 
@@ -43,11 +43,15 @@ export function Header() {
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 z-50 group">
-            <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center transform transition-all group-hover:scale-105 group-hover:rotate-3 shadow-md">
-              <CloudRain className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center transform transition-all group-hover:scale-105 shadow-md">
+              {/* Medical cross — matches KLOUD brand banner */}
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="9" y="2" width="6" height="20" rx="2.5" fill="white"/>
+                <rect x="2" y="9" width="20" height="6" rx="2.5" fill="white"/>
+              </svg>
             </div>
             <div className="flex flex-col">
-              <span className="font-sans font-extrabold text-xl leading-none text-primary tracking-tight">Kloud</span>
+              <span className="font-sans font-extrabold text-xl leading-none text-primary tracking-tight">KLOUD</span>
               <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
             </div>
           </Link>
@@ -176,10 +180,13 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2.5 mb-6">
               <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shadow-md">
-                <CloudRain className="w-6 h-6" />
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="2" width="6" height="20" rx="2.5" fill="white"/>
+                  <rect x="2" y="9" width="20" height="6" rx="2.5" fill="white"/>
+                </svg>
               </div>
               <div className="flex flex-col">
-                <span className="font-sans font-extrabold text-xl leading-none tracking-tight">Kloud</span>
+                <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
                 <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
               </div>
             </div>

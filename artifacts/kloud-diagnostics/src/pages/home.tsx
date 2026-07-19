@@ -31,14 +31,14 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-16 pb-28 overflow-hidden bg-gradient-to-b from-teal-50/60 via-white to-white">
+      <section className="relative pt-16 pb-28 overflow-hidden bg-gradient-to-b from-red-50/50 via-white to-white">
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Grid dots */}
           <svg className="absolute w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="hero-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="1.5" fill="#0d9488"/>
+                <circle cx="2" cy="2" r="1.5" fill="#c8171e"/>
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#hero-grid)" />
@@ -58,7 +58,7 @@ export default function HomePage() {
           </svg>
           {/* Large faint circle */}
           <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl" />
-          <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-teal-400/10 blur-3xl" />
+          <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-red-400/10 blur-3xl" />
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
@@ -164,7 +164,7 @@ export default function HomePage() {
                   transition={{ delay: idx * 0.1 }}
                   className="bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 flex flex-col group relative overflow-hidden"
                 >
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-red-700 opacity-0 group-hover:opacity-100 transition-opacity" />
                   
                   {pkg.badge && (
                     <div className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-4 border border-accent/20'>
@@ -233,7 +233,7 @@ export default function HomePage() {
               initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="rounded-3xl bg-gradient-to-br from-teal-600 to-teal-700 text-white p-8 md:p-10 flex flex-col relative overflow-hidden"
+              className="rounded-3xl bg-gradient-to-br from-red-800 to-red-900 text-white p-8 md:p-10 flex flex-col relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-12 -translate-x-8" />
@@ -264,7 +264,7 @@ export default function HomePage() {
                 </ul>
                 <Button
                   onClick={() => openModal()}
-                  className="bg-white text-teal-700 hover:bg-teal-50 font-bold h-12 px-7 rounded-xl shadow-lg"
+                  className="bg-white text-primary hover:bg-red-50 font-bold h-12 px-7 rounded-xl shadow-lg"
                 >
                   Book Home Collection
                   <ChevronRight className="w-4 h-4 ml-1" />
@@ -331,7 +331,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: BadgeCheck, color: 'bg-teal-50 text-teal-600', title: 'NABL Accredited', desc: 'ISO 9001:2015 certified labs meeting international standards for diagnostic accuracy.' },
+              { icon: BadgeCheck, color: 'bg-red-50 text-red-600', title: 'NABL Accredited', desc: 'ISO 9001:2015 certified labs meeting international standards for diagnostic accuracy.' },
               { icon: Zap, color: 'bg-orange-50 text-orange-500', title: 'Fast Reports', desc: 'Digital reports delivered within 24 hours. Urgent reports available in 4–6 hours.' },
               { icon: Home, color: 'bg-blue-50 text-blue-600', title: 'Home Collection', desc: 'Trained phlebotomists collect samples safely from your home at your preferred time.' },
               { icon: ShieldCheck, color: 'bg-green-50 text-green-600', title: '100% Accurate', desc: 'State-of-the-art equipment and rigorous QC protocols for reliable, precise results.' },
@@ -356,7 +356,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── STATS STRIP ─── */}
-      <section className="relative z-10 bg-gradient-to-r from-teal-700 via-primary to-teal-600 text-white py-12 shadow-2xl">
+      <section className="relative z-10 bg-gradient-to-r from-red-900 via-primary to-red-800 text-white py-12 shadow-2xl">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/15">
             {heroStats.map((stat, i) => (
@@ -421,10 +421,10 @@ export default function HomePage() {
       {/* ─── CONTACT CTA ─── */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="bg-gradient-to-br from-primary to-teal-600 rounded-[2.5rem] p-10 md:p-16 text-white text-center relative overflow-hidden">
+          <div className="bg-gradient-to-br from-primary to-red-800 rounded-[2.5rem] p-10 md:p-16 text-white text-center relative overflow-hidden">
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full -translate-y-24 translate-x-24 blur-2xl" />
-              <div className="absolute bottom-0 left-0 w-56 h-56 bg-teal-400/20 rounded-full translate-y-16 -translate-x-16 blur-2xl" />
+              <div className="absolute bottom-0 left-0 w-56 h-56 bg-red-400/20 rounded-full translate-y-16 -translate-x-16 blur-2xl" />
             </div>
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-4">Have Questions? We're Here.</h2>
@@ -433,7 +433,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="tel:9699977171">
-                  <Button className="bg-white text-primary hover:bg-teal-50 font-bold h-[52px] px-8 text-base gap-2 shadow-lg rounded-xl">
+                  <Button className="bg-white text-primary hover:bg-red-50 font-bold h-[52px] px-8 text-base gap-2 shadow-lg rounded-xl">
                     <Phone className="w-5 h-5" />
                     Call: 9699977171
                   </Button>

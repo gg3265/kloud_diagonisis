@@ -82,26 +82,27 @@
   --elevate-1: rgba(0, 0, 0, 0.03);
   --elevate-2: rgba(0, 0, 0, 0.08);
 
-  --background: 150 30% 97%;
-  --foreground: 196 20% 14%;
-  --border: 174 20% 88%;
+  --background: 0 0% 98%;
+  --foreground: 220 15% 13%;
+  --border: 220 13% 88%;
   
   --card: 0 0% 100%;
-  --card-foreground: 196 20% 14%;
-  --card-border: 174 20% 88%;
+  --card-foreground: 220 15% 13%;
+  --card-border: 220 13% 88%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 196 20% 14%;
-  --popover-border: 174 20% 88%;
+  --popover-foreground: 220 15% 13%;
+  --popover-border: 220 13% 88%;
 
-  --primary: 177 84% 25%;
+  /* Brand red — matches the KLOUD banner */
+  --primary: 1 78% 44%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 174 52% 59%;
-  --secondary-foreground: 196 20% 14%;
+  --secondary: 1 40% 88%;
+  --secondary-foreground: 220 15% 13%;
 
-  --muted: 174 15% 92%;
-  --muted-foreground: 174 15% 60%;
+  --muted: 220 14% 93%;
+  --muted-foreground: 220 10% 52%;
 
   --accent: 13 100% 65%;
   --accent-foreground: 0 0% 100%;
@@ -113,20 +114,20 @@
   --success-foreground: 0 0% 100%;
   --warning: 37 88% 58%;
 
-  --input: 174 20% 82%;
-  --ring: 177 84% 25%;
+  --input: 220 13% 82%;
+  --ring: 1 78% 44%;
 
-  --sidebar: 150 30% 97%;
-  --sidebar-foreground: 196 20% 14%;
-  --sidebar-border: 174 20% 88%;
-  --sidebar-primary: 177 84% 25%;
+  --sidebar: 0 0% 98%;
+  --sidebar-foreground: 220 15% 13%;
+  --sidebar-border: 220 13% 88%;
+  --sidebar-primary: 1 78% 44%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 174 15% 92%;
-  --sidebar-accent-foreground: 196 20% 14%;
-  --sidebar-ring: 177 84% 25%;
+  --sidebar-accent: 220 14% 93%;
+  --sidebar-accent-foreground: 220 15% 13%;
+  --sidebar-ring: 1 78% 44%;
 
-  --chart-1: 177 84% 25%;
-  --chart-2: 174 52% 59%;
+  --chart-1: 1 78% 44%;
+  --chart-2: 1 50% 65%;
   --chart-3: 13 100% 65%;
   --chart-4: 146 46% 46%;
   --chart-5: 37 88% 58%;
@@ -141,11 +142,11 @@
   --shadow-2xs: 0px 2px 0px 0px rgba(0,0,0,0.02);
   --shadow-xs: 0px 2px 0px 0px rgba(0,0,0,0.04);
   --shadow-sm: 0px 2px 0px 0px rgba(0,0,0,0.04), 0px 1px 2px -1px rgba(0,0,0,0.03);
-  --shadow: 0px 4px 6px -1px rgba(11, 122, 117, 0.05), 0px 2px 4px -2px rgba(11, 122, 117, 0.03);
-  --shadow-md: 0px 10px 15px -3px rgba(11, 122, 117, 0.08), 0px 4px 6px -4px rgba(11, 122, 117, 0.04);
-  --shadow-lg: 0px 20px 25px -5px rgba(11, 122, 117, 0.1), 0px 8px 10px -6px rgba(11, 122, 117, 0.04);
-  --shadow-xl: 0px 25px 50px -12px rgba(11, 122, 117, 0.15);
-  --shadow-2xl: 0px 30px 60px -15px rgba(11, 122, 117, 0.2);
+  --shadow: 0px 4px 6px -1px rgba(200, 23, 30, 0.06), 0px 2px 4px -2px rgba(200, 23, 30, 0.03);
+  --shadow-md: 0px 10px 15px -3px rgba(200, 23, 30, 0.08), 0px 4px 6px -4px rgba(200, 23, 30, 0.04);
+  --shadow-lg: 0px 20px 25px -5px rgba(200, 23, 30, 0.1), 0px 8px 10px -6px rgba(200, 23, 30, 0.04);
+  --shadow-xl: 0px 25px 50px -12px rgba(200, 23, 30, 0.14);
+  --shadow-2xl: 0px 30px 60px -15px rgba(200, 23, 30, 0.18);
 
   --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
@@ -163,26 +164,26 @@
   --elevate-1: rgba(255, 255, 255, 0.04);
   --elevate-2: rgba(255, 255, 255, 0.09);
 
-  --background: 196 30% 8%;
-  --foreground: 150 30% 97%;
-  --border: 196 30% 20%;
+  --background: 220 15% 8%;
+  --foreground: 0 0% 97%;
+  --border: 220 13% 20%;
   
-  --card: 196 30% 12%;
-  --card-foreground: 150 30% 97%;
-  --card-border: 196 30% 20%;
+  --card: 220 15% 12%;
+  --card-foreground: 0 0% 97%;
+  --card-border: 220 13% 20%;
   
-  --popover: 196 30% 12%;
-  --popover-foreground: 150 30% 97%;
-  --popover-border: 196 30% 20%;
+  --popover: 220 15% 12%;
+  --popover-foreground: 0 0% 97%;
+  --popover-border: 220 13% 20%;
 
-  --primary: 177 84% 25%;
+  --primary: 1 78% 50%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 174 52% 40%;
+  --secondary: 1 40% 35%;
   --secondary-foreground: 0 0% 100%;
 
-  --muted: 196 30% 20%;
-  --muted-foreground: 174 15% 60%;
+  --muted: 220 13% 20%;
+  --muted-foreground: 220 10% 60%;
 
   --accent: 13 100% 65%;
   --accent-foreground: 0 0% 100%;
@@ -194,20 +195,20 @@
   --success-foreground: 0 0% 100%;
   --warning: 37 88% 58%;
 
-  --input: 196 30% 25%;
-  --ring: 177 84% 25%;
+  --input: 220 13% 25%;
+  --ring: 1 78% 50%;
 
-  --sidebar: 196 30% 10%;
-  --sidebar-foreground: 150 30% 97%;
-  --sidebar-border: 196 30% 20%;
-  --sidebar-primary: 177 84% 25%;
+  --sidebar: 220 15% 10%;
+  --sidebar-foreground: 0 0% 97%;
+  --sidebar-border: 220 13% 20%;
+  --sidebar-primary: 1 78% 50%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 196 30% 20%;
-  --sidebar-accent-foreground: 150 30% 97%;
-  --sidebar-ring: 177 84% 25%;
+  --sidebar-accent: 220 13% 20%;
+  --sidebar-accent-foreground: 0 0% 97%;
+  --sidebar-ring: 1 78% 50%;
 
-  --chart-1: 177 84% 40%;
-  --chart-2: 174 52% 59%;
+  --chart-1: 1 78% 55%;
+  --chart-2: 1 50% 65%;
   --chart-3: 13 100% 65%;
   --chart-4: 146 46% 56%;
   --chart-5: 37 88% 68%;
