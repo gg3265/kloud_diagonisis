@@ -48,7 +48,7 @@ export function Header() {
             <img
               src={kloudLogoMark}
               alt="Kloud"
-              className="shrink-0 transform transition-all group-hover:scale-105 w-auto ml-[0px] rounded-tl-[0px] rounded-tr-[0px] rounded-br-[0px] rounded-bl-[0px] pl-[4px] pr-[4px] mr-[0px] mb-[8px]"
+              className="shrink-0 transform transition-all group-hover:scale-105 w-auto ml-[0px] rounded-tl-[0px] rounded-tr-[0px] rounded-br-[0px] rounded-bl-[0px] mr-[0px] mb-[8px] pl-[6px] pr-[6px]"
               style={{
                 height: '52px',
                 imageRendering: 'high-quality',
