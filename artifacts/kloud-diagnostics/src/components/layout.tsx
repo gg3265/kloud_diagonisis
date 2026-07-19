@@ -48,7 +48,7 @@ export function Header() {
             <img
               src={kloudLogoMark}
               alt="Kloud"
-              className="shrink-0 transform transition-all group-hover:scale-105 w-auto"
+              className="shrink-0 transform transition-all group-hover:scale-105 w-auto ml-[0px] rounded-tl-[0px] rounded-tr-[0px] rounded-br-[0px] rounded-bl-[0px] pl-[4px] pr-[4px] mr-[0px] mb-[8px]"
               style={{
                 height: '52px',
                 imageRendering: 'high-quality',
@@ -57,7 +57,7 @@ export function Header() {
               }}
             />
             <div className="flex flex-col justify-center">
-              <span className="font-sans font-extrabold text-[22px] leading-none text-[#161616] tracking-tight">KLOUD</span>
+              <span className="font-sans text-[22px] leading-none text-[#161616] tracking-tight text-left font-extrabold ml-[0px] mr-[0px] mt-[0px] mb-[0px]">KLOUD</span>
               <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-[0.18em] mt-1">Diagnostics & Imaging</span>
             </div>
           </Link>
@@ -123,7 +123,6 @@ export function Header() {
           </div>
         </div>
       </header>
-
       {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
