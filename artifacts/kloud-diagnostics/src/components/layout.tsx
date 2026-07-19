@@ -199,13 +199,13 @@ export function Footer() {
               Mumbai's trusted diagnostic center. NABL accredited labs delivering precision healthcare with warmth and accuracy.
             </p>
             <div className="flex flex-wrap gap-2">
-              <div className="bg-primary/20 border border-primary/30 rounded-lg px-3 py-1.5 text-xs font-bold text-primary">NABL Accredited</div>
+              <div className="bg-primary/20 border border-primary/30 rounded-lg px-3 py-1.5 text-xs font-bold text-border">NABL Accredited</div>
               <div className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-xs font-bold text-white/70">ISO 9001:2015</div>
             </div>
           </div>
 
           <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
-            <h4 className="font-sans font-bold text-base mb-6 text-primary">Quick Links</h4>
+            <h4 className="font-sans font-bold text-base mb-6 text-card">Quick Links</h4>
             <ul className="space-y-3 text-sm text-white/60">
               {[
                 { name: 'About Us', path: '/about' },
@@ -221,7 +221,7 @@ export function Footer() {
           </div>
 
           <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
-            <h4 className="font-sans font-bold text-base mb-6 text-primary">Popular Tests</h4>
+            <h4 className="font-sans font-bold text-base mb-6 text-card">Popular Tests</h4>
             <ul className="space-y-3 text-sm text-white/60">
               {['Complete Blood Count (CBC)', 'Thyroid Profile (T3/T4/TSH)', 'HbA1c (Diabetes)', 'Vitamin D & B12', 'Lipid Profile', 'Liver Function Test', 'Kidney Function Test'].map(t => (
                 <li key={t}><Link href="/packages" className="hover:text-white transition-colors">{t}</Link></li>
@@ -230,7 +230,7 @@ export function Footer() {
           </div>
 
           <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
-            <h4 className="font-sans font-bold text-base mb-6 text-primary">Contact Us</h4>
+            <h4 className="font-sans font-bold text-base mb-6 text-card">Contact Us</h4>
             <ul className="space-y-5 text-sm">
               <li className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
