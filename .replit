@@ -18,31 +18,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "API Server"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Kloud Diagnostics"
+args = "Start application"
 
 [[workflows.workflow]]
-name = "API Server"
+name = "Start application"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "PORT=8080 pnpm --filter @workspace/api-server run dev"
-waitForPort = 8080
-
-[workflows.workflow.metadata]
-outputType = "console"
-
-[[workflows.workflow]]
-name = "Kloud Diagnostics"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "pnpm --filter @workspace/kloud-diagnostics run dev"
+args = "(PORT=8080 pnpm --filter @workspace/api-server run dev &) && pnpm --filter @workspace/kloud-diagnostics run dev"
 waitForPort = 5173
 
 [workflows.workflow.metadata]
