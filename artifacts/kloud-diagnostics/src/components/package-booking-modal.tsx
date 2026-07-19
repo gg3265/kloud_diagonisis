@@ -82,7 +82,7 @@ export function PackageBookingModal() {
       formData.notes ? `Notes: ${formData.notes}` : '',
     ].filter(Boolean).join(' | ');
 
-    const homeFee = isHome && selectedPackage.price < 1500 ? 150 : 0;
+    const homeFee = 0;
     const perPersonPrice = selectedPackage.price;
     const totalAmount = perPersonPrice * personCount + homeFee;
 
@@ -111,7 +111,7 @@ export function PackageBookingModal() {
     }, { onSuccess: () => setStep(3) });
   };
 
-  const homeFee = isHome && selectedPackage ? (selectedPackage.price < 1500 ? 150 : 0) : 0;
+  const homeFee = 0;
   const totalAmount = selectedPackage ? selectedPackage.price * formData.personCount + homeFee : 0;
 
   if (!isPackageModalOpen) return null;
@@ -419,8 +419,6 @@ export function PackageBookingModal() {
                       <div>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold mb-1">Total Amount</p>
                         <p className="text-2xl font-extrabold text-primary">₹{totalAmount}</p>
-                        {isHome && homeFee > 0 && <p className="text-xs text-orange-500 mt-0.5">Includes ₹150 home collection fee</p>}
-                        {isHome && homeFee === 0 && <p className="text-xs text-green-600 mt-0.5">Free home collection unlocked 🎉</p>}
                       </div>
                       <Button
                         type="submit"

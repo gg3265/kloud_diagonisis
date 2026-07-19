@@ -1,0 +1,557 @@
+Do NOT redesign the website from scratch.
+
+Keep the existing branding, colors and layout style, but improve every section professionally.
+
+The final website should feel like a premium diagnostic laboratory website that customers can trust.
+
+The design should be cleaner and more premium than before.
+
+1. TEST DATABASE
+
+First task:
+
+Visit
+
+https://www.maxlab.co.in/lab-tests
+
+Extract EVERY SINGLE pathology test available on that website.
+
+For every test extract:
+
+Test Name
+Current Price
+Category
+Search Keywords
+
+Then replace the current test database completely.
+
+The website should use this new database everywhere.
+
+Do NOT create dummy tests.
+
+Do NOT leave missing prices.
+
+Every price must exactly match the source website.
+
+2. PREMIUM SEARCH BAR
+
+The search section is the most important feature.
+
+Redesign it completely.
+
+Requirements:
+
+• Large premium search bar
+
+• Rounded corners
+
+• Floating shadow
+
+• Search icon
+
+• Smooth animations
+
+• Instant search
+
+• Search while typing
+
+• Keyboard navigation
+
+• Mobile friendly
+
+Placeholder:
+
+Search Blood Test, CBC, Vitamin D, Thyroid, Lipid Profile...
+
+Below the search bar show
+
+Popular Searches
+
+as rounded chips:
+
+CBC
+
+Vitamin D
+
+HbA1c
+
+Thyroid Profile
+
+LFT
+
+KFT
+
+Lipid Profile
+
+Vitamin B12
+
+Dengue
+
+Fever Profile
+
+When user clicks any chip
+
+→ search automatically.
+
+3. SEARCH RESULTS
+
+Current search experience looks cluttered.
+
+Replace it.
+
+Search results should appear as a floating dropdown below the search bar.
+
+Each result card should contain:
+
+Test Name
+
+Category
+
+Current Price
+
+Book Test button
+
+Hover effect
+
+Smooth animation
+
+Maximum height with internal scrolling.
+
+No overlapping.
+
+No layout shifting.
+
+Perfect on desktop and mobile.
+
+4. REMOVE OLD TEST SECTION
+
+The large test listing section currently shown below the search bar should be removed.
+
+Customers should only use:
+
+Premium Search
+
+OR
+
+Popular searches
+
+No giant scrolling test section.
+
+5. BOOK TEST FLOW
+
+Completely improve booking.
+
+When customer clicks
+
+Book Test
+
+show a premium modal.
+
+Step 1
+
+Selected Test
+
+Price
+
+Quantity
+
+Continue
+
+Step 2
+
+Customer Name
+
+Phone
+
+Email (optional)
+
+Date
+
+Time Slot
+
+Address
+
+Home Collection checkbox
+
+Notes
+
+Step 3
+
+Confirmation
+
+No confusing UI.
+
+Very clean.
+
+6. HEALTH PACKAGES
+
+Create premium package cards.
+
+Use the package images already available.
+
+Display these packages:
+
+Star Well Being Profile
+
+MRP ₹2500
+
+Offer ₹1650
+
+Tests Included
+
+CBC (Haemogram)
+
+HbA1C
+
+Iron Studies
+
+Lipid Profile
+
+LFT
+
+KFT
+
+T3 T4 TSH
+
+Vitamin B12
+
+Vitamin D Total
+
+Testosterone Total
+
+Basic Health Profile 1
+
+MRP ₹2200
+
+Offer ₹1400
+
+Tests Included
+
+CBC
+
+Glucose Fasting
+
+HbA1C
+
+LFT
+
+Electrolytes
+
+Basic RFT
+
+T3 T4 TSH
+
+Lipid Profile
+
+Urine Routine
+
+Star Health Check-up Profile
+
+MRP ₹3500
+
+Offer ₹1999
+
+Tests Included
+
+CBC
+
+eGFR
+
+ESR
+
+Fasting Blood Sugar
+
+HbA1C
+
+Iron Studies
+
+Lipid Profile
+
+LFT
+
+KFT
+
+T3 T4 TSH
+
+Vitamin B12
+
+Vitamin D
+
+Each package card should show
+
+Image
+
+Offer badge
+
+MRP crossed out
+
+Offer Price
+
+Included Tests
+
+Book Package button
+
+7. PACKAGE BOOKING
+
+Unlike individual tests,
+
+Packages should NOT ask for Home Collection Charges.
+
+No extra fee.
+
+Clicking
+
+Book Package
+
+should directly open customer details form.
+
+8. REMOVE MULTIPLE LOCATION SECTIONS
+
+Currently location appears multiple times.
+
+Remove all duplicate location sections.
+
+Only keep ONE location section in Contact Us.
+
+Use this address:
+
+Shop Number 2, Abdul Rauf Manzil Reay Road, Station, Rambhau Bhogle Marg, opposite Haji Kasam Police Chowky, Mazgaon, Mumbai, Maharashtra 400010
+
+Phone
+
+9699977171
+
+Email
+
+klouddiagnostics@gmail.com
+
+9. FOOTER
+
+Remove
+
+Track Report
+
+Our Location
+
+from Quick Links.
+
+Keep only useful navigation.
+
+10. BACK BUTTON
+
+Whenever user clicks any quick link
+
+Privacy Policy
+
+About
+
+Contact
+
+Terms
+
+etc
+
+there should always be a visible Back button to return to the previous page.
+
+11. EXPERIENCE SECTION
+
+The current
+
+"20+ Years Experience"
+
+section appears too early.
+
+Move it further down.
+
+Suggested order
+
+Hero
+
+Search
+
+Packages
+
+Upload Prescription
+
+Why Choose Us
+
+Experience
+
+Testimonials
+
+Contact
+
+12. UPLOAD PRESCRIPTION
+
+Improve completely.
+
+Allow
+
+Drag & Drop
+
+Browse
+
+Image Preview
+
+PDF Preview
+
+Supported files
+
+jpg
+
+png
+
+jpeg
+
+pdf
+
+Show success message after upload.
+
+13. MOBILE OPTIMIZATION
+
+Completely optimize for
+
+320px
+
+375px
+
+390px
+
+414px
+
+768px
+
+No horizontal scrolling.
+
+No overlapping.
+
+Buttons easy to tap.
+
+Cards aligned.
+
+Images responsive.
+
+Navigation smooth.
+
+Sticky mobile CTA.
+
+14. DESKTOP OPTIMIZATION
+
+Perfect spacing.
+
+Better typography.
+
+Large hero.
+
+Proper grid.
+
+Premium shadows.
+
+Modern cards.
+
+Hover animations.
+
+Smooth transitions.
+
+15. PERFORMANCE
+
+Lazy load images.
+
+Compress images.
+
+Optimize fonts.
+
+Code split routes.
+
+Avoid layout shifts.
+
+Debounce search.
+
+Use skeleton loaders.
+
+Remove unnecessary renders.
+
+16. SEO
+
+Improve SEO.
+
+Add
+
+Meta Title
+
+Meta Description
+
+Open Graph
+
+Twitter Card
+
+Schema.org Local Business
+
+Breadcrumb schema
+
+Canonical URL
+
+robots.txt
+
+sitemap.xml
+
+17. ACCESSIBILITY
+
+ARIA labels
+
+Keyboard navigation
+
+Visible focus
+
+Proper heading hierarchy
+
+Image alt text
+
+Contrast ratio
+
+18. PREMIUM UI
+
+Use modern healthcare aesthetics.
+
+Glassmorphism only where appropriate.
+
+Soft teal, emerald, white, and light gray color palette.
+
+Rounded corners.
+
+Subtle gradients.
+
+Elegant icons.
+
+Smooth Framer Motion animations.
+
+Professional typography.
+
+Consistent spacing.
+
+No clutter.
+
+19. DO NOT BREAK EXISTING FEATURES
+
+Keep all existing functionality working:
+
+Search
+Booking
+Contact Form
+Upload Prescription
+Mobile Menu
+Animations
+
+Only improve them.
+
+20. FINAL VERIFICATION
+
+Before finishing:
+
+Verify every test from https://www.maxlab.co.in/lab-tests has been imported with the correct price.
+Ensure there are no duplicate tests.
+Ensure package prices match the specified values.
+Verify responsive behavior on mobile, tablet, and desktop.
+Check for console errors and fix them.
+Ensure all links, forms, and buttons work correctly.
+Deliver a polished, production-ready website with a premium healthcare look and feel.

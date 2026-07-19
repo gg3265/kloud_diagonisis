@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
 
-const POPULAR_CHIPS = ['CBC', 'Thyroid Profile', 'Diabetes Panel', 'Full Body Checkup', 'Vitamin D', 'Lipid Profile'];
+const POPULAR_CHIPS = ['CBC', 'Vitamin D', 'HbA1c', 'Thyroid Profile', 'LFT', 'KFT', 'Lipid Profile', 'Vitamin B12', 'Dengue', 'Fever Profile'];
 
 export default function HomePage() {
   const { data: stats } = useGetSiteStats();
@@ -148,39 +148,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── WHY KLOUD ─── */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-4">Why Choose Kloud Diagnostics?</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Built on precision, trust, and care — here's what sets us apart.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: BadgeCheck, color: 'bg-teal-50 text-teal-600', title: 'NABL Accredited', desc: 'ISO 9001:2015 certified labs meeting international standards for diagnostic accuracy.' },
-              { icon: Zap, color: 'bg-orange-50 text-orange-500', title: 'Fast Reports', desc: 'Digital reports delivered within 24 hours. Urgent reports available in 4–6 hours.' },
-              { icon: Home, color: 'bg-blue-50 text-blue-600', title: 'Home Collection', desc: 'Trained phlebotomists collect samples safely from your home at your preferred time.' },
-              { icon: ShieldCheck, color: 'bg-green-50 text-green-600', title: '100% Accurate', desc: 'State-of-the-art equipment and rigorous QC protocols for reliable, precise results.' },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-gray-50 rounded-2xl p-6 border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
-              >
-                <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <item.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ─── PACKAGES ─── */}
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -257,7 +224,7 @@ export default function HomePage() {
                   <div className="pt-5 border-t border-border mt-auto flex items-center justify-between gap-4">
                     <div>
                       {pkg.mrp && pkg.mrp > pkg.price && (
-                        <div className="text-xs text-muted-foreground line-through mb-0.5">₹{pkg.mrp}</div>
+                         <div className="text-xs text-muted-foreground line-through mb-0.5">₹{pkg.mrp}</div>
                       )}
                       <div className="text-2xl font-extrabold text-foreground">₹{pkg.price}</div>
                       {pkg.mrp && pkg.mrp > pkg.price && (
@@ -385,6 +352,39 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─── WHY KLOUD ─── */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-4">Why Choose Kloud Diagnostics?</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Built on precision, trust, and care — here's what sets us apart.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { icon: BadgeCheck, color: 'bg-teal-50 text-teal-600', title: 'NABL Accredited', desc: 'ISO 9001:2015 certified labs meeting international standards for diagnostic accuracy.' },
+              { icon: Zap, color: 'bg-orange-50 text-orange-500', title: 'Fast Reports', desc: 'Digital reports delivered within 24 hours. Urgent reports available in 4–6 hours.' },
+              { icon: Home, color: 'bg-blue-50 text-blue-600', title: 'Home Collection', desc: 'Trained phlebotomists collect samples safely from your home at your preferred time.' },
+              { icon: ShieldCheck, color: 'bg-green-50 text-green-600', title: '100% Accurate', desc: 'State-of-the-art equipment and rigorous QC protocols for reliable, precise results.' },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-gray-50 rounded-2xl p-6 border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+              >
+                <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── TESTIMONIALS ─── */}
       <section className="py-24 bg-gray-950 text-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -452,58 +452,6 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── LOCATIONS PREVIEW ─── */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-6">
-            <div>
-              <div className="text-primary text-sm font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
-                <MapPin className="w-4 h-4" /> Our Centers
-              </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-foreground mb-3">Find Us Near You</h2>
-              <p className="text-muted-foreground text-lg">12 premium Kloud Diagnostics centers across Mumbai.</p>
-            </div>
-            <Link href="/locations">
-              <Button variant="outline" className="shrink-0 gap-2 font-semibold">
-                View All Locations <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-            {locations?.slice(0, 3).map((loc, i) => (
-              <motion.div
-                key={loc.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white border border-border rounded-2xl p-6 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg font-sans">{loc.name}</h3>
-                    <p className="text-primary text-sm font-semibold">{loc.area}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-foreground/70 mb-5 flex-1 leading-relaxed">{loc.address}</p>
-                <div className="flex justify-between items-center pt-4 border-t border-border">
-                  <div className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5" /> {loc.hours}
-                  </div>
-                  <a href={loc.mapsUrl || '#'} target="_blank" rel="noreferrer" className="text-primary hover:text-primary/80 text-sm font-bold flex items-center gap-1">
-                    Directions <ChevronRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

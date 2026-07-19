@@ -58,7 +58,7 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
-          placeholder="Search for a test, package, or health concern..."
+          placeholder="Search Blood Test, CBC, Vitamin D, Thyroid, Lipid Profile..."
           className="w-full h-full pl-14 pr-4 bg-transparent border-none outline-none text-base md:text-lg text-foreground placeholder:text-muted-foreground font-medium"
         />
         {isLoading && (
@@ -132,7 +132,7 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
                           )}
                         </div>
                         <Button size="sm" onClick={() => handleAdd(pkg, 'package')} variant="outline" className="group-hover:bg-primary group-hover:text-white rounded-full">
-                          Add <Plus className="w-4 h-4 ml-1" />
+                          Book <Plus className="w-4 h-4 ml-1" />
                         </Button>
                       </div>
                     </div>
@@ -169,7 +169,7 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
                           )}
                         </div>
                         <Button size="sm" onClick={() => handleAdd(test, 'test')} variant="outline" className="group-hover:bg-primary group-hover:text-white rounded-full">
-                          Add <Plus className="w-4 h-4 ml-1" />
+                          Book Test <Plus className="w-4 h-4 ml-1" />
                         </Button>
                       </div>
                     </div>

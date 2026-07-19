@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CloudRain, Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MessageSquare } from 'lucide-react';
+import { CloudRain, Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MessageSquare, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
 
@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { name: 'Packages', path: '/packages' },
   { name: 'Home Collection', path: '/home-collection' },
   { name: 'Locations', path: '/locations' },
-  { name: 'Track Report', path: '/reports' },
+  { name: 'Contact', path: '/contact' },
 ];
 
 export function Header() {
@@ -200,9 +200,8 @@ export function Footer() {
                 { name: 'Our Services', path: '/services' },
                 { name: 'Health Packages', path: '/packages' },
                 { name: 'Home Collection', path: '/home-collection' },
-                { name: 'Branch Locations', path: '/locations' },
-                { name: 'Track Report', path: '/reports' },
                 { name: 'FAQ', path: '/faq' },
+                { name: 'Contact Us', path: '/contact' },
               ].map(l => (
                 <li key={l.path}><Link href={l.path} className="hover:text-white transition-colors">{l.name}</Link></li>
               ))}
@@ -221,6 +220,15 @@ export function Footer() {
           <div>
             <h4 className="font-sans font-bold text-base mb-6 text-white">Contact Us</h4>
             <ul className="space-y-5 text-sm">
+              <li className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-lg bg-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-white/50 text-xs uppercase tracking-wider mb-1">Address</div>
+                  <p className="text-white text-sm leading-relaxed">Shop No. 2, Abdul Rauf Manzil, Reay Road Station, Rambhau Bhogle Marg, opposite Haji Kasam Police Chowky, Mazgaon, Mumbai – 400010</p>
+                </div>
+              </li>
               <li className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">
                   <Phone className="w-4 h-4" />

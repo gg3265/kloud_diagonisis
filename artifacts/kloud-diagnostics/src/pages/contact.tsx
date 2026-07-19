@@ -60,9 +60,9 @@ export default function ContactPage() {
               color: 'bg-orange-50 text-orange-600 border-orange-100',
               iconBg: 'bg-orange-100 text-orange-600',
               title: 'Head Office',
-              sub: 'Mumbai, Maharashtra',
-              value: '101, Kloud Building, SV Rd, Andheri West, Mumbai 400058',
-              href: 'https://maps.google.com/?q=Andheri+West+Mumbai',
+              sub: 'Mazgaon, Mumbai',
+              value: 'Shop No. 2, Abdul Rauf Manzil, Reay Road Station, Rambhau Bhogle Marg, Mazgaon, Mumbai – 400010',
+              href: 'https://maps.google.com/?q=Kloud+Diagnostics+Mazgaon+Mumbai+400010',
               label: 'Get Directions',
             },
           ].map((card, i) => (
