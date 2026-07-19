@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
+import kloudLogoMark from '@assets/images_1784483749826.jpg';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -43,24 +44,12 @@ export function Header() {
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 z-50 group">
-            {/* KLOUD logo mark — two calligraphic brushstroke crescents + medical cross badge */}
-            <svg viewBox="0 0 100 132" width="38" height="50" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 transform transition-all group-hover:scale-105">
-              {/* Right brushstroke crescent — sweeps right, variable width, tapers at both tips */}
-              <path
-                d="M52 8 C73 18 87 42 87 63 C86 83 72 106 52 118 C65 105 71 84 71 63 C69 43 60 24 52 8Z"
-                fill="#D8232D"
-              />
-              {/* Left brushstroke crescent — starts with open gap from right stroke at top */}
-              <path
-                d="M47 13 C26 23 15 45 15 65 C15 85 30 107 50 118 C36 106 29 85 29 65 C29 46 38 28 47 13Z"
-                fill="#D8232D"
-              />
-              {/* Medical cross badge — white circle, thin dark outline */}
-              <circle cx="50" cy="90" r="13" fill="white" stroke="#1a1a1a" strokeWidth="1.5"/>
-              {/* Bold black medical cross — short blocky equal arms */}
-              <rect x="46.5" y="81" width="7" height="18" rx="1" fill="#1a1a1a"/>
-              <rect x="41" y="86.5" width="18" height="7" rx="1" fill="#1a1a1a"/>
-            </svg>
+            <img
+              src={kloudLogoMark}
+              alt="Kloud"
+              className="h-11 w-auto object-contain shrink-0 transform transition-all group-hover:scale-105 drop-shadow-sm"
+              style={{ imageRendering: 'high-quality' }}
+            />
             <div className="flex flex-col">
               <span className="font-sans font-extrabold text-xl leading-none text-[#161616] tracking-tight">KLOUD</span>
               <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
@@ -190,19 +179,15 @@ export function Footer() {
 
           <div>
             <div className="flex items-center gap-2.5 mb-6">
-              <svg viewBox="0 0 100 132" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-                <path
-                  d="M52 8 C73 18 87 42 87 63 C86 83 72 106 52 118 C65 105 71 84 71 63 C69 43 60 24 52 8Z"
-                  fill="#D8232D"
+              {/* Logo on dark footer — white pill background so the mark pops cleanly */}
+              <div className="bg-white rounded-xl p-1 shrink-0">
+                <img
+                  src={kloudLogoMark}
+                  alt="Kloud"
+                  className="h-9 w-auto object-contain"
+                  style={{ imageRendering: 'high-quality' }}
                 />
-                <path
-                  d="M47 13 C26 23 15 45 15 65 C15 85 30 107 50 118 C36 106 29 85 29 65 C29 46 38 28 47 13Z"
-                  fill="#D8232D"
-                />
-                <circle cx="50" cy="90" r="13" fill="white" stroke="#1a1a1a" strokeWidth="1.5"/>
-                <rect x="46.5" y="81" width="7" height="18" rx="1" fill="#1a1a1a"/>
-                <rect x="41" y="86.5" width="18" height="7" rx="1" fill="#1a1a1a"/>
-              </svg>
+              </div>
               <div className="flex flex-col">
                 <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
                 <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics Blood Collection & Imaging</span>
