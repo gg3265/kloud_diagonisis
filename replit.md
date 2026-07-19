@@ -1,6 +1,6 @@
-# [Project name]
+# Kloud Diagnostics & Imaging
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A premium, fully responsive website for Kloud Diagnostics & Imaging — a diagnostic testing, blood collection, and medical imaging center with multiple branches across Mumbai, India.
 
 ## Run & Operate
 
