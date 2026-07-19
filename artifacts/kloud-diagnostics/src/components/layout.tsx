@@ -42,18 +42,24 @@ export function Header() {
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 z-50 group">
-            <svg viewBox="0 0 72 86" width="38" height="46" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform transition-all group-hover:scale-105 shrink-0">
-              {/* Outer decorative arc */}
-              <path d="M14 38 Q4 56 14 72" stroke="#C8102E" strokeWidth="3" strokeLinecap="round"/>
-              {/* Inner decorative arc */}
-              <path d="M20 42 Q13 57 20 70" stroke="#C8102E" strokeWidth="3.5" strokeLinecap="round"/>
-              {/* Main flame/blood-drop body */}
-              <path d="M46 5 C46 5 66 22 67 44 C68 60 58 76 44 76 C30 76 20 63 22 48 C24 33 46 5 46 5Z" fill="#C8102E"/>
-              {/* White cross — vertical bar */}
-              <rect x="40" y="37" width="8" height="26" rx="3" fill="white"/>
-              {/* White cross — horizontal bar */}
-              <rect x="30" y="46" width="28" height="8" rx="3" fill="white"/>
+          <Link href="/" className="flex items-center gap-2.5 z-50 group">
+            {/* KLOUD logo mark — two calligraphic brushstroke crescents + medical cross badge */}
+            <svg viewBox="0 0 100 132" width="38" height="50" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0 transform transition-all group-hover:scale-105">
+              {/* Right brushstroke crescent — sweeps right, variable width, tapers at both tips */}
+              <path
+                d="M52 8 C73 18 87 42 87 63 C86 83 72 106 52 118 C65 105 71 84 71 63 C69 43 60 24 52 8Z"
+                fill="#D8232D"
+              />
+              {/* Left brushstroke crescent — starts with open gap from right stroke at top */}
+              <path
+                d="M47 13 C26 23 15 45 15 65 C15 85 30 107 50 118 C36 106 29 85 29 65 C29 46 38 28 47 13Z"
+                fill="#D8232D"
+              />
+              {/* Medical cross badge — white circle, thin dark outline */}
+              <circle cx="50" cy="90" r="13" fill="white" stroke="#1a1a1a" strokeWidth="1.5"/>
+              {/* Bold black medical cross — short blocky equal arms */}
+              <rect x="46.5" y="81" width="7" height="18" rx="1" fill="#1a1a1a"/>
+              <rect x="41" y="86.5" width="18" height="7" rx="1" fill="#1a1a1a"/>
             </svg>
             <div className="flex flex-col">
               <span className="font-sans font-extrabold text-xl leading-none text-[#161616] tracking-tight">KLOUD</span>
@@ -183,18 +189,19 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12" style={{ borderBottom: '1px solid rgba(201,162,39,0.25)' }}>
 
           <div>
-            <div className="flex items-center gap-2 mb-6">
-              <svg viewBox="0 0 72 86" width="36" height="44" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-                {/* Outer decorative arc */}
-                <path d="M14 38 Q4 56 14 72" stroke="#E84040" strokeWidth="3" strokeLinecap="round"/>
-                {/* Inner decorative arc */}
-                <path d="M20 42 Q13 57 20 70" stroke="#E84040" strokeWidth="3.5" strokeLinecap="round"/>
-                {/* Main flame/blood-drop body */}
-                <path d="M46 5 C46 5 66 22 67 44 C68 60 58 76 44 76 C30 76 20 63 22 48 C24 33 46 5 46 5Z" fill="#E84040"/>
-                {/* White cross — vertical bar */}
-                <rect x="40" y="37" width="8" height="26" rx="3" fill="white"/>
-                {/* White cross — horizontal bar */}
-                <rect x="30" y="46" width="28" height="8" rx="3" fill="white"/>
+            <div className="flex items-center gap-2.5 mb-6">
+              <svg viewBox="0 0 100 132" width="36" height="48" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                <path
+                  d="M52 8 C73 18 87 42 87 63 C86 83 72 106 52 118 C65 105 71 84 71 63 C69 43 60 24 52 8Z"
+                  fill="#D8232D"
+                />
+                <path
+                  d="M47 13 C26 23 15 45 15 65 C15 85 30 107 50 118 C36 106 29 85 29 65 C29 46 38 28 47 13Z"
+                  fill="#D8232D"
+                />
+                <circle cx="50" cy="90" r="13" fill="white" stroke="#1a1a1a" strokeWidth="1.5"/>
+                <rect x="46.5" y="81" width="7" height="18" rx="1" fill="#1a1a1a"/>
+                <rect x="41" y="86.5" width="18" height="7" rx="1" fill="#1a1a1a"/>
               </svg>
               <div className="flex flex-col">
                 <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
