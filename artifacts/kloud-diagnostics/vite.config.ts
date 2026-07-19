@@ -17,8 +17,7 @@ export default defineConfig(async () => ({
 
     ...(isReplit
       ? [
-          (await import("@replit/vite-plugin-runtime-error-modal"))
-            .runtimeErrorOverlay(),
+          (await import("@replit/vite-plugin-runtime-error-modal")).default(),
 
           (await import("@replit/vite-plugin-cartographer")).cartographer({
             root: path.resolve(import.meta.dirname, ".."),
