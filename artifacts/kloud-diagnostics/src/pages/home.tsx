@@ -29,7 +29,6 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-
       {/* ─── HERO ─── */}
       <section className="relative pt-16 pb-28 overflow-hidden" style={{ background: 'linear-gradient(180deg, #EEF3FA 0%, #FDFBF9 45%, #FDFBF9 100%)' }}>
         {/* Background decorations */}
@@ -123,7 +122,6 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
-
       {/* ─── PACKAGES ─── */}
       <section className="py-24 bg-gradient-to-b from-[#FDFBF9] to-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -222,7 +220,6 @@ export default function HomePage() {
           )}
         </div>
       </section>
-
       {/* ─── HOME COLLECTION + UPLOAD RX (side by side) ─── */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -321,7 +318,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* ─── WHY KLOUD ─── */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
@@ -354,7 +350,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* ─── STATS STRIP ─── */}
       <section className="relative z-10 bg-gradient-to-r from-[#0F2347] via-primary to-[#0F2347] text-white py-12 shadow-2xl">
         <div className="container mx-auto px-4 md:px-6">
@@ -378,12 +373,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* ─── TESTIMONIALS ─── */}
       <section className="py-24 bg-[#161616] text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <div className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Patient Stories</div>
+            <div className="text-sm font-bold uppercase tracking-widest mb-3 text-accent">Patient Stories</div>
             <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-4">Trusted by Mumbai</h2>
             <p className="text-white/60 text-lg max-w-2xl mx-auto">Real words from real patients who've experienced the Kloud difference.</p>
           </div>
@@ -417,7 +411,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* ─── CONTACT CTA ─── */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
