@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
+import kloudLogo from '@assets/images_1784482947299.jpg';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -42,16 +43,12 @@ export function Header() {
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 z-50 group">
-            {/* Blood-drop icon — header compact lockup (icon + wordmark, no tagline) */}
-            <svg viewBox="0 0 36 44" width="36" height="44" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform transition-all group-hover:scale-105">
-              <path d="M18 2C18 2 4 15 4 24C4 32.8 10.3 39 18 39C25.7 39 32 32.8 32 24C32 15 18 2 18 2Z" fill="#C8102E"/>
-              <rect x="16" y="15" width="4" height="14" rx="1.8" fill="white"/>
-              <rect x="11" y="20" width="14" height="4" rx="1.8" fill="white"/>
-              {/* Decorative curl — bottom left */}
-              <path d="M9 35 Q5 38 8 41" stroke="#C8102E" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-              <path d="M6 33 Q2 37 5 41" stroke="#C8102E" strokeWidth="2" strokeLinecap="round" fill="none"/>
-            </svg>
+          <Link href="/" className="flex items-center gap-2 z-50 group">
+            <img
+              src={kloudLogo}
+              alt="Kloud logo mark"
+              className="h-10 w-auto object-contain transform transition-all group-hover:scale-105"
+            />
             <div className="flex flex-col">
               <span className="font-sans font-extrabold text-xl leading-none text-[#161616] tracking-tight">KLOUD</span>
               <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
@@ -180,15 +177,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12" style={{ borderBottom: '1px solid rgba(201,162,39,0.25)' }}>
 
           <div>
-            <div className="flex items-center gap-2.5 mb-6">
-              {/* Full logo lockup in footer: blood-drop + KLOUD + tagline */}
-              <svg viewBox="0 0 36 44" width="32" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 2C18 2 4 15 4 24C4 32.8 10.3 39 18 39C25.7 39 32 32.8 32 24C32 15 18 2 18 2Z" fill="#C8102E"/>
-                <rect x="16" y="15" width="4" height="14" rx="1.8" fill="white"/>
-                <rect x="11" y="20" width="14" height="4" rx="1.8" fill="white"/>
-                <path d="M9 35 Q5 38 8 41" stroke="#C8102E" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-                <path d="M6 33 Q2 37 5 41" stroke="#C8102E" strokeWidth="2" strokeLinecap="round" fill="none"/>
-              </svg>
+            <div className="flex items-center gap-2 mb-6">
+              <img
+                src={kloudLogo}
+                alt="Kloud logo mark"
+                className="h-10 w-auto object-contain brightness-0 invert"
+              />
               <div className="flex flex-col">
                 <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
                 <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics Blood Collection & Imaging</span>
