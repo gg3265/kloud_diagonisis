@@ -47,8 +47,8 @@ export function Header() {
             <img
               src={kloudLogoMark}
               alt="Kloud"
-              className="h-11 w-auto object-contain shrink-0 transform transition-all group-hover:scale-105 drop-shadow-sm"
-              style={{ imageRendering: 'high-quality' }}
+              className="h-14 w-auto object-contain shrink-0 transform transition-all group-hover:scale-105"
+              style={{ imageRendering: 'high-quality', mixBlendMode: 'multiply' }}
             />
             <div className="flex flex-col">
               <span className="font-sans font-extrabold text-xl leading-none text-[#161616] tracking-tight">KLOUD</span>
@@ -179,15 +179,12 @@ export function Footer() {
 
           <div>
             <div className="flex items-center gap-2.5 mb-6">
-              {/* Logo on dark footer — white pill background so the mark pops cleanly */}
-              <div className="bg-white rounded-xl p-1 shrink-0">
-                <img
-                  src={kloudLogoMark}
-                  alt="Kloud"
-                  className="h-9 w-auto object-contain"
-                  style={{ imageRendering: 'high-quality' }}
-                />
-              </div>
+              <img
+                src={kloudLogoMark}
+                alt="Kloud"
+                className="h-12 w-auto object-contain shrink-0"
+                style={{ imageRendering: 'high-quality', filter: 'brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(320deg)' }}
+              />
               <div className="flex flex-col">
                 <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
                 <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics Blood Collection & Imaging</span>
