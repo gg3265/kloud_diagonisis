@@ -5,7 +5,7 @@ import { ChevronDown, MessageCircle } from 'lucide-react';
 const FAQS = [
   {
     question: "Is home sample collection available everywhere in Mumbai?",
-    answer: "Yes, we provide home sample collection services across all major locations in Mumbai, Navi Mumbai, and Thane. Enter your pincode during booking to verify exact availability."
+    answer: "Yes, we provide home sample collection services across Mumbai. Enter your pincode during booking to verify exact availability."
   },
   {
     question: "How long does it take to get the reports?",

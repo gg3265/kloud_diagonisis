@@ -1,0 +1,216 @@
+You are an expert UI/UX designer and senior React developer. Improve the entire KLOUD Diagnostics website while maintaining a clean, premium, modern healthcare brand. Do not redesign everything—enhance the existing design and improve user experience. Keep all functionality working.
+
+1. Move the Statistics Section
+
+Currently there is a statistics section containing:
+
+500000+ Tests Available
+20 Years Experience
+0.2M+ Happy Patients
+1 Locations
+
+Move this entire section much lower on the homepage.
+
+Do NOT keep it immediately below the hero section.
+
+A better order would be:
+
+Hero Section
+Search Tests
+Health Packages
+About / Why Choose Us
+Statistics Section
+FAQ
+Contact
+
+The statistics should feel like a trust-building section instead of the first thing visitors see.
+
+2. Replace "1 Locations"
+
+Remove
+
+1 Locations
+
+Replace it with a more meaningful trust metric.
+
+Use:
+
+100% Accurate Reports
+
+or
+
+NABL Standard Testing
+
+or
+
+Fast Report Delivery
+
+Choose whichever fits the design best.
+
+Do not use location count.
+
+3. Improve Test Search
+
+The search experience should be much more premium.
+
+Requirements:
+
+Search should return ONLY laboratory tests.
+Never display health packages inside search results.
+Packages must stay inside their dedicated Packages section only.
+Search results should appear in a floating dropdown.
+Add smooth animation.
+Rounded modern cards.
+Better spacing.
+Better shadows.
+Better hover effect.
+Keyboard navigation.
+Highlight matching text.
+Show "No tests found" elegantly.
+Limit initial results.
+Lazy load additional results if needed.
+Make search feel similar to modern healthcare websites.
+
+Improve the search input design.
+
+Use:
+
+Better border
+Glassmorphism effect
+Premium shadow
+Smooth focus animation
+Search icon
+Clear button
+Better typography
+
+The search should become one of the strongest UI elements on the website.
+
+4. Improve Overall UI
+
+Do NOT redesign everything.
+
+Simply polish the current design.
+
+Improve:
+
+Card shadows
+Border radius consistency
+Section spacing
+Typography hierarchy
+Icon sizing
+Better white space
+Better visual balance
+Hover animations
+Button interactions
+Smooth transitions
+Scroll animations
+Micro interactions
+
+Everything should feel premium and modern.
+
+5. Improve Hero Section
+
+Make the hero look more premium.
+
+Improve:
+
+Better gradient
+Better spacing
+Better CTA buttons
+Better typography
+Better image positioning
+More premium background
+Softer shadows
+Better responsive layout
+
+Do not completely redesign it.
+
+6. Improve Health Packages
+
+Keep the existing packages.
+
+Make package cards more premium.
+
+Improve:
+
+Borders
+Discount badge
+MRP styling
+Price styling
+Hover animation
+Button styling
+Card elevation
+
+Make them look like premium diagnostic packages.
+
+7. FAQ Section
+
+Currently there is a badge/text that mentions 12 Centers.
+
+Remove every mention of:
+
+12 Centers
+Multiple Centers
+Network Centers
+
+Replace it with something more relevant such as:
+
+Trusted Diagnostic Experts
+Accurate Laboratory Testing
+Frequently Asked Questions
+
+Choose whichever matches the design best.
+
+8. Mobile Optimization
+
+Improve mobile responsiveness.
+
+Ensure:
+
+Better spacing
+Better font sizes
+Better button sizes
+Proper search dropdown
+Better package cards
+No overflow
+Proper padding
+Better navigation
+
+Everything should work perfectly on mobile.
+
+9. Desktop Improvements
+
+Improve:
+
+Section spacing
+Better content width
+Premium layout
+Better alignment
+More breathing space
+Better animations
+10. Performance
+
+Do not increase bundle size unnecessarily.
+
+Keep animations smooth.
+
+Optimize rendering.
+
+11. Preserve Existing Features
+
+Do NOT break:
+
+Search functionality
+Booking flow
+Health packages
+Contact form
+EmailJS
+Navigation
+Responsive behavior
+12. Final Goal
+
+The website should look like a premium diagnostics brand comparable to top healthcare websites such as Metropolis, Thyrocare, Redcliffe, or Max Lab, while maintaining a clean and minimal design suitable for KLOUD Diagnostics.
+
+Focus on trust, simplicity, premium aesthetics, excellent UX, and fast performance.
+
+Do not remove existing content unless specifically instructed above. Enhance the current implementation rather than rebuilding it from scratch.

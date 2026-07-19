@@ -24,14 +24,14 @@ export default function HomePage() {
     { label: 'Tests Available', value: stats?.testsCount || '500,000+', icon: Beaker },
     { label: 'Years Experience', value: stats?.yearsExperience || '15+', icon: Clock },
     { label: 'Happy Patients', value: stats?.patientsServed ? `${(stats.patientsServed / 1000000).toFixed(1)}M+` : '2M+', icon: Users },
-    { label: 'Locations', value: stats?.locationsCount || '12', icon: MapPin },
+    { label: 'NABL Accredited', value: '100%', icon: BadgeCheck },
   ];
 
   return (
     <div className="flex flex-col min-h-screen">
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-16 pb-28 overflow-hidden bg-gradient-to-br from-teal-50 via-white to-cyan-50/30">
+      <section className="relative pt-16 pb-28 overflow-hidden bg-gradient-to-b from-teal-50/60 via-white to-white">
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Grid dots */}
@@ -99,7 +99,7 @@ export default function HomePage() {
                   <button
                     key={chip}
                     onClick={() => openModal(chip)}
-                    className="px-3.5 py-1.5 bg-white border border-border rounded-full text-xs font-semibold text-foreground/80 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all shadow-sm cursor-pointer"
+                    className="px-4 py-1.5 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full text-xs font-semibold text-foreground/80 hover:border-primary hover:text-primary hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-150 shadow-sm cursor-pointer"
                   >
                     {chip}
                   </button>
@@ -109,42 +109,18 @@ export default function HomePage() {
 
             {/* CTA strip */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-              <Button size="lg" onClick={() => openModal()} className="text-base px-8 h-13 h-[52px] shadow-lg gap-2 font-bold">
+              <Button size="lg" onClick={() => openModal()} className="text-base px-10 h-[54px] shadow-[0_8px_30px_rgba(13,148,136,0.3)] hover:shadow-[0_12px_40px_rgba(13,148,136,0.4)] hover:-translate-y-0.5 transition-all duration-200 rounded-2xl gap-2 font-bold">
                 <Zap className="w-4 h-4" />
                 Book a Test Now
               </Button>
               <Link href="/upload-prescription">
-                <Button size="lg" variant="outline" className="text-base px-8 h-[52px] bg-white gap-2 font-bold">
+                <Button size="lg" variant="outline" className="text-base px-8 h-[52px] bg-white/80 backdrop-blur-sm gap-2 font-bold hover:-translate-y-0.5 transition-all duration-200 rounded-2xl shadow-sm">
                   <FileText className="w-4 h-4" />
                   Upload Prescription
                 </Button>
               </Link>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* ─── STATS STRIP ─── */}
-      <section className="relative z-10 bg-primary text-white py-10 shadow-2xl">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/15">
-            {heroStats.map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex flex-col items-center text-center px-6 py-2"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-3">
-                  <stat.icon className="w-5 h-5 text-white" />
-                </div>
-                <div className="text-2xl md:text-3xl font-extrabold font-sans mb-1">{stat.value}</div>
-                <div className="text-xs text-white/70 font-semibold uppercase tracking-widest">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -186,14 +162,15 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="bg-white rounded-3xl p-7 border border-border shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group relative overflow-hidden"
+                  className="bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 flex flex-col group relative overflow-hidden"
                 >
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
                   {pkg.badge && (
-                    <div className="absolute top-0 right-0 bg-accent text-white text-xs font-bold px-4 py-2 rounded-bl-2xl z-10">
-                      {pkg.badge}
+                    <div className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-4 border border-accent/20'>
+                      <Star className='w-3 h-3 fill-current' /> {pkg.badge}
                     </div>
                   )}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity" />
 
                   <div className="flex items-center gap-2 mb-4">
                     <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
@@ -221,30 +198,23 @@ export default function HomePage() {
                     </div>
                   )}
 
-                  <div className="pt-5 border-t border-border mt-auto flex items-center justify-between gap-4">
-                    <div>
-                      {pkg.mrp && pkg.mrp > pkg.price && (
-                         <div className="text-xs text-muted-foreground line-through mb-0.5">₹{pkg.mrp}</div>
-                      )}
-                      <div className="text-2xl font-extrabold text-foreground">₹{pkg.price}</div>
-                      {pkg.mrp && pkg.mrp > pkg.price && (
-                        <div className="text-xs text-green-600 font-semibold">{Math.round((1 - pkg.price / pkg.mrp) * 100)}% off</div>
-                      )}
+                  <div className='mt-auto pt-5 border-t border-gray-100'>
+                    <div className='flex items-end gap-2 mb-3'>
+                      <div>
+                        {pkg.mrp && pkg.mrp > pkg.price && <div className='text-xs text-muted-foreground line-through mb-0.5'>MRP ₹{pkg.mrp}</div>}
+                        <div className='text-2xl font-extrabold text-foreground'>₹{pkg.price}</div>
+                      </div>
+                      {pkg.mrp && pkg.mrp > pkg.price && (<span className='mb-1 inline-flex items-center px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-bold'>{Math.round((1 - pkg.price / pkg.mrp) * 100)}% OFF</span>)}
                     </div>
-                    <Button
-                      onClick={() => openPackageModal({
-                        id: pkg.id,
-                        name: pkg.name,
-                        price: pkg.price,
-                        mrp: pkg.mrp,
-                        parameterCount: pkg.parameterCount,
-                        includes: pkg.includes,
-                        fastingRequired: pkg.fastingRequired,
-                      } as PackageInfo)}
-                      className="rounded-xl font-bold"
-                    >
-                      Book Now
-                    </Button>
+                    <Button onClick={() => openPackageModal({
+                      id: pkg.id,
+                      name: pkg.name,
+                      price: pkg.price,
+                      mrp: pkg.mrp,
+                      parameterCount: pkg.parameterCount,
+                      includes: pkg.includes,
+                      fastingRequired: pkg.fastingRequired,
+                    } as PackageInfo)} className='w-full rounded-xl font-bold h-11'>Book Now — ₹{pkg.price}</Button>
                   </div>
                 </motion.div>
               ))}
@@ -372,7 +342,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="bg-gray-50 rounded-2xl p-6 border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 group"
               >
                 <div className={`w-12 h-12 rounded-xl ${item.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                   <item.icon className="w-6 h-6" />
@@ -385,8 +355,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ─── STATS STRIP ─── */}
+      <section className="relative z-10 bg-gradient-to-r from-teal-700 via-primary to-teal-600 text-white py-12 shadow-2xl">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/15">
+            {heroStats.map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex flex-col items-center text-center px-6 py-2"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-3">
+                  <stat.icon className="w-5 h-5 text-white" />
+                </div>
+                <div className="text-2xl md:text-3xl font-extrabold font-sans mb-1">{stat.value}</div>
+                <div className="text-xs text-white/70 font-semibold uppercase tracking-widest">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── TESTIMONIALS ─── */}
-      <section className="py-24 bg-gray-950 text-white">
+      <section className="py-24 bg-slate-900 text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
             <div className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Patient Stories</div>
@@ -435,16 +429,16 @@ export default function HomePage() {
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-4">Have Questions? We're Here.</h2>
               <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
-                Call us directly or visit any of our 12 centers across Mumbai. Our care team is available 7 days a week.
+                Call us directly or visit our diagnostic center in Mazgaon, Mumbai. Our care team is available 7 days a week.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="tel:9699977171">
-                  <Button className="bg-white text-primary hover:bg-teal-50 font-bold h-13 h-[52px] px-8 text-base gap-2 shadow-lg rounded-xl">
+                  <Button className="bg-white text-primary hover:bg-teal-50 font-bold h-[52px] px-8 text-base gap-2 shadow-lg rounded-xl">
                     <Phone className="w-5 h-5" />
                     Call: 9699977171
                   </Button>
                 </a>
-                <Link href="/locations">
+                <Link href="/contact">
                   <Button variant="outline" className="border-white/40 text-white hover:bg-white/15 font-bold h-[52px] px-8 text-base gap-2 rounded-xl">
                     <MapPin className="w-5 h-5" />
                     Find a Center
