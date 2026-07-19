@@ -31,7 +31,7 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-16 pb-28 overflow-hidden bg-gradient-to-b from-red-50/50 via-white to-white">
+      <section className="relative pt-16 pb-28 overflow-hidden" style={{ background: 'linear-gradient(180deg, #FBEAEA 0%, #FDFBF9 45%, #FDFBF9 100%)' }}>
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Grid dots */}
@@ -109,12 +109,12 @@ export default function HomePage() {
 
             {/* CTA strip */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-              <Button size="lg" onClick={() => openModal()} className="text-base px-10 h-[54px] shadow-[0_8px_30px_rgba(13,148,136,0.3)] hover:shadow-[0_12px_40px_rgba(13,148,136,0.4)] hover:-translate-y-0.5 transition-all duration-200 rounded-2xl gap-2 font-bold">
+              <Button size="lg" onClick={() => openModal()} className="text-base px-10 h-[54px] shadow-[0_8px_30px_rgba(200,16,46,0.30)] hover:shadow-[0_12px_40px_rgba(200,16,46,0.40)] hover:-translate-y-0.5 transition-all duration-200 rounded-xl gap-2 font-bold">
                 <Zap className="w-4 h-4" />
                 Book a Test Now
               </Button>
               <Link href="/upload-prescription">
-                <Button size="lg" variant="outline" className="text-base px-8 h-[52px] bg-white/80 backdrop-blur-sm gap-2 font-bold hover:-translate-y-0.5 transition-all duration-200 rounded-2xl shadow-sm">
+                <Button size="lg" variant="outline" className="text-base px-8 h-[52px] bg-white/80 backdrop-blur-sm gap-2 font-bold hover:-translate-y-0.5 transition-all duration-200 rounded-xl shadow-sm">
                   <FileText className="w-4 h-4" />
                   Upload Prescription
                 </Button>
@@ -125,14 +125,14 @@ export default function HomePage() {
       </section>
 
       {/* ─── PACKAGES ─── */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-24 bg-gradient-to-b from-[#FDFBF9] to-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-6">
             <div>
               <div className="text-primary text-sm font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
                 <Activity className="w-4 h-4" /> Health Packages
               </div>
-              <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-foreground mb-3">Comprehensive Health Packages</h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-foreground mb-3 pb-3 border-b-[3px] border-[#C9A227] inline-block">Comprehensive Health Packages</h2>
               <p className="text-muted-foreground text-lg max-w-2xl">Preventive care designed for every age. Up to 60% savings compared to individual tests.</p>
             </div>
             <Link href="/packages">
@@ -162,12 +162,12 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className="bg-white rounded-3xl p-7 border border-gray-100 shadow-md hover:shadow-[0_20px_60px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 flex flex-col group relative overflow-hidden"
+                  className={`bg-white rounded-3xl p-7 border shadow-md hover:shadow-[0_20px_60px_rgba(200,16,46,0.12)] hover:-translate-y-2 transition-all duration-300 flex flex-col group relative overflow-hidden ${pkg.badge?.toLowerCase().includes('popular') ? 'border-primary/30' : pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'border-[#C9A227]/50' : 'border-gray-100'}`}
                 >
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-red-700 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className={`absolute top-0 left-0 w-full h-1.5 ${pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'bg-gradient-to-r from-[#C9A227] to-[#e8c547]' : 'bg-gradient-to-r from-primary to-[#7A0C1E]'}`} />
                   
                   {pkg.badge && (
-                    <div className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold mb-4 border border-accent/20'>
+                    <div className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A227]/10 text-[#A07D10] text-xs font-bold mb-4 border border-[#C9A227]/30'>
                       <Star className='w-3 h-3 fill-current' /> {pkg.badge}
                     </div>
                   )}
@@ -204,7 +204,7 @@ export default function HomePage() {
                         {pkg.mrp && pkg.mrp > pkg.price && <div className='text-xs text-muted-foreground line-through mb-0.5'>MRP ₹{pkg.mrp}</div>}
                         <div className='text-2xl font-extrabold text-foreground'>₹{pkg.price}</div>
                       </div>
-                      {pkg.mrp && pkg.mrp > pkg.price && (<span className='mb-1 inline-flex items-center px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-xs font-bold'>{Math.round((1 - pkg.price / pkg.mrp) * 100)}% OFF</span>)}
+                      {pkg.mrp && pkg.mrp > pkg.price && (<span className='mb-1 inline-flex items-center px-2 py-0.5 rounded-full bg-success/10 text-success text-xs font-bold'>{Math.round((1 - pkg.price / pkg.mrp) * 100)}% OFF</span>)}
                     </div>
                     <Button onClick={() => openPackageModal({
                       id: pkg.id,
@@ -277,13 +277,13 @@ export default function HomePage() {
               initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="rounded-3xl bg-gradient-to-br from-coral-50 to-orange-50 border border-orange-100 p-8 md:p-10 flex flex-col relative overflow-hidden"
-              style={{ background: 'linear-gradient(135deg, #fff7ed, #ffedd5)' }}
+              className="rounded-3xl border border-primary/15 p-8 md:p-10 flex flex-col relative overflow-hidden"
+              style={{ background: 'linear-gradient(135deg, #FDFBF9, #FEF2F2)' }}
             >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-orange-200/20 rounded-full -translate-y-16 translate-x-16" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full -translate-y-16 translate-x-16" />
               <div className="relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center mb-6">
-                  <FileText className="w-7 h-7 text-orange-600" />
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+                  <FileText className="w-7 h-7 text-primary" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-extrabold font-sans text-foreground mb-3 leading-tight">
                   Have a Doctor's Prescription?
@@ -299,8 +299,8 @@ export default function HomePage() {
                     'Fully confidential and secure',
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm text-foreground/80">
-                      <div className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
-                        <BadgeCheck className="w-3 h-3 text-orange-600" />
+                      <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                        <BadgeCheck className="w-3 h-3 text-primary" />
                       </div>
                       {item}
                     </li>
@@ -309,7 +309,7 @@ export default function HomePage() {
                 <Link href="/upload-prescription">
                   <Button
                     variant="outline"
-                    className="border-orange-300 text-orange-700 hover:bg-orange-50 font-bold h-12 px-7 rounded-xl bg-white"
+                    className="font-bold h-12 px-7 rounded-xl bg-white"
                   >
                     Upload Prescription
                     <ChevronRight className="w-4 h-4 ml-1" />
@@ -326,15 +326,15 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-4">Why Choose Kloud Diagnostics?</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-3 pb-3 border-b-[3px] border-[#C9A227] inline-block">Why Choose Kloud Diagnostics?</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Built on precision, trust, and care — here's what sets us apart.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: BadgeCheck, color: 'bg-red-50 text-red-600', title: 'NABL Accredited', desc: 'ISO 9001:2015 certified labs meeting international standards for diagnostic accuracy.' },
-              { icon: Zap, color: 'bg-orange-50 text-orange-500', title: 'Fast Reports', desc: 'Digital reports delivered within 24 hours. Urgent reports available in 4–6 hours.' },
-              { icon: Home, color: 'bg-blue-50 text-blue-600', title: 'Home Collection', desc: 'Trained phlebotomists collect samples safely from your home at your preferred time.' },
-              { icon: ShieldCheck, color: 'bg-green-50 text-green-600', title: '100% Accurate', desc: 'State-of-the-art equipment and rigorous QC protocols for reliable, precise results.' },
+              { icon: Zap, color: 'bg-[#C9A227]/10 text-[#A07D10]', title: 'Fast Reports', desc: 'Digital reports delivered within 24 hours. Urgent reports available in 4–6 hours.' },
+              { icon: Home, color: 'bg-primary/10 text-primary', title: 'Home Collection', desc: 'Trained phlebotomists collect samples safely from your home at your preferred time.' },
+              { icon: ShieldCheck, color: 'bg-success/10 text-success', title: '100% Accurate', desc: 'State-of-the-art equipment and rigorous QC protocols for reliable, precise results.' },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -380,7 +380,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── TESTIMONIALS ─── */}
-      <section className="py-24 bg-slate-900 text-white">
+      <section className="py-24 bg-[#161616] text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
             <div className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Patient Stories</div>
@@ -399,7 +399,7 @@ export default function HomePage() {
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
                 className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-7 relative"
               >
-                <div className="flex gap-1 mb-5 text-yellow-400">
+                <div className="flex gap-1 mb-5 text-[#C9A227]">
                   {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                 </div>
                 <p className="text-base leading-relaxed mb-7 text-white/85 italic">"{testimonial.text}"</p>

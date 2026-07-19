@@ -82,40 +82,45 @@
   --elevate-1: rgba(0, 0, 0, 0.03);
   --elevate-2: rgba(0, 0, 0, 0.08);
 
-  --background: 0 0% 98%;
-  --foreground: 220 15% 13%;
-  --border: 220 13% 88%;
+  --background: 30 30% 98%;
+  --foreground: 0 0% 9%;
+  --border: 30 15% 88%;
   
   --card: 0 0% 100%;
-  --card-foreground: 220 15% 13%;
-  --card-border: 220 13% 88%;
+  --card-foreground: 0 0% 9%;
+  --card-border: 30 15% 88%;
   
   --popover: 0 0% 100%;
-  --popover-foreground: 220 15% 13%;
-  --popover-border: 220 13% 88%;
+  --popover-foreground: 0 0% 9%;
+  --popover-border: 30 15% 88%;
 
-  /* Brand red — matches the KLOUD banner */
-  --primary: 1 78% 44%;
+  /* Brand crimson red — #C8102E */
+  --primary: 350 85% 42%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 1 40% 88%;
-  --secondary-foreground: 220 15% 13%;
+  --secondary: 350 40% 92%;
+  --secondary-foreground: 0 0% 9%;
 
-  --muted: 220 14% 93%;
-  --muted-foreground: 220 10% 52%;
+  --muted: 30 15% 93%;
+  --muted-foreground: 0 0% 29%;
 
-  --accent: 13 100% 65%;
+  /* Premium gold — #C9A227 */
+  --accent: 41 68% 47%;
   --accent-foreground: 0 0% 100%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  --success: 146 46% 46%;
+  /* Success green — #2E9E5B */
+  --success: 144 55% 40%;
   --success-foreground: 0 0% 100%;
   --warning: 37 88% 58%;
 
-  --input: 220 13% 82%;
-  --ring: 1 78% 44%;
+  --input: 30 15% 85%;
+  --ring: 350 85% 42%;
+
+  /* Deep red / maroon for hover states — #7A0C1E */
+  --primary-dark: 350 82% 26%;
 
   --sidebar: 0 0% 98%;
   --sidebar-foreground: 220 15% 13%;
@@ -142,11 +147,11 @@
   --shadow-2xs: 0px 2px 0px 0px rgba(0,0,0,0.02);
   --shadow-xs: 0px 2px 0px 0px rgba(0,0,0,0.04);
   --shadow-sm: 0px 2px 0px 0px rgba(0,0,0,0.04), 0px 1px 2px -1px rgba(0,0,0,0.03);
-  --shadow: 0px 4px 6px -1px rgba(200, 23, 30, 0.06), 0px 2px 4px -2px rgba(200, 23, 30, 0.03);
-  --shadow-md: 0px 10px 15px -3px rgba(200, 23, 30, 0.08), 0px 4px 6px -4px rgba(200, 23, 30, 0.04);
-  --shadow-lg: 0px 20px 25px -5px rgba(200, 23, 30, 0.1), 0px 8px 10px -6px rgba(200, 23, 30, 0.04);
-  --shadow-xl: 0px 25px 50px -12px rgba(200, 23, 30, 0.14);
-  --shadow-2xl: 0px 30px 60px -15px rgba(200, 23, 30, 0.18);
+  --shadow: 0px 4px 6px -1px rgba(200, 16, 46, 0.07), 0px 2px 4px -2px rgba(200, 16, 46, 0.04);
+  --shadow-md: 0px 10px 15px -3px rgba(200, 16, 46, 0.09), 0px 4px 6px -4px rgba(200, 16, 46, 0.05);
+  --shadow-lg: 0px 20px 25px -5px rgba(200, 16, 46, 0.12), 0px 8px 10px -6px rgba(200, 16, 46, 0.05);
+  --shadow-xl: 0px 25px 50px -12px rgba(200, 16, 46, 0.16);
+  --shadow-2xl: 0px 30px 60px -15px rgba(200, 16, 46, 0.20);
 
   --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);

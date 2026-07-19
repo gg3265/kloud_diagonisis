@@ -1,0 +1,59 @@
+I need a full visual refresh of this website. The current color scheme doesn't match our actual brand identity and doesn't feel premium enough. Please update the design system across the entire site — do not change any functionality, only the visual/styling layer (colors, logo usage, typography weight, shadows, imagery treatment).
+
+1. OUR REAL BRAND IDENTITY (use this, replace whatever palette exists now)
+
+Our logo is a crimson-red blood-drop icon with a white plus sign inside it, paired with a bold black "KLOUD" wordmark and the tagline "Diagnostics, Blood Collection & Imaging" in grey underneath, on a white background. This is our actual identity — the whole site's color system should be built around it, not a generic medical teal/blue.
+
+New color system (replace the previous teal-based palette entirely):
+
+
+Primary Brand Red: #C8102E (deep crimson — same family as the logo drop, confident and premium, not "alarm red")
+Deep Red / Maroon (for gradients, dark sections, hover states): #7A0C1E
+Ink Black (headings, wordmark, primary text): #161616
+Charcoal Grey (body text, subtext): #4B4B4B
+Warm White (page background — not stark white): #FDFBF9
+Pure White (cards, header): #FFFFFF
+Premium Accent Gold (used sparingly — "Most Popular" badges, premium package borders, small decorative dividers, icon accents): #C9A227
+Success Green (booking confirmations only): #2E9E5B
+
+
+Usage rules:
+
+
+Red is the hero/CTA color — used for primary buttons ("Book Now," "Upload Prescription," "Add to Cart"), the logo drop, active nav states, and key accents. Do NOT drench entire sections in red — it's a diagnostics/blood-collection brand, so red should read as bold and premium, not clinical-alarming. Balance with lots of white/warm-white space and black typography.
+Black/charcoal carries the typographic weight and structure — headings, nav text, footer background (a near-black #161616 footer with white/red text looks premium and grounds the red).
+Gold accent is used ONLY for small premium touches: badges on top-tier health packages, a subtle divider line under section headings, hover underline on nav links. Never as a large fill color.
+Replace any teal, mint, aqua, or blue anywhere in the current design with this red/black/gold/white system.
+
+
+2. LOGO & HEADER
+
+
+I'm attaching our actual logo (red blood-drop with white plus + black "KLOUD" wordmark + grey tagline). Use this as the real header logo — replace whatever placeholder or generic icon is currently there.
+In the header, use a simplified lockup: the blood-drop icon mark alone (no tagline) at a small size next to the "KLOUD" wordmark, since the full tagline is too long for a compact header. Keep the full logo (icon + wordmark + tagline) for the footer and any splash/loading screen.
+Use just the blood-drop icon (no text) as the favicon.
+Header background: clean white or warm-white, with a subtle bottom border or soft shadow on scroll — not a red header bar, so the logo's red pops against it rather than blending in.
+Phone number "96 999 77 171" should appear in the header next to a small black or red circular phone icon (matching the style shown in our logo graphic), and again prominently in the hero and footer.
+
+
+3. PREMIUM POLISH UPGRADES
+
+
+Buttons: solid crimson red #C8102E background, white text, subtle rounded corners (8–10px), soft shadow, and a slightly darker maroon on hover with a smooth scale-up (1.03x) transition. Avoid flat, boxy default buttons.
+Hero section: warm-white or very soft blush-red gradient background (#FDFBF9 fading to a barely-there #FBEAEA), with the red blood-drop motif used as a subtle large-scale watermark/decorative shape in the background — low opacity, not competing with text.
+Section headings: black, bold, with a short gold or red 3–4px underline accent beneath them for a premium editorial feel.
+Health package cards: white cards with soft shadow, a thin red top border or red ribbon corner tag for "Most Popular," and gold accent border specifically on the top-tier/premium package card to make it stand out as the aspirational option.
+Replace any stock-feeling generic icons with a consistent icon style, recolored to charcoal black with red accents on hover, not default blue/teal icon colors.
+Footer: near-black #161616 background, white body text, red section headings, gold divider lines between columns — should feel like a confident, premium close to the page rather than a plain grey footer.
+Add subtle red-tinted shadows (not just default grey shadows) on cards and buttons — this small detail alone makes a site feel intentionally branded rather than templated.
+Testimonial stars and rating badges: gold #C9A227, not default yellow.
+Make sure contrast stays accessible — red CTA buttons need white text, and any red-on-white or white-on-red text should pass WCAG AA contrast.
+
+
+4. WHAT NOT TO CHANGE
+
+
+Keep all existing functionality exactly as-is: the search bar behavior, prescription upload flow, health package logic, home collection pricing logic, booking/cart flow, and page structure. This is a visual/branding pass only — colors, logo, typography weight, shadows, and decorative treatment.
+
+
+Please apply this new color and branding system consistently across every page and component — header, hero, buttons, cards, badges, footer, and any modals/forms — so the whole site feels like one cohesive, premium brand built around our actual logo.

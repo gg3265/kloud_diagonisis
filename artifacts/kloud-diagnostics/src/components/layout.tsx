@@ -43,15 +43,17 @@ export function Header() {
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 z-50 group">
-            <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center transform transition-all group-hover:scale-105 shadow-md">
-              {/* Medical cross — matches KLOUD brand banner */}
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="9" y="2" width="6" height="20" rx="2.5" fill="white"/>
-                <rect x="2" y="9" width="20" height="6" rx="2.5" fill="white"/>
-              </svg>
-            </div>
+            {/* Blood-drop icon — header compact lockup (icon + wordmark, no tagline) */}
+            <svg viewBox="0 0 36 44" width="36" height="44" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform transition-all group-hover:scale-105">
+              <path d="M18 2C18 2 4 15 4 24C4 32.8 10.3 39 18 39C25.7 39 32 32.8 32 24C32 15 18 2 18 2Z" fill="#C8102E"/>
+              <rect x="16" y="15" width="4" height="14" rx="1.8" fill="white"/>
+              <rect x="11" y="20" width="14" height="4" rx="1.8" fill="white"/>
+              {/* Decorative curl — bottom left */}
+              <path d="M9 35 Q5 38 8 41" stroke="#C8102E" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+              <path d="M6 33 Q2 37 5 41" stroke="#C8102E" strokeWidth="2" strokeLinecap="round" fill="none"/>
+            </svg>
             <div className="flex flex-col">
-              <span className="font-sans font-extrabold text-xl leading-none text-primary tracking-tight">KLOUD</span>
+              <span className="font-sans font-extrabold text-xl leading-none text-[#161616] tracking-tight">KLOUD</span>
               <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
             </div>
           </Link>
@@ -173,21 +175,23 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="bg-gray-950 text-white pt-16 pb-8">
+    <footer className="bg-[#161616] text-white pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 border-b border-white/10 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 pb-12" style={{ borderBottom: '1px solid rgba(201,162,39,0.25)' }}>
 
           <div>
             <div className="flex items-center gap-2.5 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center shadow-md">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="9" y="2" width="6" height="20" rx="2.5" fill="white"/>
-                  <rect x="2" y="9" width="20" height="6" rx="2.5" fill="white"/>
-                </svg>
-              </div>
+              {/* Full logo lockup in footer: blood-drop + KLOUD + tagline */}
+              <svg viewBox="0 0 36 44" width="32" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 2C18 2 4 15 4 24C4 32.8 10.3 39 18 39C25.7 39 32 32.8 32 24C32 15 18 2 18 2Z" fill="#C8102E"/>
+                <rect x="16" y="15" width="4" height="14" rx="1.8" fill="white"/>
+                <rect x="11" y="20" width="14" height="4" rx="1.8" fill="white"/>
+                <path d="M9 35 Q5 38 8 41" stroke="#C8102E" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+                <path d="M6 33 Q2 37 5 41" stroke="#C8102E" strokeWidth="2" strokeLinecap="round" fill="none"/>
+              </svg>
               <div className="flex flex-col">
                 <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
-                <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
+                <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics Blood Collection & Imaging</span>
               </div>
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-6">
@@ -199,8 +203,8 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
-            <h4 className="font-sans font-bold text-base mb-6 text-white">Quick Links</h4>
+          <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
+            <h4 className="font-sans font-bold text-base mb-6 text-primary">Quick Links</h4>
             <ul className="space-y-3 text-sm text-white/60">
               {[
                 { name: 'About Us', path: '/about' },
@@ -215,8 +219,8 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-sans font-bold text-base mb-6 text-white">Popular Tests</h4>
+          <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
+            <h4 className="font-sans font-bold text-base mb-6 text-primary">Popular Tests</h4>
             <ul className="space-y-3 text-sm text-white/60">
               {['Complete Blood Count (CBC)', 'Thyroid Profile (T3/T4/TSH)', 'HbA1c (Diabetes)', 'Vitamin D & B12', 'Lipid Profile', 'Liver Function Test', 'Kidney Function Test'].map(t => (
                 <li key={t}><Link href="/packages" className="hover:text-white transition-colors">{t}</Link></li>
@@ -224,8 +228,8 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-sans font-bold text-base mb-6 text-white">Contact Us</h4>
+          <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
+            <h4 className="font-sans font-bold text-base mb-6 text-primary">Contact Us</h4>
             <ul className="space-y-5 text-sm">
               <li className="flex items-start gap-3">
                 <div className="w-9 h-9 rounded-lg bg-primary/20 text-primary flex items-center justify-center shrink-0 mt-0.5">

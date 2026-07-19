@@ -10,7 +10,7 @@ export default function PackagesPage() {
   const { openPackageModal } = useBookingModal();
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-24 pt-12">
+    <div className="bg-[#FDFBF9] min-h-screen pb-24 pt-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold font-sans text-foreground mb-4">Health Packages</h1>
@@ -38,10 +38,12 @@ export default function PackagesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="bg-white rounded-3xl p-8 border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col group relative overflow-hidden"
+                className="bg-white rounded-3xl p-8 border shadow-sm hover:shadow-[0_20px_60px_rgba(200,16,46,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col group relative overflow-hidden border-gray-100"
               >
+                {/* Permanent red top border */}
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-[#7A0C1E]" />
                 {pkg.badge && (
-                  <div className="absolute top-0 right-0 bg-accent text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl z-10 shadow-sm">
+                  <div className="absolute top-1.5 right-0 bg-[#C9A227] text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl z-10 shadow-sm">
                     {pkg.badge}
                   </div>
                 )}
@@ -65,7 +67,7 @@ export default function PackagesPage() {
                     <ul className="space-y-2">
                       {pkg.includes.slice(0, 4).map((item, idx) => (
                         <li key={idx} className="text-sm flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></div>
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
                           <span className="text-foreground/80">{item}</span>
                         </li>
                       ))}
