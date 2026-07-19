@@ -38,10 +38,10 @@ export default function PackagesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="bg-white rounded-3xl p-8 border shadow-sm hover:shadow-[0_20px_60px_rgba(200,16,46,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col group relative overflow-hidden border-gray-100"
+                className="bg-white rounded-3xl p-8 border shadow-sm hover:shadow-[0_20px_60px_rgba(27,58,107,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col group relative overflow-hidden border-gray-100"
               >
-                {/* Permanent red top border */}
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-[#7A0C1E]" />
+                {/* Permanent navy top border */}
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-[#0F2347]" />
                 {pkg.badge && (
                   <div className="absolute top-1.5 right-0 bg-[#C9A227] text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl z-10 shadow-sm">
                     {pkg.badge}

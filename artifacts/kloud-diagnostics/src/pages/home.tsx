@@ -31,7 +31,7 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
 
       {/* ─── HERO ─── */}
-      <section className="relative pt-16 pb-28 overflow-hidden" style={{ background: 'linear-gradient(180deg, #FBEAEA 0%, #FDFBF9 45%, #FDFBF9 100%)' }}>
+      <section className="relative pt-16 pb-28 overflow-hidden" style={{ background: 'linear-gradient(180deg, #EEF3FA 0%, #FDFBF9 45%, #FDFBF9 100%)' }}>
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           {/* Grid dots */}
@@ -58,7 +58,7 @@ export default function HomePage() {
           </svg>
           {/* Large faint circle */}
           <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl" />
-          <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-red-400/10 blur-3xl" />
+          <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-primary/8 blur-3xl" />
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
@@ -109,7 +109,7 @@ export default function HomePage() {
 
             {/* CTA strip */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-              <Button size="lg" onClick={() => openModal()} className="text-base px-10 h-[54px] shadow-[0_8px_30px_rgba(200,16,46,0.30)] hover:shadow-[0_12px_40px_rgba(200,16,46,0.40)] hover:-translate-y-0.5 transition-all duration-200 rounded-xl gap-2 font-bold">
+              <Button size="lg" onClick={() => openModal()} className="text-base px-10 h-[54px] shadow-[0_8px_30px_rgba(27,58,107,0.28)] hover:shadow-[0_12px_40px_rgba(27,58,107,0.38)] hover:-translate-y-0.5 transition-all duration-200 rounded-xl gap-2 font-bold">
                 <Zap className="w-4 h-4" />
                 Book a Test Now
               </Button>
@@ -162,9 +162,9 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1 }}
-                  className={`bg-white rounded-3xl p-7 border shadow-md hover:shadow-[0_20px_60px_rgba(200,16,46,0.12)] hover:-translate-y-2 transition-all duration-300 flex flex-col group relative overflow-hidden ${pkg.badge?.toLowerCase().includes('popular') ? 'border-primary/30' : pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'border-[#C9A227]/50' : 'border-gray-100'}`}
+                  className={`bg-white rounded-3xl p-7 border shadow-md hover:shadow-[0_20px_60px_rgba(27,58,107,0.12)] hover:-translate-y-2 transition-all duration-300 flex flex-col group relative overflow-hidden ${pkg.badge?.toLowerCase().includes('popular') ? 'border-primary/30' : pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'border-[#C9A227]/50' : 'border-gray-100'}`}
                 >
-                  <div className={`absolute top-0 left-0 w-full h-1.5 ${pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'bg-gradient-to-r from-[#C9A227] to-[#e8c547]' : 'bg-gradient-to-r from-primary to-[#7A0C1E]'}`} />
+                  <div className={`absolute top-0 left-0 w-full h-1.5 ${pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'bg-gradient-to-r from-[#C9A227] to-[#e8c547]' : 'bg-gradient-to-r from-primary to-[#0F2347]'}`} />
                   
                   {pkg.badge && (
                     <div className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A227]/10 text-[#A07D10] text-xs font-bold mb-4 border border-[#C9A227]/30'>
@@ -233,7 +233,7 @@ export default function HomePage() {
               initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="rounded-3xl bg-gradient-to-br from-red-800 to-red-900 text-white p-8 md:p-10 flex flex-col relative overflow-hidden"
+              className="rounded-3xl bg-gradient-to-br from-[#0F2347] to-[#1B3A6B] text-white p-8 md:p-10 flex flex-col relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-12 -translate-x-8" />
@@ -356,7 +356,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── STATS STRIP ─── */}
-      <section className="relative z-10 bg-gradient-to-r from-red-900 via-primary to-red-800 text-white py-12 shadow-2xl">
+      <section className="relative z-10 bg-gradient-to-r from-[#0F2347] via-primary to-[#0F2347] text-white py-12 shadow-2xl">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/15">
             {heroStats.map((stat, i) => (
@@ -421,7 +421,7 @@ export default function HomePage() {
       {/* ─── CONTACT CTA ─── */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="bg-gradient-to-br from-primary to-red-800 rounded-[2.5rem] p-10 md:p-16 text-white text-center relative overflow-hidden">
+          <div className="bg-gradient-to-br from-[#0F2347] to-primary rounded-[2.5rem] p-10 md:p-16 text-white text-center relative overflow-hidden">
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full -translate-y-24 translate-x-24 blur-2xl" />
               <div className="absolute bottom-0 left-0 w-56 h-56 bg-red-400/20 rounded-full translate-y-16 -translate-x-16 blur-2xl" />

@@ -94,11 +94,11 @@
   --popover-foreground: 0 0% 9%;
   --popover-border: 30 15% 88%;
 
-  /* Brand crimson red — #C8102E */
-  --primary: 350 85% 42%;
+  /* Deep navy — #1B3A6B */
+  --primary: 217 60% 26%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 350 40% 92%;
+  --secondary: 217 30% 93%;
   --secondary-foreground: 0 0% 9%;
 
   --muted: 30 15% 93%;
@@ -117,10 +117,10 @@
   --warning: 37 88% 58%;
 
   --input: 30 15% 85%;
-  --ring: 350 85% 42%;
+  --ring: 217 60% 26%;
 
-  /* Deep red / maroon for hover states — #7A0C1E */
-  --primary-dark: 350 82% 26%;
+  /* Darker navy for hover states — #0F2347 */
+  --primary-dark: 217 65% 17%;
 
   --sidebar: 0 0% 98%;
   --sidebar-foreground: 220 15% 13%;
@@ -147,11 +147,11 @@
   --shadow-2xs: 0px 2px 0px 0px rgba(0,0,0,0.02);
   --shadow-xs: 0px 2px 0px 0px rgba(0,0,0,0.04);
   --shadow-sm: 0px 2px 0px 0px rgba(0,0,0,0.04), 0px 1px 2px -1px rgba(0,0,0,0.03);
-  --shadow: 0px 4px 6px -1px rgba(200, 16, 46, 0.07), 0px 2px 4px -2px rgba(200, 16, 46, 0.04);
-  --shadow-md: 0px 10px 15px -3px rgba(200, 16, 46, 0.09), 0px 4px 6px -4px rgba(200, 16, 46, 0.05);
-  --shadow-lg: 0px 20px 25px -5px rgba(200, 16, 46, 0.12), 0px 8px 10px -6px rgba(200, 16, 46, 0.05);
-  --shadow-xl: 0px 25px 50px -12px rgba(200, 16, 46, 0.16);
-  --shadow-2xl: 0px 30px 60px -15px rgba(200, 16, 46, 0.20);
+  --shadow: 0px 4px 6px -1px rgba(27, 58, 107, 0.08), 0px 2px 4px -2px rgba(27, 58, 107, 0.05);
+  --shadow-md: 0px 10px 15px -3px rgba(27, 58, 107, 0.10), 0px 4px 6px -4px rgba(27, 58, 107, 0.06);
+  --shadow-lg: 0px 20px 25px -5px rgba(27, 58, 107, 0.13), 0px 8px 10px -6px rgba(27, 58, 107, 0.06);
+  --shadow-xl: 0px 25px 50px -12px rgba(27, 58, 107, 0.17);
+  --shadow-2xl: 0px 30px 60px -15px rgba(27, 58, 107, 0.22);
 
   --primary-border: hsl(from hsl(var(--primary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --secondary-border: hsl(from hsl(var(--secondary)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
