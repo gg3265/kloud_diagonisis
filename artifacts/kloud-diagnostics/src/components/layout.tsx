@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
-import kloudLogo from '@assets/images_1784482947299.jpg';
 
 const NAV_LINKS = [
   { name: 'Home', path: '/' },
@@ -44,11 +43,18 @@ export function Header() {
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 z-50 group">
-            <img
-              src={kloudLogo}
-              alt="Kloud logo mark"
-              className="h-10 w-auto object-contain transform transition-all group-hover:scale-105"
-            />
+            <svg viewBox="0 0 72 86" width="38" height="46" fill="none" xmlns="http://www.w3.org/2000/svg" className="transform transition-all group-hover:scale-105 shrink-0">
+              {/* Outer decorative arc */}
+              <path d="M14 38 Q4 56 14 72" stroke="#C8102E" strokeWidth="3" strokeLinecap="round"/>
+              {/* Inner decorative arc */}
+              <path d="M20 42 Q13 57 20 70" stroke="#C8102E" strokeWidth="3.5" strokeLinecap="round"/>
+              {/* Main flame/blood-drop body */}
+              <path d="M46 5 C46 5 66 22 67 44 C68 60 58 76 44 76 C30 76 20 63 22 48 C24 33 46 5 46 5Z" fill="#C8102E"/>
+              {/* White cross — vertical bar */}
+              <rect x="40" y="37" width="8" height="26" rx="3" fill="white"/>
+              {/* White cross — horizontal bar */}
+              <rect x="30" y="46" width="28" height="8" rx="3" fill="white"/>
+            </svg>
             <div className="flex flex-col">
               <span className="font-sans font-extrabold text-xl leading-none text-[#161616] tracking-tight">KLOUD</span>
               <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-widest mt-0.5">Diagnostics & Imaging</span>
@@ -178,11 +184,18 @@ export function Footer() {
 
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <img
-                src={kloudLogo}
-                alt="Kloud logo mark"
-                className="h-10 w-auto object-contain brightness-0 invert"
-              />
+              <svg viewBox="0 0 72 86" width="36" height="44" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+                {/* Outer decorative arc */}
+                <path d="M14 38 Q4 56 14 72" stroke="#E84040" strokeWidth="3" strokeLinecap="round"/>
+                {/* Inner decorative arc */}
+                <path d="M20 42 Q13 57 20 70" stroke="#E84040" strokeWidth="3.5" strokeLinecap="round"/>
+                {/* Main flame/blood-drop body */}
+                <path d="M46 5 C46 5 66 22 67 44 C68 60 58 76 44 76 C30 76 20 63 22 48 C24 33 46 5 46 5Z" fill="#E84040"/>
+                {/* White cross — vertical bar */}
+                <rect x="40" y="37" width="8" height="26" rx="3" fill="white"/>
+                {/* White cross — horizontal bar */}
+                <rect x="30" y="46" width="28" height="8" rx="3" fill="white"/>
+              </svg>
               <div className="flex flex-col">
                 <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
                 <span className="font-sans font-semibold text-[9px] leading-none text-white/50 uppercase tracking-widest mt-0.5">Diagnostics Blood Collection & Imaging</span>
