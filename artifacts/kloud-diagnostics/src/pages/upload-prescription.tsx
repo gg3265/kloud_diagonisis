@@ -1,16 +1,13 @@
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope } from 'lucide-react';
+import { Upload, X, FileText, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'wouter';
 
 export default function UploadPrescriptionPage() {
-  const [isSuccess, setIsSuccess] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [, setLocation] = useLocation();
+  const nextInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -41,79 +38,26 @@ export default function UploadPrescriptionPage() {
 
   const removeFile = (index: number) => setFiles(prev => prev.filter((_, i) => i !== index));
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (files.length === 0) { alert('Please upload at least one prescription file.'); return; }
-    setIsSubmitting(true);
-    try {
-      const fd = new FormData();
-      fd.append('Full_Name', formData.name);
-      fd.append('Mobile_Number', formData.phone);
-      fd.append('Preferred_Area', formData.preferredArea);
-      fd.append('Best_Time_to_Call', formData.preferredTimeSlot);
-      if (formData.referringDoctor) fd.append('Referring_Doctor', formData.referringDoctor);
-      if (formData.notes) fd.append('Additional_Notes', formData.notes);
-      files.forEach(f => fd.append('attachment', f));
-      fd.append('_subject', 'New Prescription Uploaded!');
-      fd.append('_captcha', 'false');
-      fd.append('_template', 'table');
 
-      const res = await fetch('https://formsubmit.co/ajax/harshitpandey8194@gmail.com', {
-        method: 'POST',
-        body: fd,
-        headers: { Accept: 'application/json' },
-      });
-
-      if (res.ok) {
-        setIsSuccess(true);
-      } else {
-        alert('Submission failed. Please try again or call us directly.');
-      }
-    } catch {
-      alert('Network error. Please try again or call us directly.');
-    } finally {
-      setIsSubmitting(false);
+    // Sync all accumulated files (including drag-and-dropped ones) into the
+    // actual <input type="file"> element so the native form POST includes them.
+    if (fileInputRef.current) {
+      const dt = new DataTransfer();
+      files.forEach(f => dt.items.add(f));
+      fileInputRef.current.files = dt.files;
     }
-  };
 
-  if (isSuccess) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-white flex items-center justify-center py-20 px-4">
-        <motion.div
-          initial={{ scale: 0.85, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', damping: 20 }}
-          className="bg-white p-10 md:p-16 rounded-[2.5rem] shadow-2xl text-center max-w-lg border border-orange-100"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: 'spring', damping: 15 }}
-            className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-8"
-          >
-            <CheckCircle2 className="w-12 h-12" />
-          </motion.div>
-          <h1 className="text-3xl font-extrabold font-sans mb-4 text-foreground">Prescription Received!</h1>
-          <p className="text-muted-foreground text-base mb-4 leading-relaxed">
-            Our medical experts will review your prescription and call you at{' '}
-            <strong className="text-foreground">{formData.phone}</strong> within{' '}
-            <strong className="text-primary">30 minutes</strong> to confirm the exact tests and pricing.
-          </p>
-          <div className="bg-orange-50 rounded-2xl p-4 border border-orange-100 mb-8 text-sm text-left space-y-2">
-            <div className="flex justify-between"><span className="text-muted-foreground">Name</span><span className="font-semibold">{formData.name}</span></div>
-            <div className="flex justify-between"><span className="text-muted-foreground">Phone</span><span className="font-semibold">{formData.phone}</span></div>
-            <div className="flex justify-between"><span className="text-muted-foreground">Files Uploaded</span><span className="font-semibold">{files.length} file(s)</span></div>
-          </div>
-          <div className="flex flex-col gap-3">
-            <Button size="lg" onClick={() => setLocation('/')} className="w-full">Return to Home</Button>
-            <Button size="lg" variant="outline" onClick={() => { setIsSuccess(false); setFiles([]); setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' }); }} className="w-full">
-              Upload Another
-            </Button>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
+    // Set the redirect URL dynamically so it works on any domain.
+    if (nextInputRef.current) {
+      nextInputRef.current.value = window.location.origin + '/';
+    }
+
+    // Submit natively — browser handles multipart encoding, file attachment included.
+    e.currentTarget.submit();
+  };
 
   return (
     <div className="bg-gradient-to-br from-orange-50/50 to-white min-h-screen pb-24">
@@ -189,7 +133,23 @@ export default function UploadPrescriptionPage() {
           {/* Main form */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-3xl shadow-lg border border-border p-6 md:p-9">
-              <form onSubmit={handleSubmit} className="space-y-8">
+              {/*
+                Native POST to FormSubmit.co with encType="multipart/form-data"
+                is required for file attachments to reach the email.
+                The AJAX /ajax/ endpoint silently strips files.
+              */}
+              <form
+                action="https://formsubmit.co/harshitpandey8194@gmail.com"
+                method="POST"
+                encType="multipart/form-data"
+                onSubmit={handleSubmit}
+                className="space-y-8"
+              >
+                {/* FormSubmit hidden config */}
+                <input type="hidden" name="_subject" value="New Prescription Uploaded!" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" ref={nextInputRef} defaultValue="" />
 
                 {/* Upload Zone */}
                 <div>
@@ -209,8 +169,10 @@ export default function UploadPrescriptionPage() {
                     onDrop={handleDrop}
                     onClick={() => fileInputRef.current?.click()}
                   >
+                    {/* name="attachment" is required by FormSubmit.co to attach the file */}
                     <input
                       type="file"
+                      name="attachment"
                       ref={fileInputRef}
                       className="hidden"
                       multiple
@@ -283,6 +245,7 @@ export default function UploadPrescriptionPage() {
                       <input
                         required
                         type="text"
+                        name="Full_Name"
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
                         className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
@@ -297,6 +260,7 @@ export default function UploadPrescriptionPage() {
                       <input
                         required
                         type="tel"
+                        name="Mobile_Number"
                         pattern="[0-9]{10}"
                         value={formData.phone}
                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
@@ -312,6 +276,7 @@ export default function UploadPrescriptionPage() {
                       <input
                         required
                         type="text"
+                        name="Preferred_Area"
                         value={formData.preferredArea}
                         onChange={e => setFormData({ ...formData, preferredArea: e.target.value })}
                         className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
@@ -324,6 +289,7 @@ export default function UploadPrescriptionPage() {
                         <Clock className="w-4 h-4 text-orange-500" /> Best Time to Call
                       </label>
                       <select
+                        name="Best_Time_to_Call"
                         value={formData.preferredTimeSlot}
                         onChange={e => setFormData({ ...formData, preferredTimeSlot: e.target.value })}
                         className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm appearance-none"
@@ -341,6 +307,7 @@ export default function UploadPrescriptionPage() {
                       </label>
                       <input
                         type="text"
+                        name="Referring_Doctor"
                         value={formData.referringDoctor}
                         onChange={e => setFormData({ ...formData, referringDoctor: e.target.value })}
                         className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
@@ -352,6 +319,7 @@ export default function UploadPrescriptionPage() {
                       <label className="text-sm font-semibold text-foreground/80">Additional Notes (optional)</label>
                       <textarea
                         rows={2}
+                        name="Additional_Notes"
                         value={formData.notes}
                         onChange={e => setFormData({ ...formData, notes: e.target.value })}
                         className="w-full p-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all resize-none text-sm"
@@ -365,10 +333,9 @@ export default function UploadPrescriptionPage() {
                   type="submit"
                   size="lg"
                   className="w-full text-base h-14 rounded-2xl bg-orange-600 hover:bg-orange-700 gap-2 font-bold"
-                  disabled={isSubmitting}
                 >
                   <Upload className="w-5 h-5" />
-                  {isSubmitting ? 'Submitting...' : 'Submit Prescription'}
+                  Submit Prescription
                 </Button>
 
                 <p className="text-center text-xs text-muted-foreground">
