@@ -43,9 +43,21 @@ export function Header() {
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 z-50 group">
+          <Link href="/" className="flex items-center z-50 group" style={{ gap: 0 }}>
+            {/* Logo mark — crop built-in image whitespace with negative margin so flame sits flush against wordmark */}
+            <img
+              src={kloudLogoMark}
+              alt="Kloud"
+              className="shrink-0 transform transition-all group-hover:scale-105 w-auto ml-[0px] rounded-tl-[0px] rounded-tr-[0px] rounded-br-[0px] rounded-bl-[0px] mr-[0px] mb-[8px] pl-[6px] pr-[6px]"
+              style={{
+                height: '52px',
+                imageRendering: 'high-quality',
+                mixBlendMode: 'multiply',
+                marginRight: '-6px',
+              }}
+            />
             <div className="flex flex-col justify-center">
-              <span className="font-sans font-extrabold text-[22px] leading-none text-[#161616] tracking-tight">KLOUD</span>
+              <span className="font-sans text-[22px] leading-none text-[#161616] tracking-tight text-left font-extrabold ml-[0px] mr-[0px] mt-[0px] mb-[0px]">KLOUD</span>
               <span className="font-sans font-semibold text-[9px] leading-none text-muted-foreground uppercase tracking-[0.18em] mt-1">Diagnostics & Imaging</span>
             </div>
           </Link>
