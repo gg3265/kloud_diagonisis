@@ -10,6 +10,10 @@ export default function UploadPrescriptionPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const subjectRef = useRef<HTMLInputElement>(null);
+  // Track whether the iframe load is from an actual submission (not its initial mount)
+  const submittedRef = useRef(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -40,51 +44,41 @@ export default function UploadPrescriptionPage() {
 
   const removeFile = (index: number) => setFiles(prev => prev.filter((_, i) => i !== index));
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (files.length === 0) { alert('Please upload at least one prescription file.'); return; }
-    setIsSubmitting(true);
 
-    try {
-      const fd = new FormData();
-      fd.append('Full_Name', formData.name);
-      fd.append('Mobile_Number', formData.phone);
-      fd.append('Preferred_Area', formData.preferredArea);
-      fd.append('Best_Time_to_Call', formData.preferredTimeSlot);
-      if (formData.referringDoctor) fd.append('Referring_Doctor', formData.referringDoctor);
-      if (formData.notes) fd.append('Additional_Notes', formData.notes);
-      // Attach all files under the FormSubmit "attachment" field name
-      files.forEach(file => fd.append('attachment', file));
+    // Sync drag-and-dropped files into the real file input via DataTransfer API
+    // (FormSubmit needs a real multipart/form-data POST to attach files to email)
+    if (fileInputRef.current) {
+      const dt = new DataTransfer();
+      files.forEach(f => dt.items.add(f));
+      fileInputRef.current.files = dt.files;
+    }
 
-      // Unique subject to prevent Gmail threading
+    // Set a unique subject to prevent Gmail threading
+    if (subjectRef.current) {
       const now = new Date();
       const timeStr = now.toTimeString().slice(0, 8);
       const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
-      const uniqueSubject = `New Prescription - ${formData.name || 'Patient'} - ${timeStr} - ${uid}`;
-      fd.append('_subject', uniqueSubject);
-      fd.append('_captcha', 'false');
-      fd.append('_template', 'table');
-
-      const res = await fetch('https://formsubmit.co/ajax/harshitpandey8194@gmail.com', {
-        method: 'POST',
-        body: fd,
-        headers: { Accept: 'application/json' },
-      });
-
-      if (res.ok) {
-        // Reset form
-        setFiles([]);
-        setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
-        if (fileInputRef.current) fileInputRef.current.value = '';
-        showSuccessPopup('Our team will review your prescription and call you within 30 minutes.');
-      } else {
-        alert('Submission failed. Please try again or call us directly.');
-      }
-    } catch {
-      alert('Network error. Please try again or call us directly.');
-    } finally {
-      setIsSubmitting(false);
+      subjectRef.current.value = `New Prescription - ${formData.name || 'Patient'} - ${timeStr} - ${uid}`;
     }
+
+    setIsSubmitting(true);
+    submittedRef.current = true;
+    // Native form submit — targets the hidden iframe so the page never redirects
+    formRef.current?.submit();
+  };
+
+  // Called when FormSubmit redirects inside the hidden iframe after processing
+  const handleIframeLoad = () => {
+    if (!submittedRef.current) return; // ignore the initial empty-src iframe load
+    submittedRef.current = false;
+    setIsSubmitting(false);
+    setFiles([]);
+    setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    showSuccessPopup('Our team will review your prescription and call you within 30 minutes.');
   };
 
   return (
@@ -160,16 +154,31 @@ export default function UploadPrescriptionPage() {
 
           {/* Main form */}
           <div className="lg:col-span-2">
+            {/*
+              Hidden iframe: FormSubmit POSTs a redirect into here after processing.
+              onLoad fires → we show the success popup without any page navigation.
+            */}
+            <iframe
+              name="prescription-iframe"
+              title="prescription-submit"
+              style={{ display: 'none' }}
+              onLoad={handleIframeLoad}
+            />
             <div className="bg-white rounded-3xl shadow-lg border border-border p-6 md:p-9">
-              {/*
-                Native POST to FormSubmit.co with encType="multipart/form-data"
-                is required for file attachments to reach the email.
-                The AJAX /ajax/ endpoint silently strips files.
-              */}
               <form
+                ref={formRef}
+                action="https://formsubmit.co/harshitpandey8194@gmail.com"
+                method="POST"
+                encType="multipart/form-data"
+                target="prescription-iframe"
                 onSubmit={handleSubmit}
                 className="space-y-8"
               >
+                {/* FormSubmit control fields */}
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                {/* Subject is set dynamically in handleSubmit for unique threading */}
+                <input type="hidden" name="_subject" ref={subjectRef} defaultValue="New Prescription Upload" />
 
                 {/* Upload Zone */}
                 <div>
