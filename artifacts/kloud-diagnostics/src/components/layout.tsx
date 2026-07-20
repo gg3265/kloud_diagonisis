@@ -187,8 +187,14 @@ export function Footer() {
               <img
                 src={kloudLogoMark}
                 alt="Kloud"
-                className="h-12 w-auto object-contain shrink-0"
-                style={{ imageRendering: 'high-quality', filter: 'brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(320deg)' }}
+                className="shrink-0 w-auto"
+                style={{
+                  height: '52px',
+                  imageRendering: 'high-quality',
+                  filter: 'invert(1) hue-rotate(180deg)',
+                  mixBlendMode: 'screen',
+                  marginRight: '-6px',
+                }}
               />
               <div className="flex flex-col">
                 <span className="font-sans font-extrabold text-xl leading-none tracking-tight">KLOUD</span>
