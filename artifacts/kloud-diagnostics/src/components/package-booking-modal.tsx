@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
-import { useCreateBooking, BookingInputCollectionType, BookingInputPatientGender } from '@workspace/api-client-react';
+import { BookingInputCollectionType, BookingInputPatientGender } from '@workspace/api-client-react';
 
 const TIME_SLOTS = [
   '07:00 AM – 08:00 AM', '08:00 AM – 09:00 AM', '09:00 AM – 10:00 AM',
@@ -37,7 +37,7 @@ type PersonKey = 'person1' | 'person2';
 
 export function PackageBookingModal() {
   const { isPackageModalOpen, closePackageModal, selectedPackage } = useBookingModal();
-  const createBooking = useCreateBooking();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [formData, setFormData] = useState<FormState>(emptyForm);
@@ -68,47 +68,56 @@ export function PackageBookingModal() {
     setTimeout(() => { setStep(1); setFormData(emptyForm); }, 300);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedPackage) return;
+    setIsSubmitting(true);
 
     const { person1, person2, personCount } = formData;
-    const noteParts = [
-      `Package: ${selectedPackage.name}`,
-      `Persons: ${personCount}`,
-      person1.email ? `P1 Email: ${person1.email}` : '',
-      personCount === 2 && person2.email ? `P2 Email: ${person2.email}` : '',
-      formData.city ? `City: ${formData.city}` : '',
-      formData.notes ? `Notes: ${formData.notes}` : '',
-    ].filter(Boolean).join(' | ');
+    try {
+      const fd = new FormData();
+      fd.append('Package_Name', selectedPackage.name);
+      fd.append('Number_of_Persons', String(personCount));
+      fd.append('Person_1_Name', person1.name);
+      fd.append('Person_1_Age', person1.age);
+      fd.append('Person_1_Gender', person1.gender);
+      fd.append('Person_1_Mobile', person1.phone);
+      if (person1.email) fd.append('Person_1_Email', person1.email);
+      if (personCount === 2) {
+        fd.append('Person_2_Name', person2.name);
+        fd.append('Person_2_Age', person2.age);
+        fd.append('Person_2_Gender', person2.gender);
+        fd.append('Person_2_Mobile', person2.phone);
+        if (person2.email) fd.append('Person_2_Email', person2.email);
+      }
+      fd.append('Collection_Type', formData.collectionType === 'home' ? 'Home Collection' : 'Walk-in Center');
+      if (formData.address) fd.append('Address', formData.address);
+      if (formData.city) fd.append('City', formData.city);
+      if (formData.pincode) fd.append('Pincode', formData.pincode);
+      fd.append('Preferred_Date', formData.preferredDate);
+      fd.append('Preferred_Time', formData.preferredTimeSlot);
+      if (formData.notes) fd.append('Additional_Notes', formData.notes);
+      fd.append('Total_Amount', `₹${selectedPackage.price * personCount}`);
+      fd.append('_subject', 'New Health Package Booking!');
+      fd.append('_captcha', 'false');
+      fd.append('_template', 'table');
 
-    const homeFee = 0;
-    const perPersonPrice = selectedPackage.price;
-    const totalAmount = perPersonPrice * personCount + homeFee;
+      const res = await fetch('https://formsubmit.co/ajax/klouddiagnostics@gmail.com', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
 
-    const items = [
-      { itemId: selectedPackage.id, itemType: 'package' as const, name: selectedPackage.name, price: perPersonPrice, quantity: personCount },
-    ];
-
-    createBooking.mutate({
-      data: {
-        patientName: personCount === 2
-          ? `${person1.name} & ${person2.name}`
-          : person1.name,
-        patientAge: parseInt(person1.age, 10),
-        patientGender: person1.gender,
-        phone: person1.phone,
-        address: formData.address || 'Walk-in',
-        pincode: formData.pincode || '000000',
-        preferredDate: formData.preferredDate,
-        preferredTimeSlot: formData.preferredTimeSlot,
-        collectionType: formData.collectionType,
-        notes: noteParts,
-        items,
-        totalAmount,
-        homeCollectionFee: homeFee,
-      },
-    }, { onSuccess: () => setStep(3) });
+      if (res.ok) {
+        setStep(3);
+      } else {
+        alert('Submission failed. Please try again or call us directly.');
+      }
+    } catch {
+      alert('Network error. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const homeFee = 0;
@@ -425,9 +434,9 @@ export function PackageBookingModal() {
                         form="package-booking-form"
                         size="lg"
                         className="w-full sm:w-auto px-8 font-bold rounded-xl"
-                        disabled={createBooking.isPending}
+                        disabled={isSubmitting}
                       >
-                        {createBooking.isPending ? (
+                        {isSubmitting ? (
                           <span className="flex items-center gap-2">
                             <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                             Processing…

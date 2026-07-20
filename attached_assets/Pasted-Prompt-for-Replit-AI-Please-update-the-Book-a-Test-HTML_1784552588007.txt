@@ -1,0 +1,44 @@
+Prompt for Replit AI:
+"Please update the 'Book a Test' HTML form in my project to use FormSubmit.co.
+
+Change the form tag to exactly: <form action="[https://formsubmit.co/harshitpandey8194@gmail.com](https://formsubmit.co/harshitpandey8194@gmail.com)" method="POST">
+
+Check every input field in this form (like Patient Name, Age, Gender, Mobile Number, Email, Address, and the specific Test Name) and ensure they all have a descriptive name attribute (e.g., name="Patient_Name").
+
+Add a hidden input field for the email subject: <input type="hidden" name="_subject" value="New Test Booking Request!">
+
+Ensure there is a submit button that successfully triggers the form action."
+
+2. Prompt for the "Upload Prescription" Form
+Copy and paste this into Replit AI:
+
+Prompt for Replit AI:
+"Please update the 'Upload Prescription' HTML form in my project to use FormSubmit.co.
+
+Change the form tag to exactly: <form action="[https://formsubmit.co/harshitpandey8194@gmail.com](https://formsubmit.co/harshitpandey8194@gmail.com)" method="POST" enctype="multipart/form-data"> (The enctype is crucial for the file upload to work).
+
+Find the file upload input field and ensure it has the attribute name="attachment". This is required for the prescription image/PDF to be attached to the email.
+
+Ensure the other contact detail fields in this form (Name, Mobile Number, Preferred Area, etc.) have valid name attributes.
+
+Add a hidden input field for the email subject: <input type="hidden" name="_subject" value="New Prescription Uploaded!">
+
+Ensure the submit button triggers the form action."
+
+3. Prompt for the "Book a Package (1 or 2 Persons)" Form
+Copy and paste this into Replit AI:
+
+Prompt for Replit AI:
+"Please update the 'Book Health Package' HTML form in my project to use FormSubmit.co.
+
+Change the form tag to exactly: <form action="[https://formsubmit.co/harshitpandey8194@gmail.com](https://formsubmit.co/harshitpandey8194@gmail.com)" method="POST">
+
+Ensure the selection for '1 Person' or '2 Persons' is captured correctly using a radio button, select dropdown, or hidden input with a name attribute like name="Number_of_Persons".
+
+Ensure the patient detail fields for Person 1 (and Person 2 if selected) have distinct name attributes (e.g., name="Person_1_Name", name="Person_2_Name").
+
+Ensure the specific Health Package Name being booked is included as a hidden input or read-only field with a name attribute.
+
+Add a hidden input field for the email subject: <input type="hidden" name="_subject" value="New Health Package Booking!">
+
+Ensure the submit button triggers the form action."

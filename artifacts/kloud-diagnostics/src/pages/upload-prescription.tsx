@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { useSubmitPrescription } from '@workspace/api-client-react';
 import { Button } from '@/components/ui/button';
 import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,7 +9,7 @@ export default function UploadPrescriptionPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const submitPrescription = useSubmitPrescription();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [, setLocation] = useLocation();
 
   const [formData, setFormData] = useState({
@@ -42,13 +41,39 @@ export default function UploadPrescriptionPage() {
 
   const removeFile = (index: number) => setFiles(prev => prev.filter((_, i) => i !== index));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (files.length === 0) { alert('Please upload at least one prescription file.'); return; }
-    submitPrescription.mutate(
-      { data: { ...formData, fileNames: files.map(f => f.name) } },
-      { onSuccess: () => setIsSuccess(true) }
-    );
+    setIsSubmitting(true);
+    try {
+      const fd = new FormData();
+      fd.append('Full_Name', formData.name);
+      fd.append('Mobile_Number', formData.phone);
+      fd.append('Preferred_Area', formData.preferredArea);
+      fd.append('Best_Time_to_Call', formData.preferredTimeSlot);
+      if (formData.referringDoctor) fd.append('Referring_Doctor', formData.referringDoctor);
+      if (formData.notes) fd.append('Additional_Notes', formData.notes);
+      files.forEach(f => fd.append('attachment', f));
+      fd.append('_subject', 'New Prescription Uploaded!');
+      fd.append('_captcha', 'false');
+      fd.append('_template', 'table');
+
+      const res = await fetch('https://formsubmit.co/ajax/klouddiagnostics@gmail.com', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        setIsSuccess(true);
+      } else {
+        alert('Submission failed. Please try again or call us directly.');
+      }
+    } catch {
+      alert('Network error. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -340,10 +365,10 @@ export default function UploadPrescriptionPage() {
                   type="submit"
                   size="lg"
                   className="w-full text-base h-14 rounded-2xl bg-orange-600 hover:bg-orange-700 gap-2 font-bold"
-                  disabled={submitPrescription.isPending}
+                  disabled={isSubmitting}
                 >
                   <Upload className="w-5 h-5" />
-                  {submitPrescription.isPending ? 'Submitting...' : 'Submit Prescription'}
+                  {isSubmitting ? 'Submitting...' : 'Submit Prescription'}
                 </Button>
 
                 <p className="text-center text-xs text-muted-foreground">

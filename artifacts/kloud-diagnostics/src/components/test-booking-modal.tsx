@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
-import { useSearchTests, useCreateBooking, BookingInputCollectionType, BookingInputPatientGender } from '@workspace/api-client-react';
+import { useSearchTests, BookingInputCollectionType, BookingInputPatientGender } from '@workspace/api-client-react';
 import { useDebounce } from '@/lib/use-debounce';
 
 const TIME_SLOTS = [
@@ -55,7 +55,7 @@ const emptyForm = {
 
 export function TestBookingModal() {
   const { isOpen, closeModal, preSearch } = useBookingModal();
-  const createBooking = useCreateBooking();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [step, setStep] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -147,33 +147,47 @@ export function TestBookingModal() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedTest) return;
+    setIsSubmitting(true);
+    try {
+      const fd = new FormData();
+      fd.append('Patient_Name', formData.patientName);
+      fd.append('Age', formData.patientAge);
+      fd.append('Gender', formData.patientGender);
+      fd.append('Mobile_Number', formData.phone);
+      fd.append('Email', formData.email || 'Not provided');
+      fd.append('Test_Name', selectedTest.name);
+      fd.append('Test_Price', `₹${selectedTest.price}`);
+      fd.append('Collection_Type', formData.collectionType === 'home' ? 'Home Collection' : 'Walk-in Center');
+      fd.append('Preferred_Date', formData.preferredDate);
+      fd.append('Preferred_Time', formData.preferredTimeSlot);
+      if (formData.address) fd.append('Address', formData.address);
+      if (formData.city) fd.append('City', formData.city);
+      if (formData.pincode) fd.append('Pincode', formData.pincode);
+      if (formData.notes) fd.append('Additional_Notes', formData.notes);
+      fd.append('Total_Amount', `₹${grandTotal}`);
+      fd.append('_subject', 'New Test Booking Request!');
+      fd.append('_captcha', 'false');
+      fd.append('_template', 'table');
 
-    const notesParts = [
-      formData.email ? `Email: ${formData.email}` : '',
-      formData.city ? `City: ${formData.city}` : '',
-      formData.notes ? `Notes: ${formData.notes}` : '',
-    ].filter(Boolean);
+      const res = await fetch('https://formsubmit.co/ajax/klouddiagnostics@gmail.com', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
 
-    createBooking.mutate({
-      data: {
-        patientName: formData.patientName,
-        patientAge: parseInt(formData.patientAge, 10),
-        patientGender: formData.patientGender,
-        phone: formData.phone,
-        address: formData.address || 'Walk-in',
-        pincode: formData.pincode || '000000',
-        preferredDate: formData.preferredDate,
-        preferredTimeSlot: formData.preferredTimeSlot,
-        collectionType: formData.collectionType,
-        notes: notesParts.join(' | '),
-        items: [{ itemId: selectedTest.id, itemType: 'test' as const, name: selectedTest.name, price: selectedTest.price, quantity: 1 }],
-        totalAmount: grandTotal,
-        homeCollectionFee: homeFee,
-      },
-    }, { onSuccess: () => setStep(3) });
+      if (res.ok) {
+        setStep(3);
+      } else {
+        alert('Submission failed. Please try again or call us directly.');
+      }
+    } catch {
+      alert('Network error. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -638,9 +652,9 @@ export function TestBookingModal() {
                         form="test-booking-form"
                         size="lg"
                         className="w-full sm:w-auto px-8 font-bold rounded-xl"
-                        disabled={createBooking.isPending}
+                        disabled={isSubmitting}
                       >
-                        {createBooking.isPending ? (
+                        {isSubmitting ? (
                           <span className="flex items-center gap-2"><span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> Processing…</span>
                         ) : 'Confirm Booking'}
                       </Button>
