@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useSubmitPrescription } from '@workspace/api-client-react';
 import { Button } from '@/components/ui/button';
-import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck } from 'lucide-react';
+import { Upload, X, FileText, CheckCircle2, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'wouter';
 
@@ -18,6 +18,7 @@ export default function UploadPrescriptionPage() {
     phone: '',
     preferredArea: '',
     preferredTimeSlot: 'Anytime',
+    referringDoctor: '',
     notes: '',
   });
 
@@ -80,7 +81,7 @@ export default function UploadPrescriptionPage() {
           </div>
           <div className="flex flex-col gap-3">
             <Button size="lg" onClick={() => setLocation('/')} className="w-full">Return to Home</Button>
-            <Button size="lg" variant="outline" onClick={() => { setIsSuccess(false); setFiles([]); setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', notes: '' }); }} className="w-full">
+            <Button size="lg" variant="outline" onClick={() => { setIsSuccess(false); setFiles([]); setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' }); }} className="w-full">
               Upload Another
             </Button>
           </div>
@@ -307,6 +308,19 @@ export default function UploadPrescriptionPage() {
                         <option>Afternoon (12 PM – 4 PM)</option>
                         <option>Evening (4 PM – 8 PM)</option>
                       </select>
+                    </div>
+
+                    <div className="space-y-2 md:col-span-2">
+                      <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
+                        <Stethoscope className="w-4 h-4 text-orange-500" /> Referring Doctor <span className="text-muted-foreground font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.referringDoctor}
+                        onChange={e => setFormData({ ...formData, referringDoctor: e.target.value })}
+                        className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
+                        placeholder="e.g. Dr. Rajesh Sharma / Dr. Priya Mehta"
+                      />
                     </div>
 
                     <div className="space-y-2 md:col-span-2">
