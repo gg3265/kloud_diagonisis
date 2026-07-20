@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Upload, X, FileText, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope } from 'lucide-react';
+import { Upload, X, FileText, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope, Home } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBookingModal } from '@/lib/booking-modal-context';
 
@@ -18,11 +18,16 @@ export default function UploadPrescriptionPage() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    preferredArea: '',
+    collectionType: 'home' as 'home' | 'walkin',
+    address: '',
+    city: '',
+    pincode: '',
     preferredTimeSlot: 'Anytime',
     referringDoctor: '',
     notes: '',
   });
+
+  const isHome = formData.collectionType === 'home';
 
   const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(true); };
   const handleDragLeave = (e: React.DragEvent) => { e.preventDefault(); setIsDragging(false); };
@@ -76,7 +81,7 @@ export default function UploadPrescriptionPage() {
     submittedRef.current = false;
     setIsSubmitting(false);
     setFiles([]);
-    setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
+    setFormData({ name: '', phone: '', collectionType: 'home', address: '', city: '', pincode: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
     if (fileInputRef.current) fileInputRef.current.value = '';
     showSuccessPopup('Our team will review your prescription and call you within 30 minutes.');
   };
@@ -179,6 +184,8 @@ export default function UploadPrescriptionPage() {
                 <input type="hidden" name="_template" value="table" />
                 {/* Subject is set dynamically in handleSubmit for unique threading */}
                 <input type="hidden" name="_subject" ref={subjectRef} defaultValue="New Prescription Upload" />
+                {/* Collection type sent as readable text in email */}
+                <input type="hidden" name="Collection_Type" value={isHome ? 'Home Collection' : 'Walk-in Center'} />
 
                 {/* Upload Zone */}
                 <div>
@@ -300,21 +307,6 @@ export default function UploadPrescriptionPage() {
 
                     <div className="space-y-2">
                       <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
-                        <MapPin className="w-4 h-4 text-orange-500" /> Preferred Area
-                      </label>
-                      <input
-                        required
-                        type="text"
-                        name="Preferred_Area"
-                        value={formData.preferredArea}
-                        onChange={e => setFormData({ ...formData, preferredArea: e.target.value })}
-                        className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
-                        placeholder="e.g. Andheri West, Mumbai"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
                         <Clock className="w-4 h-4 text-orange-500" /> Best Time to Call
                       </label>
                       <select
@@ -330,7 +322,7 @@ export default function UploadPrescriptionPage() {
                       </select>
                     </div>
 
-                    <div className="space-y-2 md:col-span-2">
+                    <div className="space-y-2">
                       <label className="text-sm font-semibold flex items-center gap-2 text-foreground/80">
                         <Stethoscope className="w-4 h-4 text-orange-500" /> Referring Doctor <span className="text-muted-foreground font-normal">(Optional)</span>
                       </label>
@@ -345,7 +337,7 @@ export default function UploadPrescriptionPage() {
                     </div>
 
                     <div className="space-y-2 md:col-span-2">
-                      <label className="text-sm font-semibold text-foreground/80">Additional Notes (optional)</label>
+                      <label className="text-sm font-semibold text-foreground/80">Additional Notes <span className="text-muted-foreground font-normal">(Optional)</span></label>
                       <textarea
                         rows={2}
                         name="Additional_Notes"
@@ -355,6 +347,99 @@ export default function UploadPrescriptionPage() {
                         placeholder="e.g. Doctor advised fasting test, preferred morning slot..."
                       />
                     </div>
+                  </div>
+                </div>
+
+                {/* Collection Type */}
+                <div>
+                  <h2 className="text-lg font-extrabold font-sans mb-5 flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xs">3</span>
+                    Collection Preference
+                  </h2>
+
+                  <div className="space-y-5">
+                    {/* Home / Walk-in toggle */}
+                    <div className="grid grid-cols-2 gap-3">
+                      {([
+                        { val: 'home', label: 'Home Collection', sub: 'We come to you', icon: Home },
+                        { val: 'walkin', label: 'Walk-in Center', sub: 'Visit our lab', icon: MapPin },
+                      ] as const).map(({ val, label, sub, icon: Icon }) => (
+                        <button
+                          key={val}
+                          type="button"
+                          onClick={() => setFormData({ ...formData, collectionType: val, address: '', city: '', pincode: '' })}
+                          className={`rounded-xl border-2 p-4 flex items-center gap-3 transition-all text-left focus:outline-none focus:ring-2 focus:ring-orange-400
+                            ${formData.collectionType === val
+                              ? 'border-orange-500 bg-orange-50 shadow-sm'
+                              : 'border-border hover:border-orange-300'}`}
+                        >
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${formData.collectionType === val ? 'border-orange-500' : 'border-muted-foreground/30'}`}>
+                            {formData.collectionType === val && <div className="w-2.5 h-2.5 rounded-full bg-orange-500" />}
+                          </div>
+                          <div>
+                            <div className="font-bold text-sm flex items-center gap-1.5">
+                              <Icon className="w-3.5 h-3.5" /> {label}
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-0.5">{sub}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Address fields — animated in/out for Home Collection */}
+                    <AnimatePresence>
+                      {isHome && (
+                        <motion.div
+                          key="address-block"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.22 }}
+                          className="space-y-4 overflow-hidden"
+                        >
+                          <div className="space-y-1.5">
+                            <label className="text-sm font-semibold flex items-center gap-1.5 text-foreground/80">
+                              <MapPin className="w-3.5 h-3.5 text-orange-500" /> Full Address
+                            </label>
+                            <textarea
+                              required={isHome}
+                              rows={2}
+                              name="Address"
+                              value={formData.address}
+                              onChange={e => setFormData({ ...formData, address: e.target.value })}
+                              placeholder="Flat/House No, Building, Street, Area"
+                              className="w-full p-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all resize-none text-sm"
+                            />
+                          </div>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                              <label className="text-sm font-semibold text-foreground/80">City</label>
+                              <input
+                                type="text"
+                                name="City"
+                                value={formData.city}
+                                onChange={e => setFormData({ ...formData, city: e.target.value })}
+                                placeholder="Mumbai"
+                                className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
+                              />
+                            </div>
+                            <div className="space-y-1.5">
+                              <label className="text-sm font-semibold text-foreground/80">Pincode</label>
+                              <input
+                                required={isHome}
+                                type="text"
+                                name="Pincode"
+                                pattern="[0-9]{6}"
+                                value={formData.pincode}
+                                onChange={e => setFormData({ ...formData, pincode: e.target.value })}
+                                placeholder="6-digit pincode"
+                                className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-orange-400 outline-none transition-all text-sm"
+                              />
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 </div>
 
