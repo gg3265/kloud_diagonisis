@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Search, Beaker, ArrowRight, ArrowLeft, Calendar, Clock,
-  Phone, MapPin, Home, User, Mail, CheckCircle2, Activity,
+  Phone, MapPin, Home, User, Mail, Activity,
   Droplets, ScanLine, FlaskConical, ChevronRight, RotateCcw,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -54,7 +54,7 @@ const emptyForm = {
 };
 
 export function TestBookingModal() {
-  const { isOpen, closeModal, preSearch } = useBookingModal();
+  const { isOpen, closeModal, preSearch, showSuccessPopup } = useBookingModal();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [step, setStep] = useState(1);
@@ -168,7 +168,12 @@ export function TestBookingModal() {
       if (formData.pincode) fd.append('Pincode', formData.pincode);
       if (formData.notes) fd.append('Additional_Notes', formData.notes);
       fd.append('Total_Amount', `₹${grandTotal}`);
-      fd.append('_subject', 'New Test Booking Request!');
+      // Unique subject to prevent Gmail threading
+      const now = new Date();
+      const timeStr = now.toTimeString().slice(0, 8);
+      const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
+      const uniqueSubject = `New Test Booking - ${formData.patientName || 'Patient'} - ${timeStr} - ${uid}`;
+      fd.append('_subject', uniqueSubject);
       fd.append('_captcha', 'false');
       fd.append('_template', 'table');
 
@@ -179,7 +184,8 @@ export function TestBookingModal() {
       });
 
       if (res.ok) {
-        setStep(3);
+        handleClose();
+        showSuccessPopup('Our team will call you shortly to confirm your slot.');
       } else {
         alert('Submission failed. Please try again or call us directly.');
       }
@@ -661,54 +667,6 @@ export function TestBookingModal() {
                     </div>
                   </div>
                 </form>
-              )}
-
-              {/* ── STEP 3: Success ── */}
-              {step === 3 && (
-                <div className="flex-1 flex items-center justify-center p-8 min-h-[400px]">
-                  <motion.div
-                    initial={{ scale: 0.85, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: 'spring', damping: 20 }}
-                    className="text-center max-w-sm mx-auto"
-                  >
-                    <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
-                      <CheckCircle2 className="w-10 h-10" />
-                    </div>
-                    <h2 className="text-2xl font-extrabold font-sans mb-2">Booking Confirmed!</h2>
-                    <p className="text-muted-foreground mb-1">
-                      Thank you, <strong>{formData.patientName}</strong>!
-                    </p>
-                    <p className="text-sm text-muted-foreground mb-6">
-                      Our team will call you on <strong>{formData.phone}</strong> to confirm your slot.
-                    </p>
-                    <div className="bg-gray-50 rounded-2xl p-4 border border-border text-sm mb-6 text-left space-y-2">
-                      {selectedTest && (
-                        <div className="flex justify-between pb-2 border-b border-border">
-                          <span className="text-muted-foreground">Test</span>
-                          <span className="font-semibold text-right max-w-[60%]">{selectedTest.name}</span>
-                        </div>
-                      )}
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Date</span>
-                        <span className="font-semibold">{formData.preferredDate}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Time</span>
-                        <span className="font-semibold">{formData.preferredTimeSlot}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Type</span>
-                        <span className="font-semibold">{formData.collectionType === 'home' ? 'Home Collection' : 'Walk-in'}</span>
-                      </div>
-                      <div className="flex justify-between border-t border-border pt-2">
-                        <span className="font-bold">Total Paid</span>
-                        <span className="font-extrabold text-primary">₹{grandTotal}</span>
-                      </div>
-                    </div>
-                    <Button size="lg" onClick={handleClose} className="w-full rounded-xl font-bold">Done</Button>
-                  </motion.div>
-                </div>
               )}
 
             </div>

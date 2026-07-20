@@ -2,12 +2,14 @@ import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Upload, X, FileText, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useBookingModal } from '@/lib/booking-modal-context';
 
 export default function UploadPrescriptionPage() {
+  const { showSuccessPopup } = useBookingModal();
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const nextInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -38,25 +40,51 @@ export default function UploadPrescriptionPage() {
 
   const removeFile = (index: number) => setFiles(prev => prev.filter((_, i) => i !== index));
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (files.length === 0) { alert('Please upload at least one prescription file.'); return; }
+    setIsSubmitting(true);
 
-    // Sync all accumulated files (including drag-and-dropped ones) into the
-    // actual <input type="file"> element so the native form POST includes them.
-    if (fileInputRef.current) {
-      const dt = new DataTransfer();
-      files.forEach(f => dt.items.add(f));
-      fileInputRef.current.files = dt.files;
+    try {
+      const fd = new FormData();
+      fd.append('Full_Name', formData.name);
+      fd.append('Mobile_Number', formData.phone);
+      fd.append('Preferred_Area', formData.preferredArea);
+      fd.append('Best_Time_to_Call', formData.preferredTimeSlot);
+      if (formData.referringDoctor) fd.append('Referring_Doctor', formData.referringDoctor);
+      if (formData.notes) fd.append('Additional_Notes', formData.notes);
+      // Attach all files under the FormSubmit "attachment" field name
+      files.forEach(file => fd.append('attachment', file));
+
+      // Unique subject to prevent Gmail threading
+      const now = new Date();
+      const timeStr = now.toTimeString().slice(0, 8);
+      const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
+      const uniqueSubject = `New Prescription - ${formData.name || 'Patient'} - ${timeStr} - ${uid}`;
+      fd.append('_subject', uniqueSubject);
+      fd.append('_captcha', 'false');
+      fd.append('_template', 'table');
+
+      const res = await fetch('https://formsubmit.co/ajax/harshitpandey8194@gmail.com', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        // Reset form
+        setFiles([]);
+        setFormData({ name: '', phone: '', preferredArea: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        showSuccessPopup('Our team will review your prescription and call you within 30 minutes.');
+      } else {
+        alert('Submission failed. Please try again or call us directly.');
+      }
+    } catch {
+      alert('Network error. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Set the redirect URL dynamically so it works on any domain.
-    if (nextInputRef.current) {
-      nextInputRef.current.value = window.location.origin + '/';
-    }
-
-    // Submit natively — browser handles multipart encoding, file attachment included.
-    e.currentTarget.submit();
   };
 
   return (
@@ -139,17 +167,9 @@ export default function UploadPrescriptionPage() {
                 The AJAX /ajax/ endpoint silently strips files.
               */}
               <form
-                action="https://formsubmit.co/harshitpandey8194@gmail.com"
-                method="POST"
-                encType="multipart/form-data"
                 onSubmit={handleSubmit}
                 className="space-y-8"
               >
-                {/* FormSubmit hidden config */}
-                <input type="hidden" name="_subject" value="New Prescription Uploaded!" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_next" ref={nextInputRef} defaultValue="" />
 
                 {/* Upload Zone */}
                 <div>
@@ -332,10 +352,20 @@ export default function UploadPrescriptionPage() {
                 <Button
                   type="submit"
                   size="lg"
+                  disabled={isSubmitting}
                   className="w-full text-base h-14 rounded-2xl bg-orange-600 hover:bg-orange-700 gap-2 font-bold"
                 >
-                  <Upload className="w-5 h-5" />
-                  Submit Prescription
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Submitting…
+                    </span>
+                  ) : (
+                    <>
+                      <Upload className="w-5 h-5" />
+                      Submit Prescription
+                    </>
+                  )}
                 </Button>
 
                 <p className="text-center text-xs text-muted-foreground">

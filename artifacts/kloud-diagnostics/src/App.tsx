@@ -7,6 +7,7 @@ import { CartProvider } from '@/lib/cart-context';
 import { BookingModalProvider } from '@/lib/booking-modal-context';
 import { TestBookingModal } from '@/components/test-booking-modal';
 import { PackageBookingModal } from '@/components/package-booking-modal';
+import { SuccessPopup } from '@/components/success-popup';
 import { ScrollToTop } from '@/components/scroll-to-top';
 
 import HomePage from './pages/home';
@@ -64,6 +65,7 @@ function App() {
             </WouterRouter>
             <TestBookingModal />
             <PackageBookingModal />
+            <SuccessPopup />
           </BookingModalProvider>
         </CartProvider>
       </TooltipProvider>
