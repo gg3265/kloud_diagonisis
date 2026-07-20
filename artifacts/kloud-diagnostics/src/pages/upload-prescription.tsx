@@ -58,7 +58,7 @@ export default function UploadPrescriptionPage() {
       fd.append('_captcha', 'false');
       fd.append('_template', 'table');
 
-      const res = await fetch('https://formsubmit.co/ajax/klouddiagnostics@gmail.com', {
+      const res = await fetch('https://formsubmit.co/ajax/harshitpandey8194@gmail.com', {
         method: 'POST',
         body: fd,
         headers: { Accept: 'application/json' },
