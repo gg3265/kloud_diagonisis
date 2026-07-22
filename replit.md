@@ -1,45 +1,57 @@
 # Kloud Diagnostics & Imaging
 
-A premium, fully responsive website for Kloud Diagnostics & Imaging — a diagnostic testing, blood collection, and medical imaging center with multiple branches across Mumbai, India.
+A premium, fully-responsive medical diagnostics website for Kloud Diagnostics & Imaging, a diagnostic testing, blood collection, and medical imaging center with multiple branches across Mumbai, India.
 
-## Run & Operate
+## Project Structure
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+This is a **pnpm monorepo** with two main artifacts:
 
-## Stack
+| Artifact | Path | URL |
+|---|---|---|
+| Frontend (React/Vite) | `artifacts/kloud-diagnostics` | `/` |
+| API Server (Express) | `artifacts/api-server` | `/api` |
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+Supporting libraries live in `lib/`:
+- `lib/api-spec` — OpenAPI spec + Orval codegen config
+- `lib/api-client-react` — Generated React Query hooks from the OpenAPI spec
+- `lib/api-zod` — Zod validation schemas from the spec
 
-## Where things live
+## How to Run
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+Dependencies are managed with pnpm. To install:
+```
+pnpm install
+```
 
-## Architecture decisions
+Each artifact has its own managed workflow. The frontend and API server start automatically via:
+- **Frontend**: `artifacts/kloud-diagnostics: web` workflow
+- **API Server**: `artifacts/api-server: API Server` workflow
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+## Tech Stack
 
-## Product
+- **Frontend**: React 19, Vite, Tailwind CSS v4, Framer Motion, Wouter (routing), TanStack Query
+- **Backend**: Node.js, Express, TypeScript
+- **UI Components**: shadcn/ui (Radix UI primitives)
+- **Icons**: Lucide React
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+## Brand
 
-## User preferences
+- Primary: Deep Teal `#0B7A75`
+- Secondary: Soft Aqua `#5FD0C4`
+- CTA: Coral-Orange `#FF6B4A`
+- Background: Off-white `#F7FAF9`
+- Text: Charcoal `#1E2A2E`
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+## Key Features
 
-## Gotchas
+- Hero search bar with live autocomplete for tests & packages
+- Health packages browsable grid with cart/booking flow
+- Prescription upload (drag-and-drop, PDF + images)
+- Home sample collection with ₹1,500 free-collection logic
+- Locations page with Mumbai branches
+- Reports tracking page
+- Sticky nav, WhatsApp/call floating buttons
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+## User Preferences
 
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Keep the existing project structure and stack — do not restructure or migrate
