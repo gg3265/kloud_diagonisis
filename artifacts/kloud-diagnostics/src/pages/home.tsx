@@ -436,7 +436,7 @@ export default function HomePage() {
         </div>
       </section>
       {/* ─── FAQ SECTION ─── */}
-      <section className="py-24 bg-gray-50 border-t border-gray-100">
+      <section id="faq" className="py-24 bg-gray-50 border-t border-gray-100">
         <div className="container mx-auto px-4 md:px-6 max-w-4xl">
           <div className="text-center mb-16">
             <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto mb-6">

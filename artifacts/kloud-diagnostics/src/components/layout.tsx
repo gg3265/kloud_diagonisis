@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { name: 'Services', path: '/services' },
   { name: 'Packages', path: '/packages' },
   { name: 'Home Collection', path: '/home-collection' },
-
+  { name: 'FAQ', path: '/faq' },
   { name: 'Contact', path: '/contact' },
 ];
 
