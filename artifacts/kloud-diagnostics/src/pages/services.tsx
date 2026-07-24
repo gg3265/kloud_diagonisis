@@ -93,7 +93,7 @@ export default function ServicesPage() {
               ))}
             </div>
 
-            <Link href="/locations" className="inline-flex items-center text-primary font-bold hover:underline group">
+            <Link href="/contact" className="inline-flex items-center text-primary font-bold hover:underline group">
               Find an Imaging Center <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>

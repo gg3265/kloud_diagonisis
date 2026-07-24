@@ -4,28 +4,24 @@ import { ChevronDown, MessageCircle } from 'lucide-react';
 
 const FAQS = [
   {
-    question: "Is home sample collection available everywhere in Mumbai?",
-    answer: "Yes, we provide home sample collection services across Mumbai. Enter your pincode during booking to verify exact availability."
+    question: "Do you process medical tests in your own laboratory?",
+    answer: "No, Kloud Diagnostics does not perform tests directly in-house. We are strategically associated with top NABL & ISO accredited network labs across Mumbai, such as Lupin Diagnostics, Max Healthcare, and other leading diagnostic partners, ensuring high accuracy and reliability for all your reports."
   },
   {
-    question: "How long does it take to get the reports?",
-    answer: "Most routine pathology test reports are delivered digitally via Email and WhatsApp within 12 to 24 hours of sample collection. Specialized tests may take longer."
+    question: "Are your partner labs accredited and certified?",
+    answer: "Yes, absolutely. We work exclusively with top-tier, NABL & ISO accredited laboratories to guarantee that every test result meets strict quality standards."
   },
   {
-    question: "Are your labs accredited?",
-    answer: "Absolutely. Kloud Diagnostics is NABL (National Accreditation Board for Testing and Calibration Laboratories) accredited and ISO 9001:2015 certified, ensuring the highest standards of precision and quality."
+    question: "Is home sample collection available everywhere?",
+    answer: "Currently, our home sample collection services are exclusively available across Mumbai."
   },
   {
-    question: "Do I need to fast before a blood test?",
-    answer: "Fasting requirements vary by test. For example, a Fasting Blood Sugar or Lipid Profile typically requires 10-12 hours of overnight fasting. Our test catalog clearly indicates if fasting is required for specific tests or packages."
+    question: "How do I receive my test reports after sample collection?",
+    answer: "Once your sample is processed by our accredited partner lab, your digital test reports are delivered directly to you via WhatsApp, Email, or through our website portal."
   },
   {
-    question: "Can I book a test without a doctor's prescription?",
-    answer: "Yes, you can book preventive health packages and routine blood tests without a prescription. However, certain specialized tests and radiology scans (like MRI or CT) strictly require a valid doctor's prescription."
-  },
-  {
-    question: "How is the home collection fee calculated?",
-    answer: "We offer FREE home sample collection for all bookings worth ₹1,500 or more. For bookings below ₹1,500, a nominal home collection fee of ₹150 applies."
+    question: "How do I book a test or a home collection visit?",
+    answer: "You can easily search for your required test on our website, select a package, and click to book or connect with our support team directly via WhatsApp/Call for instant home collection scheduling."
   }
 ];
 

@@ -15,7 +15,7 @@ import PackagesPage from './pages/packages';
 import BookPage from './pages/book';
 import UploadPrescriptionPage from './pages/upload-prescription';
 import ReportsPage from './pages/reports';
-import LocationsPage from './pages/locations';
+
 import HomeCollectionPage from './pages/home-collection';
 import ServicesPage from './pages/services';
 import FAQPage from './pages/faq';
@@ -39,7 +39,7 @@ function Router() {
         <Route path="/services" component={ServicesPage} />
         <Route path="/packages" component={PackagesPage} />
         <Route path="/home-collection" component={HomeCollectionPage} />
-        <Route path="/locations" component={LocationsPage} />
+
         <Route path="/book" component={BookPage} />
         <Route path="/upload-prescription" component={UploadPrescriptionPage} />
         <Route path="/reports" component={ReportsPage} />

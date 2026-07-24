@@ -74,7 +74,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold mb-8 border border-primary/20"
             >
               <BadgeCheck className="w-4 h-4" />
-              NABL & ISO Accredited • Mumbai's Trusted Lab
+              Associated with all top NABL & ISO Accredited labs • Mumbai's Trusted Lab
             </motion.div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-extrabold text-foreground tracking-tight mb-6 max-w-5xl mx-auto leading-[1.08]">
