@@ -210,7 +210,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
+          <div className="md:border-l md:border-[#C9A227]/20 md:pl-8 pt-8 md:pt-0 mt-8 md:mt-0 border-t md:border-t-0 border-[#C9A227]/20">
             <h4 className="font-sans font-bold text-base mb-6 text-card">Quick Links</h4>
             <ul className="space-y-3 text-sm text-white/60">
               {[
@@ -226,7 +226,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
+          <div className="md:border-l md:border-[#C9A227]/20 md:pl-8 pt-8 md:pt-0 mt-8 md:mt-0 border-t md:border-t-0 border-[#C9A227]/20">
             <h4 className="font-sans font-bold text-base mb-6 text-card">Popular Tests</h4>
             <ul className="space-y-3 text-sm text-white/60">
               {['Complete Blood Count (CBC)', 'Thyroid Profile (T3/T4/TSH)', 'HbA1c (Diabetes)', 'Vitamin D & B12', 'Lipid Profile', 'Liver Function Test', 'Kidney Function Test'].map(t => (
@@ -235,7 +235,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div style={{ borderLeft: '1px solid rgba(201,162,39,0.2)', paddingLeft: '2rem' }} className="md:pl-8">
+          <div className="md:border-l md:border-[#C9A227]/20 md:pl-8 pt-8 md:pt-0 mt-8 md:mt-0 border-t md:border-t-0 border-[#C9A227]/20">
             <h4 className="font-sans font-bold text-base mb-6 text-card">Contact Us</h4>
             <ul className="space-y-5 text-sm">
               <li className="flex items-start gap-3">
