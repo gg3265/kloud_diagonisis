@@ -133,6 +133,11 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
                             <HighlightText text={test.name} query={debouncedQuery} />
                           </h4>
                           <div className="flex items-center gap-3 text-sm mt-1">
+                            {(test as any).code && (
+                              <span className="text-xs font-mono text-muted-foreground/70 bg-gray-100 px-1.5 py-0.5 rounded">
+                                <HighlightText text={(test as any).code} query={debouncedQuery} />
+                              </span>
+                            )}
                             <span className="text-muted-foreground flex items-center">
                               <Clock className='w-3 h-3 inline mr-1 opacity-60' />
                               {test.turnaround}
