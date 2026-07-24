@@ -259,14 +259,19 @@ export default function HomePage() {
               <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-12 -translate-x-8" />
               <div className="relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-6">
-                  <Home className="w-7 h-7" />
+                <div className="flex flex-wrap items-center gap-4 mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                    <Home className="w-7 h-7" />
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/20 text-red-100 text-xs font-bold border border-red-500/30">
+                    <MapPin className="w-3.5 h-3.5" /> Only in Mumbai
+                  </div>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-extrabold font-sans mb-3 leading-tight">
                   Home Sample Collection
                 </h2>
                 <p className="text-white/80 mb-6 leading-relaxed">
-                  Skip the wait — our trained phlebotomists collect your sample safely from home. Digital reports within 24 hours.
+                  <strong className="text-white">Available exclusively across Mumbai.</strong> Skip the wait — our trained phlebotomists collect your sample safely from home. Digital reports within 24 hours.
                 </p>
                 <ul className="space-y-3 mb-8">
                   {[

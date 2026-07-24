@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, ShieldCheck, Clock, FileText, ArrowRight } from 'lucide-react';
+import { Home, ShieldCheck, Clock, FileText, ArrowRight, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
@@ -34,8 +34,13 @@ export default function HomeCollectionPage() {
       <section className="bg-primary/5 pt-20 pb-24 border-b border-border">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-white text-sm font-bold mb-8 shadow-sm">
-              FREE on orders ≥ ₹1,500
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-white text-sm font-bold shadow-sm">
+                FREE on orders ≥ ₹1,500
+              </div>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 text-red-600 text-sm font-bold shadow-sm border border-red-500/20">
+                <MapPin className="w-4 h-4" /> Available Only in Mumbai
+              </div>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold font-sans text-foreground mb-6 tracking-tight">
               Skip the Visit.<br />We Come to You.
