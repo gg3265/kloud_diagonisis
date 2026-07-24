@@ -1,24 +1,48 @@
-import React from 'react';
-import { useGetSiteStats, useListPackages, useListTestimonials, useListLocations } from '@workspace/api-client-react';
+import React, { useState } from 'react';
+import { useGetSiteStats, useListPackages, useListTestimonials } from '@workspace/api-client-react';
 import { SearchBar } from '@/components/search-bar';
 import { motion } from 'framer-motion';
 import {
   ShieldCheck, Clock, MapPin, Activity, Star, ArrowRight,
   Home, Microscope, HeartPulse, Beaker, Phone, FileText,
-  ChevronRight, BadgeCheck, Zap, Users
+  ChevronRight, BadgeCheck, Zap, Users, ChevronDown, MessageCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
+import { AnimatePresence } from 'framer-motion';
 
 const POPULAR_CHIPS = ['CBC', 'Vitamin D', 'HbA1c', 'Thyroid Profile', 'LFT', 'KFT', 'Lipid Profile', 'Vitamin B12', 'Dengue', 'Fever Profile'];
+
+const FAQS = [
+  {
+    question: "Do you process medical tests in your own laboratory?",
+    answer: "No, Kloud Diagnostics does not perform tests directly in-house. We are strategically associated with top NABL & ISO accredited network labs across Mumbai, such as Lupin Diagnostics, Max Healthcare, and other leading diagnostic partners, ensuring high accuracy and reliability for all your reports."
+  },
+  {
+    question: "Are your partner labs accredited and certified?",
+    answer: "Yes, absolutely. We work exclusively with top-tier, NABL & ISO accredited laboratories to guarantee that every test result meets strict quality standards."
+  },
+  {
+    question: "Is home sample collection available everywhere?",
+    answer: "Currently, our home sample collection services are exclusively available across Mumbai."
+  },
+  {
+    question: "How do I receive my test reports after sample collection?",
+    answer: "Once your sample is processed by our accredited partner lab, your digital test reports are delivered directly to you via WhatsApp, Email, or through our website portal."
+  },
+  {
+    question: "How do I book a test or a home collection visit?",
+    answer: "You can easily search for your required test on our website, select a package, and click to book or connect with our support team directly via WhatsApp/Call for instant home collection scheduling."
+  }
+];
 
 export default function HomePage() {
   const { data: stats } = useGetSiteStats();
   const { data: packages, isLoading: pkgsLoading } = useListPackages();
   const { data: testimonials } = useListTestimonials();
-  const { data: locations } = useListLocations();
   const { openModal, openPackageModal } = useBookingModal();
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const heroStats = [
     { label: 'Tests Available', value: stats?.testsCount || '500,000+', icon: Beaker },
@@ -411,6 +435,54 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* ─── FAQ SECTION ─── */}
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <div className="text-center mb-16">
+            <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <MessageCircle className="w-8 h-8" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-sans text-foreground mb-4">Frequently Asked Questions</h2>
+            <p className="text-lg text-muted-foreground">
+              Everything you need to know about booking tests, reports, and our services.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {FAQS.map((faq, index) => (
+              <div 
+                key={index}
+                className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${openFaqIndex === index ? 'border-primary/30 shadow-md' : 'border-border shadow-sm'}`}
+              >
+                <button
+                  className="w-full text-left px-6 py-5 flex items-center justify-between focus:outline-none"
+                  onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                >
+                  <span className="font-bold text-lg font-sans pr-4">{faq.question}</span>
+                  <ChevronDown 
+                    className={`w-5 h-5 text-muted-foreground shrink-0 transition-transform duration-300 ${openFaqIndex === index ? 'rotate-180 text-primary' : ''}`} 
+                  />
+                </button>
+                <AnimatePresence>
+                  {openFaqIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="px-6 pb-6 pt-0 text-muted-foreground leading-relaxed border-t border-gray-100 mt-2">
+                        <div className="pt-4">{faq.answer}</div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── CONTACT CTA ─── */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
