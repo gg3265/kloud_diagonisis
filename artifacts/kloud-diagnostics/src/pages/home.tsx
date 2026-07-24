@@ -66,19 +66,7 @@ export default function HomePage() {
             </defs>
             <rect width="100%" height="100%" fill="url(#hero-grid)" />
           </svg>
-          {/* Heartbeat line */}
-          <svg className="absolute top-1/2 left-0 w-full h-24 -translate-y-1/2 text-primary" preserveAspectRatio="none" viewBox="0 0 1200 80" xmlns="http://www.w3.org/2000/svg">
-            <motion.path
-              d="M0,40 L300,40 L330,5 L360,75 L390,40 L500,40 L530,10 L560,70 L590,40 L1200,40"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeOpacity="0.12"
-              initial={{ strokeDasharray: 2000, strokeDashoffset: 2000 }}
-              animate={{ strokeDashoffset: 0 }}
-              transition={{ duration: 5, ease: 'linear', repeat: Infinity }}
-            />
-          </svg>
+
           {/* Large faint circle */}
           <div className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl" />
           <div className="absolute -bottom-32 -left-32 w-[400px] h-[400px] rounded-full bg-primary/8 blur-3xl" />
