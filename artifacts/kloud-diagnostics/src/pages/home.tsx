@@ -101,23 +101,15 @@ export default function HomePage() {
               Associated with all top NABL & ISO Accredited labs • Mumbai's Trusted Lab
             </motion.div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-extrabold text-foreground tracking-tight mb-6 max-w-5xl mx-auto leading-[1.08]">
-              Accurate Diagnostics.<br />
-              <span className="text-primary">Trusted Across Mumbai.</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-              Precision testing, fast digital reports, and compassionate care — right at your doorstep or at any of our premium centers.
-            </p>
-
-            {/* Search area */}
-            <div className="max-w-3xl mx-auto">
+            {/* Search area relocated (Replaces Heading) */}
+            <div className="max-w-4xl mx-auto mb-10 mt-4">
               <div className="relative z-30">
-                <SearchBar className="mb-5 shadow-xl ring-1 ring-primary/10" />
+                <SearchBar className="mb-6 shadow-2xl ring-1 ring-primary/20 transform md:scale-105" />
               </div>
 
-              {/* Popular chips */}
-              <div className="flex flex-wrap justify-center gap-2 items-center">
-                <span className="text-sm font-semibold text-muted-foreground/70">Popular:</span>
+              {/* Popular Test chips */}
+              <div className="flex flex-wrap justify-center gap-2 items-center mb-6">
+                <span className="text-sm font-semibold text-muted-foreground/70">Popular Tests:</span>
                 {POPULAR_CHIPS.map((chip) => (
                   <button
                     key={chip}
@@ -128,7 +120,27 @@ export default function HomePage() {
                   </button>
                 ))}
               </div>
+
+              {/* Popular Packages Quick-links */}
+              <div className="flex flex-wrap justify-center gap-3 items-center">
+                <span className="text-sm font-semibold text-muted-foreground/70">Popular Packages:</span>
+                {['Basic Health Checkup', 'Comprehensive Full Body', 'Senior Citizen Profile'].map((pkg) => (
+                  <button
+                    key={pkg}
+                    onClick={() => {
+                      document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="px-4 py-2 bg-primary/5 border border-primary/20 rounded-xl text-sm font-bold text-primary hover:bg-primary hover:text-white transition-all shadow-sm cursor-pointer"
+                  >
+                    {pkg}
+                  </button>
+                ))}
+              </div>
             </div>
+
+            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+              Precision testing, fast digital reports, and compassionate care — right at your doorstep or at any of our premium centers.
+            </p>
 
             {/* CTA strip */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
@@ -147,7 +159,7 @@ export default function HomePage() {
         </div>
       </section>
       {/* ─── PACKAGES ─── */}
-      <section className="py-24 bg-gradient-to-b from-[#FDFBF9] to-white">
+      <section id="packages" className="py-24 bg-gradient-to-b from-[#FDFBF9] to-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-6">
             <div>
