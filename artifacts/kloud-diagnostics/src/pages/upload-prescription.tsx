@@ -172,18 +172,18 @@ export default function UploadPrescriptionPage() {
             <div className="bg-white rounded-3xl shadow-lg border border-border p-6 md:p-9">
               <form
                 ref={formRef}
-                action="https://formsubmit.co/harshitpandey8194@gmail.com"
+                action="https://api.web3forms.com/submit"
                 method="POST"
                 encType="multipart/form-data"
                 target="prescription-iframe"
                 onSubmit={handleSubmit}
                 className="space-y-8"
               >
-                {/* FormSubmit control fields */}
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
+                {/* Web3Forms control fields */}
+                <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY} />
+                <input type="hidden" name="from_name" value="Kloud Diagnostics" />
                 {/* Subject is set dynamically in handleSubmit for unique threading */}
-                <input type="hidden" name="_subject" ref={subjectRef} defaultValue="New Prescription Upload" />
+                <input type="hidden" name="subject" ref={subjectRef} defaultValue="New Prescription Upload" />
                 {/* Collection type sent as readable text in email */}
                 <input type="hidden" name="Collection_Type" value={isHome ? 'Home Collection' : 'Walk-in Center'} />
 
@@ -205,7 +205,7 @@ export default function UploadPrescriptionPage() {
                     onDrop={handleDrop}
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    {/* name="attachment" is required by FormSubmit.co to attach the file */}
+                    {/* name="attachment" is required by Web3Forms to attach the file */}
                     <input
                       type="file"
                       name="attachment"

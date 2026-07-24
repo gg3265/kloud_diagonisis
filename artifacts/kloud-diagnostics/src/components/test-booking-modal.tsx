@@ -173,11 +173,11 @@ export function TestBookingModal() {
       const timeStr = now.toTimeString().slice(0, 8);
       const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
       const uniqueSubject = `New Test Booking - ${formData.patientName || 'Patient'} - ${timeStr} - ${uid}`;
-      fd.append('_subject', uniqueSubject);
-      fd.append('_captcha', 'false');
-      fd.append('_template', 'table');
+      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+      fd.append('subject', uniqueSubject);
+      fd.append('from_name', 'Kloud Diagnostics');
 
-      const res = await fetch('https://formsubmit.co/ajax/harshitpandey8194@gmail.com', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: fd,
         headers: { Accept: 'application/json' },
