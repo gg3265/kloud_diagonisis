@@ -90,9 +90,9 @@ export default function HomePage() {
             </motion.div>
 
             {/* Search area relocated (Replaces Heading) */}
-            <div className="max-w-4xl mx-auto mb-10 mt-4">
-              <div className="relative z-30">
-                <SearchBar className="mb-6 shadow-2xl ring-1 ring-primary/20 transform md:scale-105" />
+            <div className="max-w-3xl mx-auto mb-10 mt-4 px-2 sm:px-6">
+              <div className="relative z-30 w-full mx-auto">
+                <SearchBar className="mb-6 shadow-2xl ring-1 ring-primary/20" />
               </div>
 
               {/* Popular Test chips */}
