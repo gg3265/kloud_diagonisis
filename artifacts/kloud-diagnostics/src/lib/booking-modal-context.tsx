@@ -13,9 +13,10 @@ export interface PackageInfo {
 interface BookingModalContextType {
   // Individual test modal
   isOpen: boolean;
-  openModal: (preSearch?: string) => void;
+  openModal: (preSearch?: string, preSelectedTest?: any) => void;
   closeModal: () => void;
   preSearch: string;
+  preSelectedTest: any | null;
 
   // Package booking modal
   isPackageModalOpen: boolean;
@@ -35,13 +36,15 @@ const BookingModalContext = createContext<BookingModalContextType | undefined>(u
 export const BookingModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [preSearch, setPreSearch] = useState('');
+  const [preSelectedTest, setPreSelectedTest] = useState<any | null>(null);
   const [isPackageModalOpen, setIsPackageModalOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<PackageInfo | null>(null);
   const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState(false);
   const [successPopupMessage, setSuccessPopupMessage] = useState('');
 
-  const openModal = (search = '') => {
+  const openModal = (search = '', test: any = null) => {
     setPreSearch(search);
+    setPreSelectedTest(test);
     setIsOpen(true);
     document.body.style.overflow = 'hidden';
   };
@@ -49,6 +52,7 @@ export const BookingModalProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const closeModal = () => {
     setIsOpen(false);
     setPreSearch('');
+    setPreSelectedTest(null);
     document.body.style.overflow = '';
   };
 
@@ -78,7 +82,7 @@ export const BookingModalProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   return (
     <BookingModalContext.Provider value={{
-      isOpen, openModal, closeModal, preSearch,
+      isOpen, openModal, closeModal, preSearch, preSelectedTest,
       isPackageModalOpen, openPackageModal, closePackageModal, selectedPackage,
       isSuccessPopupOpen, successPopupMessage, showSuccessPopup, hideSuccessPopup,
     }}>

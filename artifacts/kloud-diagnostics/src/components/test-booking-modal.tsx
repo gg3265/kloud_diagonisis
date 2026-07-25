@@ -54,7 +54,7 @@ const emptyForm = {
 };
 
 export function TestBookingModal() {
-  const { isOpen, closeModal, preSearch, showSuccessPopup } = useBookingModal();
+  const { isOpen, closeModal, preSearch, preSelectedTest, showSuccessPopup } = useBookingModal();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [step, setStep] = useState(1);
@@ -80,19 +80,27 @@ export function TestBookingModal() {
   // Reset state when modal opens
   useEffect(() => {
     if (isOpen) {
-      setStep(1);
-      setSelectedTest(null);
-      setFocusedIndex(-1);
-      setFormData(emptyForm);
-      if (preSearch) {
-        setSearchQuery(preSearch);
-        setShowDropdown(true);
-      } else {
-        setSearchQuery('');
+      if (preSelectedTest) {
+        setStep(2); // Jump straight to booking form
+        setSelectedTest(preSelectedTest);
+        setSearchQuery(preSelectedTest.name);
         setShowDropdown(false);
+        setFocusedIndex(-1);
+      } else {
+        setStep(1);
+        setSelectedTest(null);
+        setFocusedIndex(-1);
+        if (preSearch) {
+          setSearchQuery(preSearch);
+          setShowDropdown(true);
+        } else {
+          setSearchQuery('');
+          setShowDropdown(false);
+        }
       }
+      setFormData(emptyForm);
     }
-  }, [isOpen, preSearch]);
+  }, [isOpen, preSearch, preSelectedTest]);
 
   // ESC to close
   useEffect(() => {

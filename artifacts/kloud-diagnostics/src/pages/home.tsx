@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PACKAGES } from '@/lib/data';
+import { PACKAGES, searchItems } from '@/lib/data';
 import { SearchBar } from '@/components/search-bar';
 import { motion } from 'framer-motion';
 import {
@@ -107,7 +107,14 @@ export default function HomePage() {
                 {POPULAR_CHIPS.map((chip) => (
                   <button
                     key={chip}
-                    onClick={() => openModal(chip)}
+                    onClick={() => {
+                      const match = searchItems(chip, "test")?.tests?.[0];
+                      if (match) {
+                        openModal(chip, match);
+                      } else {
+                        openModal(chip);
+                      }
+                    }}
                     className="px-4 py-1.5 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full text-xs font-semibold text-foreground/80 hover:border-primary hover:text-primary hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-150 shadow-sm cursor-pointer"
                   >
                     {chip}
