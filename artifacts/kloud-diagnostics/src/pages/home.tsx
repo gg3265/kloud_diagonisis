@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGetSiteStats, useListPackages, useListTestimonials } from '@workspace/api-client-react';
+import { PACKAGES } from '@/lib/data';
 import { SearchBar } from '@/components/search-bar';
 import { motion } from 'framer-motion';
 import {
@@ -38,9 +38,14 @@ const FAQS = [
 ];
 
 export default function HomePage() {
-  const { data: stats } = useGetSiteStats();
-  const { data: packages, isLoading: pkgsLoading } = useListPackages();
-  const { data: testimonials } = useListTestimonials();
+  const stats = { testsCount: '500+', yearsExperience: '15+', patientsServed: 2000000 };
+  const packages = PACKAGES;
+  const pkgsLoading = false;
+  const testimonials = [
+    { id: '1', rating: 5, text: "Extremely professional and prompt service. The phlebotomist arrived right on time and was very gentle. Got my reports on WhatsApp within 12 hours.", name: "Rahul S.", area: "Andheri", service: "Home Collection" },
+    { id: '2', rating: 5, text: "Booked a comprehensive health package for my parents. The process was seamless from booking to report delivery. Highly recommended for senior citizens.", name: "Priya M.", area: "Bandra", service: "Health Package" },
+    { id: '3', rating: 5, text: "Very clean diagnostic center with helpful staff. Did my ultrasound here and was impressed by the advanced equipment and quick turnaround time.", name: "Amit K.", area: "Mazgaon", service: "Imaging" }
+  ];
   const { openModal, openPackageModal } = useBookingModal();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
