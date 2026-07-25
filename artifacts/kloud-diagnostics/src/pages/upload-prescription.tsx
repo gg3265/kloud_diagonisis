@@ -10,10 +10,6 @@ export default function UploadPrescriptionPage() {
   const [isDragging, setIsDragging] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-  const subjectRef = useRef<HTMLInputElement>(null);
-  // Track whether the iframe load is from an actual submission (not its initial mount)
-  const submittedRef = useRef(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -49,41 +45,63 @@ export default function UploadPrescriptionPage() {
 
   const removeFile = (index: number) => setFiles(prev => prev.filter((_, i) => i !== index));
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (files.length === 0) { alert('Please upload at least one prescription file.'); return; }
 
-    // Sync drag-and-dropped files into the real file input via DataTransfer API
-    // (FormSubmit needs a real multipart/form-data POST to attach files to email)
-    if (fileInputRef.current) {
-      const dt = new DataTransfer();
-      files.forEach(f => dt.items.add(f));
-      fileInputRef.current.files = dt.files;
-    }
-
-    // Set a unique subject to prevent Gmail threading
-    if (subjectRef.current) {
+    setIsSubmitting(true);
+    try {
+      const fd = new FormData();
+      
+      // Control fields
+      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+      fd.append('from_name', 'Kloud Diagnostics');
+      
       const now = new Date();
       const timeStr = now.toTimeString().slice(0, 8);
       const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
-      subjectRef.current.value = `New Prescription - ${formData.name || 'Patient'} - ${timeStr} - ${uid}`;
+      fd.append('subject', `New Prescription - ${formData.name || 'Patient'} - ${timeStr} - ${uid}`);
+      
+      // Form fields
+      fd.append('Full_Name', formData.name);
+      fd.append('Mobile_Number', formData.phone);
+      fd.append('Best_Time_to_Call', formData.preferredTimeSlot);
+      if (formData.referringDoctor) fd.append('Referring_Doctor', formData.referringDoctor);
+      if (formData.notes) fd.append('Additional_Notes', formData.notes);
+      
+      fd.append('Collection_Type', isHome ? 'Home Collection' : 'Walk-in Center');
+      
+      if (isHome) {
+        fd.append('Address', formData.address);
+        fd.append('City', formData.city);
+        fd.append('Pincode', formData.pincode);
+      }
+
+      // Attachments (Web3Forms requires 'attachment' or 'attachment[]' for multiple)
+      files.forEach(file => {
+        fd.append('attachment', file);
+      });
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
+        setFiles([]);
+        setFormData({ name: '', phone: '', collectionType: 'home', address: '', city: '', pincode: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        showSuccessPopup('Our team will review your prescription and call you within 30 minutes.');
+      } else {
+        const errorData = await res.json().catch(() => ({}));
+        alert(`Submission failed: ${errorData.message || 'Please check your access key or try again.'}`);
+      }
+    } catch (err) {
+      alert('Network error. Please try again or call us directly.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(true);
-    submittedRef.current = true;
-    // Native form submit — targets the hidden iframe so the page never redirects
-    formRef.current?.submit();
-  };
-
-  // Called when FormSubmit redirects inside the hidden iframe after processing
-  const handleIframeLoad = () => {
-    if (!submittedRef.current) return; // ignore the initial empty-src iframe load
-    submittedRef.current = false;
-    setIsSubmitting(false);
-    setFiles([]);
-    setFormData({ name: '', phone: '', collectionType: 'home', address: '', city: '', pincode: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
-    if (fileInputRef.current) fileInputRef.current.value = '';
-    showSuccessPopup('Our team will review your prescription and call you within 30 minutes.');
   };
 
   return (
@@ -159,33 +177,11 @@ export default function UploadPrescriptionPage() {
 
           {/* Main form */}
           <div className="lg:col-span-2">
-            {/*
-              Hidden iframe: FormSubmit POSTs a redirect into here after processing.
-              onLoad fires → we show the success popup without any page navigation.
-            */}
-            <iframe
-              name="prescription-iframe"
-              title="prescription-submit"
-              style={{ display: 'none' }}
-              onLoad={handleIframeLoad}
-            />
             <div className="bg-white rounded-3xl shadow-lg border border-border p-6 md:p-9">
               <form
-                ref={formRef}
-                action="https://api.web3forms.com/submit"
-                method="POST"
-                encType="multipart/form-data"
-                target="prescription-iframe"
                 onSubmit={handleSubmit}
                 className="space-y-8"
               >
-                {/* Web3Forms control fields */}
-                <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY} />
-                <input type="hidden" name="from_name" value="Kloud Diagnostics" />
-                {/* Subject is set dynamically in handleSubmit for unique threading */}
-                <input type="hidden" name="subject" ref={subjectRef} defaultValue="New Prescription Upload" />
-                {/* Collection type sent as readable text in email */}
-                <input type="hidden" name="Collection_Type" value={isHome ? 'Home Collection' : 'Walk-in Center'} />
 
                 {/* Upload Zone */}
                 <div>
