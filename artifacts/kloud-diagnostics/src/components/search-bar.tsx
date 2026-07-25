@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSearchTests, CartItemItemType } from '@workspace/api-client-react';
+import { searchItems } from '@/lib/data';
+type CartItemItemType = 'test' | 'package';
 import { useDebounce } from '@/lib/use-debounce';
 import { useCart } from '@/lib/cart-context';
 import { Search, Loader2, Plus, ArrowRight, Activity, Beaker, X, Clock } from 'lucide-react';
@@ -32,10 +33,8 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
   const { addItem } = useCart();
   const [, setLocation] = useLocation();
 
-  const { data, isLoading } = useSearchTests(
-    { q: debouncedQuery },
-    { query: { enabled: debouncedQuery.length > 1 } }
-  );
+  const data = query.length > 1 ? searchItems(debouncedQuery, "all") : { tests: [], packages: [] };
+  const isLoading = false;
 
   useEffect(() => {
     setFocusedIndex(-1);
