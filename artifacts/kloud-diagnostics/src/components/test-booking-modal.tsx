@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
-import { useSearchTests, BookingInputCollectionType, BookingInputPatientGender } from '@workspace/api-client-react';
+import { searchItems } from '@/lib/data';
 import { useDebounce } from '@/lib/use-debounce';
 
 const TIME_SLOTS = [
@@ -47,10 +47,10 @@ const getSampleIcon = (category: string) => {
 };
 
 const emptyForm = {
-  patientName: '', patientAge: '', patientGender: 'male' as BookingInputPatientGender,
+  patientName: '', patientAge: '', patientGender: 'male',
   phone: '', email: '', address: '', city: '', pincode: '',
   preferredDate: '', preferredTimeSlot: '08:00 AM – 09:00 AM',
-  collectionType: 'home' as BookingInputCollectionType, notes: '',
+  collectionType: 'home', notes: '',
 };
 
 export function TestBookingModal() {
@@ -67,10 +67,8 @@ export function TestBookingModal() {
   const [formData, setFormData] = useState(emptyForm);
 
   const debouncedQuery = useDebounce(searchQuery, 250);
-  const { data: searchData, isLoading } = useSearchTests(
-    { q: debouncedQuery },
-    { query: { enabled: debouncedQuery.length >= 1 && showDropdown } }
-  );
+  const searchData = showDropdown && debouncedQuery.length >= 1 ? searchItems(debouncedQuery, "all") : null;
+  const isLoading = false;
 
   // Only individual tests — never packages
   const tests: TestItem[] = (searchData?.tests || []) as TestItem[];

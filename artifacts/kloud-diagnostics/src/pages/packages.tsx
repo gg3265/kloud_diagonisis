@@ -1,12 +1,13 @@
 import React from 'react';
-import { useListPackages } from '@workspace/api-client-react';
+import { PACKAGES } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Activity, ArrowRight } from 'lucide-react';
 import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
 import { motion } from 'framer-motion';
 
 export default function PackagesPage() {
-  const { data: packages, isLoading } = useListPackages();
+  const packages = PACKAGES;
+  const isLoading = false;
   const { openPackageModal } = useBookingModal();
 
   return (

@@ -1,0 +1,248 @@
+
+// Official Kloud Diagnostics rate list — 130 tests
+export const TESTS = [
+  { id: "afp", code: "25555", name: "AFP", category: "blood", mrp: 950, price: 950, turnaround: "24 hours", description: "Alpha-Fetoprotein — liver cancer and pregnancy screening marker.", fastingRequired: false, popular: false, keywords: ["AFP", "alpha fetoprotein", "liver cancer", "pregnancy marker"] },
+  { id: "albumin", code: "6238", name: "Albumin", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Measures albumin protein — evaluates liver and kidney function.", fastingRequired: false, popular: false, keywords: ["albumin", "protein", "liver", "kidney"] },
+  { id: "allergy-profile", code: "", name: "Allergy Profile", category: "blood", mrp: 5500, price: 5500, turnaround: "24 hours", description: "Comprehensive panel for common allergens — food, environmental, and dust.", fastingRequired: false, popular: false, keywords: ["allergy", "allergen", "food allergy", "IgE", "dust"] },
+  { id: "alp-phos", code: "5844", name: "ALP-Phos (Alkaline Phosphatase)", category: "blood", mrp: 250, price: 250, turnaround: "4-6 hours", description: "Liver and bone enzyme — elevated in liver disease and bone disorders.", fastingRequired: false, popular: false, keywords: ["ALP", "alkaline phosphatase", "liver", "bone"] },
+  { id: "amh", code: "28248", name: "AMH (Anti-Müllerian Hormone)", category: "blood", mrp: 1800, price: 1800, turnaround: "24 hours", description: "Measures ovarian reserve — key for fertility assessment.", fastingRequired: false, popular: false, keywords: ["AMH", "anti mullerian", "ovarian reserve", "fertility", "IVF"] },
+  { id: "amylase", code: "5820", name: "Amylase", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Pancreatic enzyme — elevated in pancreatitis and salivary gland disorders.", fastingRequired: false, popular: false, keywords: ["amylase", "pancreas", "pancreatitis"] },
+  { id: "ana", code: "25200", name: "ANA (Antinuclear Antibody)", category: "blood", mrp: 900, price: 900, turnaround: "24 hours", description: "Screens for autoimmune diseases including SLE and lupus.", fastingRequired: false, popular: false, keywords: ["ANA", "antinuclear antibody", "lupus", "SLE", "autoimmune"] },
+  { id: "ana-by-ifa", code: "20103", name: "ANA by IFA", category: "blood", mrp: 2200, price: 2200, turnaround: "24 hours", description: "Antinuclear antibody by immunofluorescence — detailed autoimmune screening.", fastingRequired: false, popular: false, keywords: ["ANA", "IFA", "immunofluorescence", "autoimmune", "lupus"] },
+  { id: "anc-profile", code: "5392", name: "ANC Profile / Antenatal Plus", category: "blood", mrp: 2600, price: 2600, turnaround: "24 hours", description: "Comprehensive antenatal screening panel for pregnant women.", fastingRequired: false, popular: false, keywords: ["ANC", "antenatal", "pregnancy", "prenatal", "maternity"] },
+  { id: "anti-ccp", code: "21594", name: "Anti-CCP Antibody", category: "blood", mrp: 1600, price: 1600, turnaround: "24 hours", description: "Highly specific for rheumatoid arthritis — positive before symptoms appear.", fastingRequired: false, popular: false, keywords: ["anti CCP", "CCP", "rheumatoid", "arthritis"] },
+  { id: "anti-ds-dna", code: "6220", name: "Anti DS-DNA", category: "blood", mrp: 1300, price: 1300, turnaround: "24 hours", description: "Anti double-stranded DNA antibody — key marker for lupus (SLE).", fastingRequired: false, popular: false, keywords: ["anti DS DNA", "double stranded", "lupus", "SLE"] },
+  { id: "anti-tpo", code: "6223", name: "Anti-TPO Antibody", category: "blood", mrp: 1450, price: 1450, turnaround: "24 hours", description: "Detects autoimmune thyroid disease (Hashimoto's thyroiditis).", fastingRequired: false, popular: false, keywords: ["anti TPO", "thyroid peroxidase", "Hashimoto", "autoimmune thyroid"] },
+  { id: "aptt", code: "5957", name: "APTT", category: "blood", mrp: 550, price: 550, turnaround: "4-6 hours", description: "Activated Partial Thromboplastin Time — assesses blood clotting.", fastingRequired: false, popular: false, keywords: ["APTT", "activated partial thromboplastin", "coagulation", "clotting"] },
+  { id: "aso", code: "6050", name: "ASO (Antistreptolysin O)", category: "blood", mrp: 650, price: 650, turnaround: "4-6 hours", description: "Measures antibody to streptococcal infection — elevated after throat infections.", fastingRequired: false, popular: false, keywords: ["ASO", "antistreptolysin", "streptococcal", "rheumatic fever"] },
+  { id: "beta-hcg", code: "5931", name: "Beta HCG", category: "blood", mrp: 700, price: 700, turnaround: "24 hours", description: "Pregnancy hormone — detects pregnancy and monitors early pregnancy health.", fastingRequired: false, popular: false, keywords: ["beta HCG", "hCG", "pregnancy test", "pregnancy hormone"] },
+  { id: "bicarbonate", code: "5827", name: "Bicarbonate", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Measures blood bicarbonate — assesses acid-base balance.", fastingRequired: false, popular: false, keywords: ["bicarbonate", "HCO3", "acid base", "electrolyte"] },
+  { id: "bilirubin", code: "5822", name: "Bilirubin Total & Direct", category: "blood", mrp: 250, price: 250, turnaround: "4-6 hours", description: "Measures bilirubin — elevated in jaundice and liver disease.", fastingRequired: false, popular: false, keywords: ["bilirubin", "jaundice", "liver", "direct bilirubin"] },
+  { id: "blood-culture", code: "61765", name: "Blood Culture / Sensitivity", category: "blood", mrp: 1050, price: 1050, turnaround: "48-72 hours", description: "Detects bacteria in blood — identifies infection and appropriate antibiotics.", fastingRequired: false, popular: false, keywords: ["blood culture", "sensitivity", "bacteria", "sepsis", "infection"] },
+  { id: "blood-group", code: "5943", name: "Blood Group", category: "blood", mrp: 200, price: 150, turnaround: "2-4 hours", description: "Determines blood group (A/B/AB/O) and Rh factor.", fastingRequired: false, popular: true, keywords: ["blood group", "blood type", "ABO", "Rh factor", "typing"] },
+  { id: "bun-urea", code: "5838", name: "BUN (Urea)", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Blood Urea Nitrogen — indicator of kidney function.", fastingRequired: false, popular: false, keywords: ["BUN", "blood urea nitrogen", "urea", "kidney"] },
+  { id: "c3", code: "6321", name: "C3 (Complement)", category: "blood", mrp: 750, price: 750, turnaround: "24 hours", description: "Complement C3 protein — evaluates immune system and autoimmune conditions.", fastingRequired: false, popular: false, keywords: ["C3", "complement", "immune", "autoimmune"] },
+  { id: "c4", code: "6326", name: "C4 (Complement)", category: "blood", mrp: 750, price: 750, turnaround: "24 hours", description: "Complement C4 protein — evaluates immune system disorders.", fastingRequired: false, popular: false, keywords: ["C4", "complement", "immune", "autoimmune"] },
+  { id: "ca125", code: "6119", name: "CA-125 (Ovarian Cancer Marker)", category: "blood", mrp: 1000, price: 1000, turnaround: "24 hours", description: "Elevated in ovarian cancer and endometriosis.", fastingRequired: false, popular: false, keywords: ["CA125", "CA 125", "ovarian cancer", "cancer marker", "endometriosis"] },
+  { id: "ca19-9", code: "6391", name: "CA 19.9", category: "blood", mrp: 1000, price: 1000, turnaround: "24 hours", description: "Cancer marker — used to monitor pancreatic and gastrointestinal cancers.", fastingRequired: false, popular: false, keywords: ["CA19.9", "CA 19.9", "pancreatic cancer", "cancer marker"] },
+  { id: "calcium", code: "5823", name: "Calcium (Serum)", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Measures serum calcium — for bone health and parathyroid evaluation.", fastingRequired: false, popular: false, keywords: ["calcium", "bone", "parathyroid", "serum calcium"] },
+  { id: "cbc", code: "6085", name: "CBC (Complete Blood Count)", category: "blood", mrp: 300, price: 250, turnaround: "4-6 hours", description: "Measures red blood cells, white blood cells, haemoglobin, and platelets.", fastingRequired: false, popular: true, keywords: ["CBC", "complete blood count", "haemogram", "haemoglobin", "WBC", "RBC", "platelets", "blood count"] },
+  { id: "chikungunya-igm", code: "23097RP", name: "Chikungunya IgM", category: "blood", mrp: 1000, price: 1000, turnaround: "24 hours", description: "Detects Chikungunya virus IgM antibody — used in early phase of infection.", fastingRequired: false, popular: false, keywords: ["chikungunya", "IgM", "fever", "viral"] },
+  { id: "chikungunya-pcr", code: "26336", name: "Chikungunya PCR", category: "blood", mrp: 1500, price: 1500, turnaround: "24 hours", description: "PCR-based detection of Chikungunya virus — most accurate in early days.", fastingRequired: false, popular: false, keywords: ["chikungunya", "PCR", "fever", "viral"] },
+  { id: "total-cholesterol", code: "5825", name: "Total Cholesterol", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Measures total cholesterol — cardiovascular risk screening.", fastingRequired: true, popular: false, keywords: ["total cholesterol", "cholesterol", "cardiovascular"] },
+  { id: "chromogranin-a", code: "52901", name: "Chromogranin A", category: "blood", mrp: 6500, price: 6500, turnaround: "24 hours", description: "Neuroendocrine tumour marker — elevated in carcinoid and pheochromocytoma.", fastingRequired: false, popular: false, keywords: ["chromogranin A", "neuroendocrine", "carcinoid", "tumour marker"] },
+  { id: "cortisol-morning", code: "6122", name: "Cortisol Morning", category: "blood", mrp: 650, price: 650, turnaround: "24 hours", description: "Morning cortisol — evaluates adrenal gland function and Cushing's syndrome.", fastingRequired: false, popular: false, keywords: ["cortisol", "morning cortisol", "adrenal", "Cushing"] },
+  { id: "cortisol-evening", code: "6123", name: "Cortisol Evening", category: "blood", mrp: 650, price: 650, turnaround: "24 hours", description: "Evening cortisol — assesses diurnal cortisol variation.", fastingRequired: false, popular: false, keywords: ["cortisol", "evening cortisol", "adrenal", "Cushing"] },
+  { id: "cortisol-random", code: "26275", name: "Cortisol Random", category: "blood", mrp: 650, price: 650, turnaround: "24 hours", description: "Random cortisol level — adrenal function assessment.", fastingRequired: false, popular: false, keywords: ["cortisol", "random cortisol", "adrenal", "stress hormone"] },
+  { id: "c-peptide", code: "6141", name: "C-Peptide", category: "blood", mrp: 1100, price: 1100, turnaround: "24 hours", description: "Assesses beta-cell function and distinguishes Type 1 from Type 2 diabetes.", fastingRequired: true, popular: false, keywords: ["C peptide", "diabetes", "insulin", "beta cell", "Type 1"] },
+  { id: "cpk-mb", code: "6330", name: "CPK-MB (Creatine Kinase-MB)", category: "blood", mrp: 600, price: 600, turnaround: "4-6 hours", description: "Cardiac enzyme — elevated after heart muscle injury.", fastingRequired: false, popular: false, keywords: ["CPK MB", "CK MB", "creatine kinase", "cardiac", "heart attack"] },
+  { id: "cpk-total", code: "5849", name: "CPK Total", category: "blood", mrp: 400, price: 400, turnaround: "4-6 hours", description: "Total Creatine Phosphokinase — muscle and heart damage marker.", fastingRequired: false, popular: false, keywords: ["CPK", "creatine kinase", "CK total", "muscle", "cardiac"] },
+  { id: "creatinine", code: "5847", name: "Creatinine (Serum)", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Key marker for kidney function — elevated in kidney disease.", fastingRequired: false, popular: false, keywords: ["creatinine", "serum creatinine", "kidney", "renal"] },
+  { id: "crp", code: "40253", name: "CRP (C-Reactive Protein)", category: "blood", mrp: 540, price: 540, turnaround: "4-6 hours", description: "Marker for acute inflammation and infection.", fastingRequired: false, popular: false, keywords: ["CRP", "C reactive protein", "inflammation", "infection"] },
+  { id: "coombs-test", code: "5961/5962", name: "Coombs Test (Direct / Indirect)", category: "blood", mrp: 700, price: 700, turnaround: "4-6 hours", description: "Detects antibodies against red blood cells — used in haemolytic anaemia.", fastingRequired: false, popular: false, keywords: ["Coombs test", "direct coombs", "indirect coombs", "haemolytic anaemia"] },
+  { id: "d-dimer", code: "19624", name: "D-Dimer", category: "blood", mrp: 1200, price: 1200, turnaround: "4-6 hours", description: "Clotting marker — elevated in DVT, pulmonary embolism, and COVID-19.", fastingRequired: false, popular: false, keywords: ["D dimer", "D-dimer", "clot", "DVT", "thrombosis", "PE"] },
+  { id: "dengue-igg", code: "5861", name: "Dengue IgG", category: "blood", mrp: 700, price: 700, turnaround: "4-6 hours", description: "Detects dengue IgG antibody — indicates past or late-phase infection.", fastingRequired: false, popular: false, keywords: ["dengue", "IgG", "dengue antibody", "fever"] },
+  { id: "dengue-igm", code: "5862", name: "Dengue IgM", category: "blood", mrp: 700, price: 700, turnaround: "4-6 hours", description: "Detects dengue IgM antibody — indicates recent infection.", fastingRequired: false, popular: false, keywords: ["dengue", "IgM", "dengue antibody", "fever"] },
+  { id: "dengue-ns1", code: "33458RP", name: "Dengue NS1 Antigen", category: "blood", mrp: 600, price: 600, turnaround: "4-6 hours", description: "Detects dengue virus antigen in early phase of infection.", fastingRequired: false, popular: true, keywords: ["dengue", "NS1", "dengue antigen", "fever", "rapid"] },
+  { id: "anti-ds-dna-antibody", code: "6220", name: "Anti DS-DNA Antibody (Double Standard)", category: "blood", mrp: 1300, price: 1300, turnaround: "24 hours", description: "Detects antibodies against double-stranded DNA — specific for lupus (SLE).", fastingRequired: false, popular: false, keywords: ["anti DS DNA", "double stranded DNA", "lupus", "SLE", "autoimmune"] },
+  { id: "dual-marker", code: "26546", name: "Dual Marker", category: "blood", mrp: 2200, price: 2200, turnaround: "24 hours", description: "First-trimester Down syndrome screening — PAPP-A and free beta-hCG.", fastingRequired: false, popular: false, keywords: ["dual marker", "Down syndrome", "PAPP-A", "beta hCG", "prenatal", "pregnancy"] },
+  { id: "electrolytes", code: "11594", name: "Electrolytes (Na, K, Cl)", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Sodium, Potassium, Chloride — critical for heart and kidney function.", fastingRequired: false, popular: false, keywords: ["electrolytes", "sodium", "potassium", "chloride", "Na", "K", "Cl"] },
+  { id: "esr", code: "6216", name: "ESR (Erythrocyte Sedimentation Rate)", category: "blood", mrp: 150, price: 100, turnaround: "2-4 hours", description: "Inflammation marker — elevated in infections, arthritis, and autoimmune diseases.", fastingRequired: false, popular: false, keywords: ["ESR", "erythrocyte sedimentation rate", "sedimentation", "inflammation"] },
+  { id: "estrogen-e2", code: "5929", name: "Estrogen (Estradiol) / E2", category: "blood", mrp: 700, price: 700, turnaround: "24 hours", description: "Primary female sex hormone — assessed in fertility and menopause workup.", fastingRequired: false, popular: false, keywords: ["estrogen", "estradiol", "E2", "oestrogen", "menopause", "fertility"] },
+  { id: "fbs-ppbs-rbs", code: "5855/5853/5854", name: "FBS / PPBS / RBS (Any One)", category: "blood", mrp: 80, price: 80, turnaround: "2-4 hours", description: "Blood sugar — fasting, post-prandial, or random (one test).", fastingRequired: true, popular: false, keywords: ["FBS", "PPBS", "RBS", "blood sugar", "glucose", "fasting", "random", "diabetes"] },
+  { id: "fbs-and-ppbs", code: "5856", name: "FBS and PPBS", category: "blood", mrp: 150, price: 150, turnaround: "4-6 hours", description: "Fasting and post-prandial blood sugar together — diabetes monitoring.", fastingRequired: true, popular: false, keywords: ["FBS", "PPBS", "fasting blood sugar", "post prandial", "diabetes"] },
+  { id: "urine-sugar", code: "6470/6471", name: "Fasting / PP Urine Sugar", category: "blood", mrp: 100, price: 100, turnaround: "2-4 hours", description: "Urine glucose — fasting and/or post-prandial check.", fastingRequired: true, popular: false, keywords: ["urine sugar", "fasting urine", "PP urine", "glucose", "diabetes"] },
+  { id: "fecal-calprotectin", code: "49500", name: "Fecal Calprotectin", category: "blood", mrp: 3200, price: 3200, turnaround: "24 hours", description: "Stool marker for bowel inflammation — used in IBD and Crohn's disease.", fastingRequired: false, popular: false, keywords: ["fecal calprotectin", "stool", "IBD", "Crohn", "colitis", "inflammatory bowel"] },
+  { id: "ferritin", code: "6125", name: "Ferritin (Serum)", category: "blood", mrp: 650, price: 500, turnaround: "24 hours", description: "Measures iron stored in the body — best marker for iron-deficiency anaemia.", fastingRequired: false, popular: false, keywords: ["ferritin", "iron store", "serum ferritin", "anaemia"] },
+  { id: "fever-panel-basic", code: "46316", name: "Fever Panel Basic", category: "blood", mrp: 700, price: 700, turnaround: "4-6 hours", description: "Basic fever workup — CBC, CRP, malaria, typhoid and dengue.", fastingRequired: false, popular: false, keywords: ["fever panel", "fever", "malaria", "typhoid", "dengue"] },
+  { id: "fever-panel-advance", code: "10565", name: "Fever Panel Advance", category: "blood", mrp: 1250, price: 1250, turnaround: "4-6 hours", description: "Advanced fever panel including additional viral and bacterial markers.", fastingRequired: false, popular: false, keywords: ["fever panel advance", "fever", "advanced", "viral", "bacterial"] },
+  { id: "folate-serum", code: "6200", name: "Folate Serum (Vitamin B9)", category: "blood", mrp: 1300, price: 1300, turnaround: "24 hours", description: "Measures folic acid — important for pregnancy and cell growth.", fastingRequired: false, popular: false, keywords: ["folate", "folic acid", "vitamin B9", "B9", "pregnancy"] },
+  { id: "fsh", code: "5925", name: "FSH (Follicle Stimulating Hormone)", category: "blood", mrp: 500, price: 500, turnaround: "24 hours", description: "Evaluates fertility and reproductive function.", fastingRequired: false, popular: false, keywords: ["FSH", "follicle stimulating hormone", "fertility", "reproductive", "menopause"] },
+  { id: "g6pd", code: "5947", name: "G6PD (Glucose-6-Phosphate Dehydrogenase)", category: "blood", mrp: 900, price: 900, turnaround: "24 hours", description: "Enzyme deficiency screening — important before certain medications.", fastingRequired: false, popular: false, keywords: ["G6PD", "glucose 6 phosphate dehydrogenase", "enzyme deficiency", "haemolytic"] },
+  { id: "ggt", code: "5829", name: "GGT (Gamma Glutamyl Transferase)", category: "blood", mrp: 350, price: 350, turnaround: "4-6 hours", description: "Liver enzyme — sensitive marker for alcohol abuse and liver disease.", fastingRequired: false, popular: false, keywords: ["GGT", "gamma GT", "gamma glutamyl transferase", "liver", "alcohol"] },
+  { id: "hb-electrophoresis", code: "6087", name: "HB Electrophoresis", category: "blood", mrp: 1000, price: 1000, turnaround: "24 hours", description: "Identifies abnormal haemoglobin — screens for thalassaemia and sickle cell.", fastingRequired: false, popular: false, keywords: ["haemoglobin electrophoresis", "HB electrophoresis", "thalassaemia", "sickle cell"] },
+  { id: "hba1c", code: "5830", name: "HbA1c (Glycated Haemoglobin)", category: "blood", mrp: 500, price: 400, turnaround: "6-8 hours", description: "3-month average blood sugar — key for diabetes monitoring.", fastingRequired: false, popular: true, keywords: ["HbA1c", "glycated haemoglobin", "HBA1C", "diabetes", "A1c"] },
+  { id: "hbsag", code: "28458", name: "HBsAg (Hepatitis B Surface Antigen)", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Screens for active Hepatitis B infection.", fastingRequired: false, popular: false, keywords: ["HBsAg", "hepatitis B", "Hep B", "liver", "HBV"] },
+  { id: "hcv", code: "34207", name: "HCV Antibody (Hepatitis C)", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Screens for Hepatitis C infection.", fastingRequired: false, popular: false, keywords: ["HCV", "hepatitis C", "Hep C", "liver", "HCV antibody"] },
+  { id: "hdl-cholesterol", code: "5831", name: "HDL Cholesterol", category: "blood", mrp: 250, price: 250, turnaround: "4-6 hours", description: "Good cholesterol — high levels are protective against heart disease.", fastingRequired: true, popular: false, keywords: ["HDL", "good cholesterol", "high density lipoprotein", "cholesterol"] },
+  { id: "hhh-elisa", code: "41380", name: "HIV / HBsAg / HCV (ELISA Method)", category: "blood", mrp: 1550, price: 1550, turnaround: "24 hours", description: "Triple screen for HIV, Hepatitis B and Hepatitis C by ELISA.", fastingRequired: false, popular: false, keywords: ["HIV", "HBsAg", "HCV", "HHH", "ELISA", "hepatitis", "STI"] },
+  { id: "hhh-rapid", code: "39763", name: "HIV / HBsAg / HCV (Rapid Card)", category: "blood", mrp: 1200, price: 1100, turnaround: "2-4 hours", description: "Rapid card test for HIV, Hepatitis B, and Hepatitis C.", fastingRequired: false, popular: false, keywords: ["HIV", "HBsAg", "HCV", "HHH", "rapid card", "hepatitis", "STI"] },
+  { id: "hla-b27", code: "6158", name: "HLA B27", category: "blood", mrp: 2400, price: 2400, turnaround: "24 hours", description: "Genetic marker — associated with ankylosing spondylitis and reactive arthritis.", fastingRequired: false, popular: false, keywords: ["HLA B27", "ankylosing spondylitis", "arthritis", "genetic marker"] },
+  { id: "homocysteine", code: "19651", name: "Homocysteine (Serum)", category: "blood", mrp: 1000, price: 1000, turnaround: "24 hours", description: "Elevated levels increase risk of cardiovascular disease and stroke.", fastingRequired: false, popular: false, keywords: ["homocysteine", "cardiac risk", "cardiovascular", "stroke"] },
+  { id: "hs-crp", code: "6033", name: "hs-CRP (High Sensitivity CRP)", category: "blood", mrp: 780, price: 780, turnaround: "24 hours", description: "High-sensitivity CRP — cardiovascular risk and inflammation marker.", fastingRequired: false, popular: false, keywords: ["hs CRP", "high sensitivity CRP", "cardiac risk", "inflammation"] },
+  { id: "ionized-calcium", code: "19957", name: "Ionized Calcium", category: "blood", mrp: 600, price: 600, turnaround: "4-6 hours", description: "Measures free ionized calcium — important in critical care and bone disorders.", fastingRequired: false, popular: false, keywords: ["ionized calcium", "free calcium", "bone", "parathyroid"] },
+  { id: "insulin", code: "17230/17231/17232", name: "Insulin Fasting / PP / Random", category: "blood", mrp: 900, price: 900, turnaround: "24 hours", description: "Measures insulin levels — evaluates insulin resistance and diabetes type.", fastingRequired: true, popular: false, keywords: ["insulin", "fasting insulin", "insulin resistance", "diabetes", "HOMA-IR"] },
+  { id: "iron-study", code: "5863", name: "Iron Study", category: "blood", mrp: 500, price: 650, turnaround: "24 hours", description: "Serum iron, TIBC, and ferritin — complete iron panel for anaemia workup.", fastingRequired: false, popular: false, keywords: ["iron study", "serum iron", "TIBC", "ferritin", "iron deficiency", "anaemia"] },
+  { id: "lactate", code: "24193", name: "Lactate (Blood)", category: "blood", mrp: 1050, price: 1050, turnaround: "4-6 hours", description: "Blood lactate — elevated in sepsis, shock, and metabolic disorders.", fastingRequired: false, popular: false, keywords: ["lactate", "lactic acid", "sepsis", "shock"] },
+  { id: "ldh", code: "5832", name: "LDH (Lactate Dehydrogenase)", category: "blood", mrp: 400, price: 400, turnaround: "4-6 hours", description: "Tissue damage marker — elevated in liver disease, heart attack, and anaemia.", fastingRequired: false, popular: false, keywords: ["LDH", "lactate dehydrogenase", "liver", "cardiac", "haemolysis"] },
+  { id: "lft", code: "9125", name: "LFT (Liver Function Test)", category: "blood", mrp: 900, price: 750, turnaround: "6-8 hours", description: "Full liver panel — ALT, AST, ALP, bilirubin, albumin, proteins.", fastingRequired: false, popular: true, keywords: ["LFT", "liver function test", "liver", "SGPT", "SGOT", "bilirubin", "ALT", "AST"] },
+  { id: "lh", code: "5927", name: "LH (Luteinizing Hormone)", category: "blood", mrp: 500, price: 500, turnaround: "24 hours", description: "Evaluates ovulation and reproductive function.", fastingRequired: false, popular: false, keywords: ["LH", "luteinizing hormone", "ovulation", "fertility", "reproductive"] },
+  { id: "lipase", code: "5834", name: "Lipase", category: "blood", mrp: 630, price: 630, turnaround: "4-6 hours", description: "Pancreatic enzyme — elevated in acute pancreatitis.", fastingRequired: false, popular: false, keywords: ["lipase", "pancreas", "pancreatitis"] },
+  { id: "lipid-profile", code: "9121", name: "Lipid Profile", category: "blood", mrp: 800, price: 550, turnaround: "4-6 hours", description: "Cholesterol and triglycerides panel — HDL, LDL, VLDL, total cholesterol.", fastingRequired: true, popular: true, keywords: ["lipid profile", "cholesterol", "triglycerides", "HDL", "LDL", "VLDL", "cardiovascular"] },
+  { id: "lipoprotein-a", code: "6297", name: "Lipoprotein A (Lp-a)", category: "blood", mrp: 1100, price: 1100, turnaround: "24 hours", description: "Cardiovascular risk marker — elevated levels increase heart disease risk.", fastingRequired: false, popular: false, keywords: ["lipoprotein A", "Lp-a", "cardiovascular risk", "cholesterol"] },
+  { id: "lupus-anticoagulant", code: "29910", name: "Lupus Anticoagulant", category: "blood", mrp: 1800, price: 1800, turnaround: "24 hours", description: "Antibody associated with blood clots and miscarriage — antiphospholipid syndrome.", fastingRequired: false, popular: false, keywords: ["lupus anticoagulant", "antiphospholipid", "APS", "clotting"] },
+  { id: "magnesium", code: "6270", name: "Magnesium (Serum)", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Measures magnesium — important for muscle, nerve, and heart function.", fastingRequired: false, popular: false, keywords: ["magnesium", "Mg", "serum magnesium", "muscle", "nerve"] },
+  { id: "malaria-parasite", code: "6395", name: "Malaria Parasite (Smear)", category: "blood", mrp: 200, price: 200, turnaround: "2-4 hours", description: "Microscopic examination for malaria parasites in blood smear.", fastingRequired: false, popular: false, keywords: ["malaria parasite", "malaria smear", "plasmodium", "fever"] },
+  { id: "malaria-antigen", code: "6149", name: "Malaria Antigen (RDT)", category: "blood", mrp: 650, price: 650, turnaround: "2-4 hours", description: "Rapid antigen test for Plasmodium falciparum and vivax.", fastingRequired: false, popular: false, keywords: ["malaria antigen", "malaria RDT", "rapid malaria", "plasmodium", "falciparum", "vivax"] },
+  { id: "nipt", code: "68189", name: "NIPT (Non-Invasive Prenatal Test)", category: "blood", mrp: 150000, price: 150000, turnaround: "7-10 days", description: "Cell-free DNA test for chromosomal abnormalities — Down syndrome, trisomy 18/13.", fastingRequired: false, popular: false, keywords: ["NIPT", "non invasive prenatal", "Down syndrome", "trisomy", "prenatal", "chromosomal"] },
+  { id: "nmda", code: "34571", name: "NMDA Receptor Antibody", category: "blood", mrp: 6740, price: 6740, turnaround: "48-72 hours", description: "Detects antibodies against NMDA receptors — anti-NMDAR encephalitis.", fastingRequired: false, popular: false, keywords: ["NMDA", "NMDA receptor antibody", "encephalitis", "autoimmune"] },
+  { id: "nt-pro-bnp", code: "24192", name: "NT Pro BNP", category: "blood", mrp: 3200, price: 3200, turnaround: "24 hours", description: "Heart failure biomarker — measures cardiac stress and ventricular function.", fastingRequired: false, popular: false, keywords: ["NT proBNP", "NT pro BNP", "BNP", "heart failure", "cardiac"] },
+  { id: "procalcitonin", code: "21291", name: "Procalcitonin (PCT)", category: "blood", mrp: 2000, price: 2000, turnaround: "24 hours", description: "Biomarker for bacterial infection severity — guides antibiotic therapy.", fastingRequired: false, popular: false, keywords: ["procalcitonin", "PCT", "sepsis", "bacterial infection", "antibiotic"] },
+  { id: "peripheral-smear", code: "5976", name: "Peripheral Smear", category: "blood", mrp: 300, price: 300, turnaround: "4-6 hours", description: "Microscopic examination of blood cells for abnormalities.", fastingRequired: false, popular: false, keywords: ["peripheral smear", "blood smear", "morphology", "haematology"] },
+  { id: "phosphorus", code: "5866", name: "Phosphorus (Serum)", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Measures phosphorus — evaluated alongside calcium for bone health.", fastingRequired: false, popular: false, keywords: ["phosphorus", "phosphate", "serum phosphorus", "bone"] },
+  { id: "prolactin", code: "5933", name: "Prolactin (Serum)", category: "blood", mrp: 500, price: 500, turnaround: "24 hours", description: "Measures prolactin — elevated in pituitary disorders and menstrual irregularities.", fastingRequired: false, popular: false, keywords: ["prolactin", "PRL", "pituitary", "infertility", "menstrual"] },
+  { id: "progesterone", code: "5932", name: "Progesterone", category: "blood", mrp: 500, price: 500, turnaround: "24 hours", description: "Evaluates ovulation, corpus luteum function, and early pregnancy.", fastingRequired: false, popular: false, keywords: ["progesterone", "ovulation", "fertility", "pregnancy", "luteal"] },
+  { id: "protein", code: "", name: "Protein (Serum)", category: "blood", mrp: 350, price: 350, turnaround: "4-6 hours", description: "Total serum protein — evaluates nutritional status and liver function.", fastingRequired: false, popular: false, keywords: ["protein", "serum protein", "total protein", "albumin", "globulin"] },
+  { id: "protein-electrophoresis", code: "5836", name: "Protein Electrophoresis", category: "blood", mrp: 720, price: 720, turnaround: "24 hours", description: "Separates blood proteins — detects multiple myeloma and immunodeficiency.", fastingRequired: false, popular: false, keywords: ["protein electrophoresis", "SPEP", "myeloma", "immunoglobulin"] },
+  { id: "psa-total", code: "", name: "PSA Total (Prostate Specific Antigen)", category: "blood", mrp: 650, price: 650, turnaround: "24 hours", description: "Prostate cancer screening marker — recommended for men over 50.", fastingRequired: false, popular: false, keywords: ["PSA total", "PSA", "prostate specific antigen", "prostate", "cancer"] },
+  { id: "psa-free", code: "6082", name: "PSA Free", category: "blood", mrp: 900, price: 900, turnaround: "24 hours", description: "Free PSA — helps differentiate prostate cancer from benign conditions.", fastingRequired: false, popular: false, keywords: ["PSA free", "free PSA", "prostate cancer"] },
+  { id: "pth", code: "6145", name: "PTH (Parathyroid Hormone)", category: "blood", mrp: 1600, price: 1600, turnaround: "24 hours", description: "Parathyroid hormone — regulates calcium and bone metabolism.", fastingRequired: false, popular: false, keywords: ["PTH", "parathyroid hormone", "calcium", "bone", "hyperparathyroidism"] },
+  { id: "pt-inr", code: "5958", name: "PT / INR (Prothrombin Time)", category: "blood", mrp: 400, price: 400, turnaround: "4-6 hours", description: "Measures blood clotting time — important for anticoagulant monitoring.", fastingRequired: false, popular: false, keywords: ["PT INR", "prothrombin time", "INR", "coagulation", "warfarin", "clotting"] },
+  { id: "quadruple-marker", code: "27656", name: "Quadruple Marker", category: "blood", mrp: 3000, price: 3000, turnaround: "24 hours", description: "Second-trimester Down syndrome screening — AFP, hCG, estriol, inhibin A.", fastingRequired: false, popular: false, keywords: ["quadruple marker", "quad marker", "Down syndrome", "second trimester", "prenatal"] },
+  { id: "ra-factor", code: "6048", name: "RA Factor (Rheumatoid Factor)", category: "blood", mrp: 500, price: 450, turnaround: "4-6 hours", description: "Screens for rheumatoid arthritis.", fastingRequired: false, popular: false, keywords: ["RA factor", "rheumatoid factor", "rheumatoid arthritis", "arthritis"] },
+  { id: "rft", code: "36467", name: "RFT (Renal Function Test)", category: "blood", mrp: 850, price: 800, turnaround: "6-8 hours", description: "Creatinine, urea, uric acid, BUN, and electrolytes — complete kidney panel.", fastingRequired: false, popular: true, keywords: ["RFT", "KFT", "renal function test", "kidney function", "creatinine", "urea", "BUN"] },
+  { id: "rubella-igg", code: "6153", name: "Rubella IgG", category: "blood", mrp: 680, price: 680, turnaround: "24 hours", description: "Detects Rubella IgG antibody — assesses immunity or past infection.", fastingRequired: false, popular: false, keywords: ["rubella", "IgG", "German measles", "immunity", "pregnancy"] },
+  { id: "rubella-igm", code: "6154", name: "Rubella IgM", category: "blood", mrp: 700, price: 700, turnaround: "24 hours", description: "Detects Rubella IgM antibody — indicates current or recent infection.", fastingRequired: false, popular: false, keywords: ["rubella", "IgM", "German measles", "active infection"] },
+  { id: "semen-analysis", code: "5887", name: "Semen Analysis", category: "blood", mrp: 600, price: 600, turnaround: "4-6 hours", description: "Evaluates sperm count, motility, and morphology — male fertility test.", fastingRequired: false, popular: false, keywords: ["semen analysis", "sperm count", "spermiogram", "male fertility", "infertility"] },
+  { id: "sgot", code: "5821", name: "SGOT / AST", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Liver and heart enzyme — elevated in liver damage and heart attack.", fastingRequired: false, popular: false, keywords: ["SGOT", "AST", "aspartate aminotransferase", "liver enzyme"] },
+  { id: "sgpt", code: "5845", name: "SGPT / ALT", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Liver enzyme — elevated in liver damage and hepatitis.", fastingRequired: false, popular: false, keywords: ["SGPT", "ALT", "alanine aminotransferase", "liver enzyme", "hepatitis"] },
+  { id: "stool-rm", code: "5889", name: "Stool R/M (Routine & Microscopy)", category: "blood", mrp: 150, price: 150, turnaround: "4-6 hours", description: "Stool analysis for blood, parasites, and bacteria.", fastingRequired: false, popular: false, keywords: ["stool", "stool routine", "stool microscopy", "faeces", "parasites"] },
+  { id: "thyroid-profile", code: "46422", name: "Thyroid Profile (T3, T4, TSH)", category: "blood", mrp: 500, price: 350, turnaround: "6-8 hours", description: "Comprehensive thyroid function — T3, T4, and TSH in one panel.", fastingRequired: false, popular: true, keywords: ["thyroid profile", "T3", "T4", "TSH", "thyroid"] },
+  { id: "thyroid-free", code: "9245", name: "Thyroid Free (FT3, FT4, TSH)", category: "blood", mrp: 800, price: 650, turnaround: "6-8 hours", description: "Free thyroid hormones — FT3, FT4, and TSH panel.", fastingRequired: false, popular: false, keywords: ["thyroid free", "FT3", "FT4", "TSH", "free thyroxine", "thyroid"] },
+  { id: "tb-gold", code: "", name: "TB Gold (IGRA)", category: "blood", mrp: 2800, price: 2800, turnaround: "24 hours", description: "Interferon Gamma Release Assay — gold standard for latent tuberculosis detection.", fastingRequired: false, popular: false, keywords: ["TB gold", "IGRA", "tuberculosis", "TB", "latent TB"] },
+  { id: "testosterone-total", code: "6232", name: "Testosterone Total", category: "blood", mrp: 750, price: 750, turnaround: "24 hours", description: "Total testosterone — important for male health and PCOS evaluation.", fastingRequired: false, popular: false, keywords: ["testosterone total", "total testosterone", "male hormone", "androgen", "PCOS"] },
+  { id: "testosterone-free", code: "6231", name: "Testosterone Free", category: "blood", mrp: 1700, price: 1700, turnaround: "24 hours", description: "Free testosterone — more accurate measure of biologically active testosterone.", fastingRequired: false, popular: false, keywords: ["testosterone free", "free testosterone", "androgen", "male hormone"] },
+  { id: "triglyceride", code: "5840", name: "Triglyceride", category: "blood", mrp: 300, price: 300, turnaround: "4-6 hours", description: "Measures fat (triglycerides) in blood — cardiovascular risk indicator.", fastingRequired: true, popular: false, keywords: ["triglyceride", "TG", "triglycerides", "fat", "cardiovascular"] },
+  { id: "torch-igg", code: "6250", name: "TORCH IgG Panel", category: "blood", mrp: 1500, price: 1500, turnaround: "24 hours", description: "IgG antibodies for Toxoplasma, Rubella, CMV, Herpes — immunity check.", fastingRequired: false, popular: false, keywords: ["TORCH IgG", "toxoplasma", "rubella", "CMV", "herpes", "pregnancy"] },
+  { id: "torch-igm", code: "6251", name: "TORCH IgM Panel", category: "blood", mrp: 1500, price: 1500, turnaround: "24 hours", description: "IgM antibodies for TORCH infections — detects current or recent infections.", fastingRequired: false, popular: false, keywords: ["TORCH IgM", "toxoplasma", "rubella", "CMV", "herpes", "active infection"] },
+  { id: "troponin-i", code: "20328", name: "Troponin I (Cardiac)", category: "blood", mrp: 1750, price: 1750, turnaround: "4-6 hours", description: "Gold-standard marker for heart attack and myocardial injury.", fastingRequired: false, popular: false, keywords: ["troponin I", "troponin", "cardiac", "heart attack", "MI", "myocardial infarction"] },
+  { id: "troponin-t", code: "6316", name: "Troponin T (hsTnT)", category: "blood", mrp: 1700, price: 1700, turnaround: "4-6 hours", description: "High-sensitivity troponin T — very early marker for cardiac injury.", fastingRequired: false, popular: false, keywords: ["troponin T", "troponin", "hsTnT", "cardiac", "heart attack"] },
+  { id: "tsh", code: "5928", name: "TSH (Thyroid Stimulating Hormone)", category: "blood", mrp: 350, price: 350, turnaround: "4-6 hours", description: "Primary screening test for thyroid disorders.", fastingRequired: false, popular: true, keywords: ["TSH", "thyroid stimulating hormone", "thyroid", "hypothyroid", "hyperthyroid"] },
+  { id: "tsh-antibody-receptor", code: "50330", name: "TSH Antibody Receptor (TRAb)", category: "blood", mrp: 4000, price: 4000, turnaround: "24 hours", description: "TSH receptor antibody — used in Graves' disease diagnosis and monitoring.", fastingRequired: false, popular: false, keywords: ["TSH antibody receptor", "TRAb", "Graves disease", "hyperthyroid", "autoimmune thyroid"] },
+  { id: "typhi-dot", code: "10182/10183", name: "Typhi Dot IgG / IgM", category: "blood", mrp: 500, price: 450, turnaround: "2-4 hours", description: "Rapid typhoid dot test — detects Salmonella typhi antibodies.", fastingRequired: false, popular: false, keywords: ["typhi dot", "typhoid", "IgG", "IgM", "salmonella", "fever"] },
+  { id: "uric-acid", code: "5842", name: "Uric Acid (Serum)", category: "blood", mrp: 200, price: 200, turnaround: "4-6 hours", description: "Measures uric acid — elevated in gout and kidney disease.", fastingRequired: false, popular: false, keywords: ["uric acid", "gout", "kidney", "serum uric acid"] },
+  { id: "urine-albumin-creat-ratio", code: "26112", name: "Urine Albumin Creatinine Ratio", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Early marker of kidney damage — especially in diabetes and hypertension.", fastingRequired: false, popular: false, keywords: ["urine albumin", "creatinine ratio", "ACR", "microalbumin", "kidney", "diabetes"] },
+  { id: "urine-cs", code: "6011", name: "Urine C/S (Culture & Sensitivity)", category: "blood", mrp: 900, price: 900, turnaround: "48-72 hours", description: "Identifies bacteria causing UTI and the appropriate antibiotic treatment.", fastingRequired: false, popular: false, keywords: ["urine culture", "urine C/S", "UTI", "sensitivity", "bacteria"] },
+  { id: "urine-pregnancy-test", code: "6073", name: "Urine Pregnancy Test", category: "blood", mrp: 200, price: 200, turnaround: "30 minutes", description: "Rapid urine hCG test to confirm pregnancy.", fastingRequired: false, popular: false, keywords: ["urine pregnancy test", "UPT", "pregnancy", "hCG", "rapid"] },
+  { id: "urine-protein-creat-ratio", code: "27800", name: "Urine Protein Creatinine Ratio", category: "blood", mrp: 500, price: 500, turnaround: "4-6 hours", description: "Measures protein leakage in urine — kidney disease marker.", fastingRequired: false, popular: false, keywords: ["urine protein", "creatinine ratio", "PCR", "kidney", "proteinuria"] },
+  { id: "urine-rm", code: "5888", name: "Urine R/M (Routine & Microscopy)", category: "blood", mrp: 150, price: 150, turnaround: "2-4 hours", description: "Complete urine analysis — colour, pH, glucose, protein, cells.", fastingRequired: false, popular: false, keywords: ["urine routine", "urine R/M", "urinalysis", "microscopy", "urine"] },
+  { id: "vdrl-rpr", code: "6037", name: "VDRL / RPR (Syphilis Screening)", category: "blood", mrp: 250, price: 250, turnaround: "4-6 hours", description: "Screens for syphilis infection.", fastingRequired: false, popular: false, keywords: ["VDRL", "RPR", "syphilis", "STI", "STD"] },
+  { id: "vitamin-b12", code: "6128", name: "Vitamin B12 (Cyanocobalamin)", category: "blood", mrp: 1000, price: 750, turnaround: "24 hours", description: "Measures Vitamin B12 — vital for nerve function and red blood cell production.", fastingRequired: false, popular: true, keywords: ["vitamin B12", "B12", "cobalamin", "cyanocobalamin", "nerve"] },
+  { id: "vitamin-d3", code: "6268", name: "Vitamin D3 (25-OH)", category: "blood", mrp: 1500, price: 850, turnaround: "24 hours", description: "Checks Vitamin D levels — essential for bones, immunity, and mood.", fastingRequired: false, popular: true, keywords: ["vitamin D3", "vitamin D", "25-OH", "cholecalciferol", "bone", "immunity"] },
+  { id: "widal-slide", code: "6051", name: "Widal (Slide Method)", category: "blood", mrp: 350, price: 250, turnaround: "2-4 hours", description: "Typhoid antibody test by slide method — quick detection of Salmonella.", fastingRequired: false, popular: false, keywords: ["widal", "slide method", "typhoid", "salmonella", "fever"] },
+  { id: "widal-tube", code: "6036", name: "Widal (Tube Method)", category: "blood", mrp: 400, price: 350, turnaround: "4-6 hours", description: "Typhoid antibody test by tube dilution — more quantitative than slide method.", fastingRequired: false, popular: false, keywords: ["widal", "tube method", "typhoid", "salmonella", "fever"] },
+];
+
+// Health packages — as specified
+export const PACKAGES = [
+  {
+    id: "star-well-being",
+    name: "Star Well Being Profile",
+    shortDescription: "10 tests for complete wellness screening",
+    description: "A comprehensive wellness profile covering blood count, diabetes, hormones, liver, kidney, vitamins, and lipids — everything for your annual health check.",
+    price: 1650,
+    mrp: 2500,
+    parameterCount: 10,
+    category: "wellness",
+    fastingRequired: true,
+    includes: [
+      "CBC (Haemogram)",
+      "HbA1C",
+      "Iron Studies",
+      "Lipid Profile",
+      "LFT (Liver Function Test)",
+      "KFT (Kidney Function Test)",
+      "T3, T4, TSH (Thyroid)",
+      "Vitamin B12",
+      "Vitamin D Total",
+      "Testosterone Total",
+    ],
+    badge: "Best Seller",
+    popular: true,
+  },
+  {
+    id: "basic-health-profile-1",
+    name: "Basic Health Profile 1",
+    shortDescription: "9 essential tests for everyday health monitoring",
+    description: "An affordable and complete health screening covering blood count, blood sugar, liver, kidney, thyroid, cholesterol, and urine — ideal for a preventive check-up.",
+    price: 1400,
+    mrp: 2200,
+    parameterCount: 9,
+    category: "wellness",
+    fastingRequired: true,
+    includes: [
+      "CBC (Complete Blood Count)",
+      "Glucose Fasting",
+      "HbA1C",
+      "LFT (Liver Function Test)",
+      "Electrolytes",
+      "Basic RFT (Renal Function)",
+      "T3, T4, TSH (Thyroid)",
+      "Lipid Profile",
+      "Urine Routine",
+    ],
+    badge: null,
+    popular: true,
+  },
+  {
+    id: "star-health-checkup",
+    name: "Star Health Check-up Profile",
+    shortDescription: "12 tests — the most thorough health audit",
+    description: "Our most comprehensive health package covering all major systems — blood, diabetes, kidneys, liver, thyroid, vitamins, cholesterol, iron, and inflammatory markers.",
+    price: 1999,
+    mrp: 3500,
+    parameterCount: 12,
+    category: "wellness",
+    fastingRequired: true,
+    includes: [
+      "CBC (Complete Blood Count)",
+      "eGFR",
+      "ESR",
+      "Fasting Blood Sugar",
+      "HbA1C",
+      "Iron Studies",
+      "Lipid Profile",
+      "LFT (Liver Function Test)",
+      "KFT (Kidney Function Test)",
+      "T3, T4, TSH (Thyroid)",
+      "Vitamin B12",
+      "Vitamin D",
+    ],
+    badge: "Most Popular",
+    popular: true,
+  },
+];
+
+export function searchItems(query: string, category: string) {
+  const q = query.toLowerCase().trim();
+
+  let tests = TESTS.filter(t => {
+    const matchesCategory = category === "all" || category === t.category;
+    const matchesQuery = !q ||
+      t.name.toLowerCase().includes(q) ||
+      (t.code && t.code.toLowerCase().includes(q)) ||
+      (t.description || "").toLowerCase().includes(q) ||
+      (t.keywords || []).some(k => k.toLowerCase().includes(q));
+    return matchesCategory && matchesQuery;
+  });
+
+  let packages = PACKAGES.filter(p => {
+    const matchesCategory = category === "all" || category === "packages";
+    const matchesQuery = !q ||
+      p.name.toLowerCase().includes(q) ||
+      p.shortDescription.toLowerCase().includes(q) ||
+      p.includes.some(i => i.toLowerCase().includes(q));
+    return matchesCategory && matchesQuery;
+  });
+
+  if (!q) {
+    tests = tests.filter(t => t.popular).slice(0, 6);
+    packages = packages.filter(p => p.popular).slice(0, 3);
+  } else {
+    tests = tests.slice(0, 12);
+    packages = packages.slice(0, 3);
+  }
+
+  return { tests, packages };
+}
+
