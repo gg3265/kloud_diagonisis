@@ -38,6 +38,7 @@ export default function UploadPrescriptionPage() {
   const handleFiles = (newFiles: File[]) => {
     const valid = newFiles.filter(file => {
       if (file.size > 10 * 1024 * 1024) { alert(`"${file.name}" exceeds 10MB limit.`); return false; }
+      if (!file.type.startsWith('image/')) { alert(`"${file.name}" is not an image. The free uploader only supports images.`); return false; }
       return true;
     });
     setFiles(prev => [...prev, ...valid]);
@@ -77,11 +78,39 @@ export default function UploadPrescriptionPage() {
         fd.append('Pincode', formData.pincode);
       }
 
-      // Attachments (Web3Forms requires 'attachment' or 'attachment[]' for multiple)
-      files.forEach(file => {
-        fd.append('attachment', file);
-      });
+      // 1. Upload all files to ImgBB
+      const uploadedUrls: string[] = [];
+      const IMGBB_API_KEY = '4db4c717a6e00d38f103c4f20d1a2d40';
+      
+      for (const file of files) {
+        const imgbbFormData = new FormData();
+        imgbbFormData.append('image', file);
+        
+        try {
+          const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+            method: 'POST',
+            body: imgbbFormData,
+          });
+          
+          if (!imgbbRes.ok) throw new Error('ImgBB upload failed');
+          
+          const imgbbData = await imgbbRes.json();
+          if (imgbbData.success) {
+            uploadedUrls.push(imgbbData.data.url);
+          }
+        } catch (error) {
+          console.error("Failed to upload image to ImgBB:", error);
+          alert(`Failed to upload ${file.name}. Please try again.`);
+          setIsSubmitting(false);
+          return;
+        }
+      }
 
+      // 2. Append the ImgBB URLs as text to Web3Forms instead of the file itself
+      const formattedUrls = uploadedUrls.map((url, i) => `Image ${i + 1}: ${url}`).join('\n');
+      fd.append('Prescription_Links', formattedUrls);
+
+      // Submit text-only data to Web3Forms
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: fd,
@@ -201,14 +230,12 @@ export default function UploadPrescriptionPage() {
                     onDrop={handleDrop}
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    {/* name="attachment" is required by Web3Forms to attach the file */}
                     <input
                       type="file"
-                      name="attachment"
                       ref={fileInputRef}
                       className="hidden"
                       multiple
-                      accept="image/png, image/jpeg, image/jpg, application/pdf"
+                      accept="image/png, image/jpeg, image/jpg"
                       onChange={e => { if (e.target.files) handleFiles(Array.from(e.target.files)); }}
                     />
                     <motion.div
@@ -217,10 +244,10 @@ export default function UploadPrescriptionPage() {
                     >
                       <Upload className="w-7 h-7" />
                     </motion.div>
-                    <h3 className="text-lg font-bold mb-1">Drag & drop files here</h3>
+                    <h3 className="text-lg font-bold mb-1">Drag & drop images here</h3>
                     <p className="text-muted-foreground text-sm mb-4">or click to browse from your device</p>
                     <span className="inline-block bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold px-4 py-1.5 rounded-full">
-                      JPG · PNG · PDF · Max 10MB
+                      JPG · PNG · Max 10MB
                     </span>
                   </div>
 
