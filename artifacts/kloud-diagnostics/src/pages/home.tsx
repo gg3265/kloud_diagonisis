@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
+import { PackageCard } from '@/components/package-card';
 import { AnimatePresence } from 'framer-motion';
 
 const POPULAR_CHIPS = ['CBC', 'Vitamin D', 'HbA1c', 'Thyroid Profile', 'LFT', 'KFT', 'Lipid Profile', 'Vitamin B12', 'Dengue', 'Fever Profile'];
@@ -182,68 +183,8 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {packages?.map((pkg, idx) => (
-                <motion.div
-                  key={pkg.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className={`bg-white rounded-3xl p-7 border shadow-md hover:shadow-[0_20px_60px_rgba(27,58,107,0.12)] hover:-translate-y-2 transition-all duration-300 flex flex-col group relative overflow-hidden ${pkg.badge?.toLowerCase().includes('popular') ? 'border-primary/30' : pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'border-[#C9A227]/50' : 'border-gray-100'}`}
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1.5 ${pkg.badge?.toLowerCase().includes('premium') || pkg.badge?.toLowerCase().includes('advance') || idx === (packages?.length ?? 0) - 1 ? 'bg-gradient-to-r from-[#C9A227] to-[#e8c547]' : 'bg-gradient-to-r from-primary to-[#0F2347]'}`} />
-                  
-                  {pkg.badge && (
-                    <div className='inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C9A227]/10 text-[#A07D10] text-xs font-bold mb-4 border border-[#C9A227]/30'>
-                      <Star className='w-3 h-3 fill-current' /> {pkg.badge}
-                    </div>
-                  )}
-
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                      <Activity className="w-4 h-4" />
-                    </div>
-                    <span className="text-primary font-bold text-sm">{pkg.parameterCount} Parameters</span>
-                  </div>
-
-                  <h3 className="text-xl font-extrabold font-sans mb-2 group-hover:text-primary transition-colors">{pkg.name}</h3>
-                  <p className="text-muted-foreground text-sm mb-5 line-clamp-2 leading-relaxed">{pkg.shortDescription || pkg.description}</p>
-
-                  {pkg.includes && pkg.includes.length > 0 && (
-                    <div className="mb-5 flex-1">
-                      <ul className="space-y-1.5">
-                        {pkg.includes.slice(0, 4).map((item, i) => (
-                          <li key={i} className="text-xs flex items-center gap-2 text-foreground/70">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                            {item}
-                          </li>
-                        ))}
-                        {pkg.includes.length > 4 && (
-                          <li className="text-xs text-primary font-semibold pl-3.5">+ {pkg.includes.length - 4} more tests</li>
-                        )}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div className='mt-auto pt-5 border-t border-gray-100'>
-                    <div className='flex items-end gap-2 mb-3'>
-                      <div>
-                        {pkg.mrp && pkg.mrp > pkg.price && <div className='text-xs text-muted-foreground line-through mb-0.5'>MRP ₹{pkg.mrp}</div>}
-                        <div className='text-2xl font-extrabold text-foreground'>₹{pkg.price}</div>
-                      </div>
-                      {pkg.mrp && pkg.mrp > pkg.price && (<span className='mb-1 inline-flex items-center px-2 py-0.5 rounded-full bg-success/10 text-success text-xs font-bold'>{Math.round((1 - pkg.price / pkg.mrp) * 100)}% OFF</span>)}
-                    </div>
-                    <Button onClick={() => openPackageModal({
-                      id: pkg.id,
-                      name: pkg.name,
-                      price: pkg.price,
-                      mrp: pkg.mrp,
-                      parameterCount: pkg.parameterCount,
-                      includes: pkg.includes,
-                      fastingRequired: pkg.fastingRequired,
-                    } as PackageInfo)} className='w-full rounded-xl font-bold h-11'>Book Now — ₹{pkg.price}</Button>
-                  </div>
-                </motion.div>
+              {packages?.slice(0, 3).map((pkg, idx) => (
+                <PackageCard key={pkg.id} pkg={pkg as any} index={idx} featured={idx === Math.min(2, (packages?.length ?? 0) - 1)} />
               ))}
             </div>
           )}

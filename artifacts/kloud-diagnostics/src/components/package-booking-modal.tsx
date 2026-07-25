@@ -20,9 +20,7 @@ const emptyPerson = {
 };
 
 const emptyForm = {
-  personCount: 1 as 1 | 2,
   person1: { ...emptyPerson },
-  person2: { ...emptyPerson },
   address: '',
   city: '',
   pincode: '',
@@ -33,7 +31,7 @@ const emptyForm = {
 };
 
 type FormState = typeof emptyForm;
-type PersonKey = 'person1' | 'person2';
+type PersonKey = 'person1';
 
 export function PackageBookingModal() {
   const { isPackageModalOpen, closePackageModal, selectedPackage, showSuccessPopup } = useBookingModal();
@@ -46,7 +44,7 @@ export function PackageBookingModal() {
 
   useEffect(() => {
     if (isPackageModalOpen) {
-      setStep(1);
+      setStep(2); // Skip straight to the form
       setFormData(emptyForm);
     }
   }, [isPackageModalOpen]);
@@ -65,7 +63,7 @@ export function PackageBookingModal() {
 
   const handleClose = () => {
     closePackageModal();
-    setTimeout(() => { setStep(1); setFormData(emptyForm); }, 300);
+    setTimeout(() => { setStep(2); setFormData(emptyForm); }, 300);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -73,23 +71,18 @@ export function PackageBookingModal() {
     if (!selectedPackage) return;
     setIsSubmitting(true);
 
-    const { person1, person2, personCount } = formData;
+    const { person1 } = formData;
+    const personCount = (selectedPackage as any)?.defaultQuantity || 1;
+    const totalPrice = (selectedPackage as any)?.totalPrice || selectedPackage.price * personCount;
     try {
       const fd = new FormData();
       fd.append('Package_Name', selectedPackage.name);
       fd.append('Number_of_Persons', String(personCount));
-      fd.append('Person_1_Name', person1.name);
-      fd.append('Person_1_Age', person1.age);
-      fd.append('Person_1_Gender', person1.gender);
-      fd.append('Person_1_Mobile', person1.phone);
-      if (person1.email) fd.append('Person_1_Email', person1.email);
-      if (personCount === 2) {
-        fd.append('Person_2_Name', person2.name);
-        fd.append('Person_2_Age', person2.age);
-        fd.append('Person_2_Gender', person2.gender);
-        fd.append('Person_2_Mobile', person2.phone);
-        if (person2.email) fd.append('Person_2_Email', person2.email);
-      }
+      fd.append('Lead_Patient_Name', person1.name);
+      fd.append('Lead_Patient_Age', person1.age);
+      fd.append('Lead_Patient_Gender', person1.gender);
+      fd.append('Lead_Patient_Mobile', person1.phone);
+      if (person1.email) fd.append('Lead_Patient_Email', person1.email);
       fd.append('Collection_Type', formData.collectionType === 'home' ? 'Home Collection' : 'Walk-in Center');
       if (formData.address) fd.append('Address', formData.address);
       if (formData.city) fd.append('City', formData.city);
@@ -97,7 +90,7 @@ export function PackageBookingModal() {
       fd.append('Preferred_Date', formData.preferredDate);
       fd.append('Preferred_Time', formData.preferredTimeSlot);
       if (formData.notes) fd.append('Additional_Notes', formData.notes);
-      fd.append('Total_Amount', `₹${selectedPackage.price * personCount}`);
+      fd.append('Total_Amount', `₹${totalPrice}`);
       // Unique subject to prevent Gmail threading
       const now = new Date();
       const timeStr = now.toTimeString().slice(0, 8);
@@ -127,7 +120,8 @@ export function PackageBookingModal() {
   };
 
   const homeFee = 0;
-  const totalAmount = selectedPackage ? selectedPackage.price * formData.personCount + homeFee : 0;
+  const personCount = (selectedPackage as any)?.defaultQuantity || 1;
+  const totalAmount = (selectedPackage as any)?.totalPrice || (selectedPackage ? selectedPackage.price * personCount + homeFee : 0);
 
   if (!isPackageModalOpen) return null;
 
@@ -174,11 +168,6 @@ export function PackageBookingModal() {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="hidden md:flex items-center gap-1.5">
-                  {[1, 2].map(s => (
-                    <div key={s} className={`h-1.5 rounded-full transition-all duration-300 ${step > s ? 'bg-primary w-6' : step === s ? 'bg-primary w-8' : 'bg-gray-200 w-3'}`} />
-                  ))}
-                </div>
                 <button
                   onClick={handleClose}
                   className="w-9 h-9 rounded-full bg-white border border-border shadow-sm flex items-center justify-center hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-red-300"
@@ -192,102 +181,7 @@ export function PackageBookingModal() {
             {/* ── Body ── */}
             <div className="flex-1 overflow-y-auto overscroll-contain">
 
-              {/* ── STEP 1: Package details + person count ── */}
-              {step === 1 && selectedPackage && (
-                <div className="p-5 md:p-8 max-w-2xl mx-auto w-full">
 
-                  {/* Package card */}
-                  <div className="rounded-2xl border-2 border-primary/20 bg-gradient-to-br from-teal-50/60 to-white p-5 md:p-6 mb-6">
-                    <div className="flex items-start gap-3 mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                        <Activity className="w-5 h-5" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-extrabold text-base text-foreground">{selectedPackage.name}</h3>
-                        <p className="text-xs text-primary font-semibold mt-0.5">{selectedPackage.parameterCount} Parameters</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <span className="text-3xl font-extrabold text-foreground">₹{selectedPackage.price}</span>
-                      <span className="text-sm text-muted-foreground">per person</span>
-                      {selectedPackage.mrp && selectedPackage.mrp > selectedPackage.price && (
-                        <>
-                          <span className="text-sm text-muted-foreground line-through">₹{selectedPackage.mrp}</span>
-                          <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
-                            {Math.round((1 - selectedPackage.price / selectedPackage.mrp) * 100)}% off
-                          </span>
-                        </>
-                      )}
-                    </div>
-
-                    {selectedPackage.includes && selectedPackage.includes.length > 0 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                        {selectedPackage.includes.map((item, i) => (
-                          <div key={i} className="flex items-center gap-2 text-xs text-foreground/70">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                            {item}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-
-                    {selectedPackage.fastingRequired && (
-                      <div className="mt-4 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 flex items-center gap-2">
-                        <span className="text-base">⚠️</span>
-                        Fasting required — please avoid eating 8 hours before sample collection.
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Person count selector */}
-                  <div className="mb-6">
-                    <h3 className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground mb-3">How many persons?</h3>
-                    <div className="grid grid-cols-2 gap-4">
-                      {([1, 2] as const).map(count => (
-                        <button
-                          key={count}
-                          type="button"
-                          onClick={() => setField('personCount', count)}
-                          className={`rounded-2xl border-2 p-5 flex flex-col items-center gap-2 transition-all focus:outline-none focus:ring-2 focus:ring-primary
-                            ${formData.personCount === count
-                              ? 'border-primary bg-primary/5 shadow-md'
-                              : 'border-border hover:border-primary/40 hover:bg-gray-50'}`}
-                        >
-                          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${formData.personCount === count ? 'bg-primary text-white' : 'bg-gray-100 text-muted-foreground'}`}>
-                            {count === 1 ? <User className="w-6 h-6" /> : <Users className="w-6 h-6" />}
-                          </div>
-                          <div className="text-center">
-                            <p className="font-extrabold text-sm">{count === 1 ? '1 Person' : '2 Persons'}</p>
-                            <p className="text-xs text-muted-foreground mt-0.5">₹{selectedPackage.price * count}</p>
-                          </div>
-                          {formData.personCount === count && (
-                            <div className="w-5 h-5 rounded-full bg-primary text-white flex items-center justify-center">
-                              <CheckCircle2 className="w-3.5 h-3.5" />
-                            </div>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Total preview */}
-                  <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4 flex items-center justify-between mb-6">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Total</p>
-                      <p className="text-2xl font-extrabold text-primary">₹{selectedPackage.price * formData.personCount}</p>
-                      <p className="text-xs text-muted-foreground">for {formData.personCount} {formData.personCount === 1 ? 'person' : 'persons'}</p>
-                    </div>
-                    <Button
-                      onClick={() => setStep(2)}
-                      size="lg"
-                      className="gap-2 font-bold rounded-xl px-7"
-                    >
-                      Continue <ChevronRight className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              )}
 
               {/* ── STEP 2: Patient details ── */}
               {step === 2 && selectedPackage && (
@@ -299,9 +193,9 @@ export function PackageBookingModal() {
                       <div className="flex items-center gap-2">
                         <Activity className="w-4 h-4 text-primary" />
                         <span className="text-sm font-bold">{selectedPackage.name}</span>
-                        <span className="text-xs text-muted-foreground">· {formData.personCount} {formData.personCount === 1 ? 'person' : 'persons'}</span>
+                        <span className="text-xs text-muted-foreground">· {personCount} {personCount === 1 ? 'person' : 'persons'}</span>
                       </div>
-                      <span className="font-extrabold text-primary">₹{selectedPackage.price * formData.personCount}</span>
+                      <span className="font-extrabold text-primary">₹{totalAmount}</span>
                     </div>
 
                     {/* Person 1 */}
@@ -313,25 +207,7 @@ export function PackageBookingModal() {
                       required
                     />
 
-                    {/* Person 2 (if 2 persons) */}
-                    <AnimatePresence>
-                      {formData.personCount === 2 && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="overflow-hidden"
-                        >
-                          <PersonSection
-                            label="Person 2"
-                            icon={<UserPlus className="w-4 h-4 text-primary" />}
-                            data={formData.person2}
-                            onChange={(k, v) => setPerson('person2', k, v)}
-                            required
-                          />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+
 
                     {/* Collection type */}
                     <div className="space-y-2">
