@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
+import { getWhatsAppLink } from '@/lib/utils';
 import kloudLogoMark from '@assets/images_1784483749826.jpg';
 
 const NAV_LINKS = [
@@ -312,9 +313,9 @@ export function FloatingButtons() {
 
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/919699977171"
+        href={getWhatsAppLink()}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
         className="w-14 h-14 bg-[#25D366] text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group"
         aria-label="Chat on WhatsApp"
       >

@@ -53,7 +53,7 @@ export default function ServicesPage() {
             </div>
             <h2 className="text-3xl font-bold font-sans mb-4">Pathology Lab</h2>
             <p className="text-muted-foreground mb-8 text-lg">
-              Fully automated, NABL-accredited pathology laboratory ensuring precise and rapid results for blood, urine, and body fluid tests.
+              Fully automated. Associated with all NABL-accredited top labs in Mumbai, ensuring precise and rapid results for blood, urine, and body fluid tests.
             </p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">

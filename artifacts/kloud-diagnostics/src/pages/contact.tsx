@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, CheckCircle2, Clock, ChevronLeft, MessageSquare } 
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
+import { getWhatsAppLink } from '@/lib/utils';
 
 export default function ContactPage() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -132,7 +133,7 @@ export default function ContactPage() {
             <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6">
               <h4 className="font-bold mb-2 text-primary">Need Results Fast?</h4>
               <p className="text-sm text-foreground/70 mb-4 leading-relaxed">Call or WhatsApp us for urgent test bookings and same-day report requests.</p>
-              <a href="https://wa.me/919699977171" target="_blank" rel="noreferrer">
+              <a href={getWhatsAppLink()} target="_blank" rel="noopener noreferrer">
                 <Button className="w-full gap-2 font-bold">
                   <MessageSquare className="w-4 h-4" />
                   WhatsApp: 9699977171
