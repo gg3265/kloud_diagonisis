@@ -82,10 +82,10 @@ export function Header() {
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden md:flex flex-wrap lg:flex-nowrap items-center justify-end gap-2 lg:gap-3">
             <a
               href="tel:9699977171"
-              className="flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors mr-1 text-sm"
+              className="flex items-center gap-1.5 lg:gap-2 text-primary font-bold hover:text-primary/80 transition-colors mr-1 text-sm whitespace-nowrap"
             >
               <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
                 <Phone className="w-4 h-4" />
@@ -94,17 +94,17 @@ export function Header() {
             </a>
 
             <Link href="/upload-prescription">
-              <Button variant="outline" size="sm" className="text-sm font-semibold">
+              <Button variant="outline" size="sm" className="text-sm font-semibold whitespace-nowrap px-3 py-2 h-auto flex items-center justify-center">
                 Upload Rx
               </Button>
             </Link>
 
             <Button
               onClick={() => openModal()}
-              className="gap-2 text-sm font-bold shadow-md"
+              className="gap-1.5 lg:gap-2 text-sm font-bold shadow-md whitespace-nowrap px-3 py-2 h-auto flex items-center justify-center inline-flex"
               size="sm"
             >
-              <CalendarCheck className="w-4 h-4" />
+              <CalendarCheck className="w-4 h-4 shrink-0" />
               Book a Test
             </Button>
           </div>
