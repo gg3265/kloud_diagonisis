@@ -85,11 +85,6 @@ export function PackageCard({ pkg, index, featured = false }: PackageCardProps) 
           <div>
             <div className='text-xs text-muted-foreground mb-1'>Total Price</div>
             <div className='text-2xl font-extrabold text-foreground'>₹{totalPrice}</div>
-            {pkg.mrp && pkg.mrp > pkg.price && (
-              <span className='inline-flex items-center text-[10px] uppercase font-bold text-success'>
-                Save ₹{(pkg.mrp - pkg.price) * quantity}
-              </span>
-            )}
           </div>
           
           <div className="flex flex-col items-end">

@@ -17,34 +17,21 @@ const TIME_SLOTS = [
 ];
 
 const POPULAR_TESTS = [
-  { id: 'cbc', name: 'Complete Blood Count (CBC)', price: 199, mrp: 299, category: 'blood', fastingRequired: false, turnaround: '4–6 hours', description: 'Measures RBC, WBC, haemoglobin, and platelets.' },
-  { id: 'thyroid-t3t4tsh', name: 'Thyroid Profile (T3, T4, TSH)', price: 499, mrp: 750, category: 'blood', fastingRequired: false, turnaround: '6–8 hours', description: 'Comprehensive thyroid function assessment.' },
-  { id: 'vitd', name: 'Vitamin D (25-OH)', price: 699, mrp: 1100, category: 'blood', fastingRequired: false, turnaround: '24 hours', description: 'Checks Vitamin D levels.' },
-  { id: 'hba1c', name: 'HbA1c (Glycated Haemoglobin)', price: 349, mrp: 549, category: 'blood', fastingRequired: false, turnaround: '6–8 hours', description: '3-month average blood sugar.' },
-  { id: 'lipid', name: 'Lipid Profile', price: 299, mrp: 499, category: 'blood', fastingRequired: true, turnaround: '4–6 hours', description: 'Cholesterol and triglycerides panel.' },
-  { id: 'liver', name: 'Liver Function Test (LFT)', price: 399, mrp: 649, category: 'blood', fastingRequired: false, turnaround: '6–8 hours', description: 'Assesses liver enzymes, bilirubin, and protein.' },
+  { code: '6085', name: 'CBC (Complete Blood Count)', price: 300 },
+  { code: '5830', name: 'HBA1C', price: 500 },
+  { code: '6268', name: 'VITAMIN D3 / VIT D', price: 1500 },
+  { code: '46422', name: 'THYROID TOTAL / THYROID PROFILE', price: 500 },
+  { code: '9125', name: 'LFT', price: 900 },
+  { code: '36467', name: 'KFT / RFT', price: 900 },
+  { code: '9121', name: 'LIPID PROFILE', price: 800 },
+  { code: '6128', name: 'VITAMIN B12', price: 1000 },
 ];
 
 interface TestItem {
-  id: string;
+  code: string;
   name: string;
   price: number;
-  mrp?: number;
-  category: string;
-  fastingRequired: boolean;
-  turnaround: string;
-  description?: string;
 }
-
-const getSampleType = (category: string) => {
-  if (category === 'imaging') return 'Visit Center';
-  return 'Blood';
-};
-
-const getSampleIcon = (category: string) => {
-  if (category === 'imaging') return ScanLine;
-  return Droplets;
-};
 
 const emptyForm = {
   patientName: '', patientAge: '', patientGender: 'male',
@@ -336,7 +323,6 @@ export function TestBookingModal() {
                           )}
 
                           {tests.map((test, i) => {
-                            const SampleIcon = getSampleIcon(test.category);
                             const isFocused = focusedIndex === i;
                             return (
                               <button
@@ -347,18 +333,17 @@ export function TestBookingModal() {
                                 className={`w-full flex items-center gap-3 px-4 py-3.5 border-b border-border/50 last:border-0 transition-colors text-left focus:outline-none
                                   ${isFocused ? 'bg-primary/8 bg-primary/[0.08]' : 'hover:bg-gray-50'}`}
                               >
-                                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${test.category === 'imaging' ? 'bg-purple-50 text-purple-500' : 'bg-teal-50 text-primary'}`}>
-                                  <SampleIcon className="w-4 h-4" />
+                                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-teal-50 text-primary">
+                                  <Droplets className="w-5 h-5" />
                                 </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="font-semibold text-sm truncate">{test.name}</p>
-                                  <p className="text-xs text-muted-foreground">{getSampleType(test.category)} · {test.turnaround}</p>
+                                <div className="flex-1 text-left min-w-0">
+                                  <h4 className="font-bold text-foreground text-sm truncate">{test.name}</h4>
+                                  <div className="flex items-center gap-2 mt-0.5">
+                                    <span className="text-xs text-muted-foreground">Blood</span>
+                                  </div>
                                 </div>
                                 <div className="shrink-0 text-right">
                                   <p className="font-bold text-sm text-foreground">₹{test.price}</p>
-                                  {test.mrp && test.mrp > test.price && (
-                                    <p className="text-[10px] text-muted-foreground line-through">₹{test.mrp}</p>
-                                  )}
                                 </div>
                                 <ChevronRight className="w-4 h-4 text-muted-foreground/40 shrink-0" />
                               </button>
@@ -384,8 +369,8 @@ export function TestBookingModal() {
                         <div className="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-teal-50/60 to-white p-5 md:p-6 shadow-sm">
                           <div className="flex items-start justify-between gap-3 mb-4">
                             <div className="flex items-center gap-3">
-                              <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${selectedTest.category === 'imaging' ? 'bg-purple-100 text-purple-600' : 'bg-primary/10 text-primary'}`}>
-                                {selectedTest.category === 'imaging' ? <ScanLine className="w-5 h-5" /> : <Droplets className="w-5 h-5" />}
+                              <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 bg-primary/10 text-primary">
+                                <Droplets className="w-5 h-5" />
                               </div>
                               <div>
                                 <h3 className="font-extrabold text-base text-foreground leading-tight">{selectedTest.name}</h3>
@@ -403,24 +388,14 @@ export function TestBookingModal() {
                           </div>
 
                           {/* Price */}
-                          <div className="flex items-baseline gap-2 mb-5">
-                            <span className="text-3xl font-extrabold text-foreground">₹{selectedTest.price}</span>
-                            {selectedTest.mrp && selectedTest.mrp > selectedTest.price && (
-                              <>
-                                <span className="text-sm text-muted-foreground line-through">₹{selectedTest.mrp}</span>
-                                <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
-                                  {Math.round((1 - selectedTest.price / selectedTest.mrp) * 100)}% off
-                                </span>
-                              </>
-                            )}
+                          <div className="flex items-end gap-3 mt-3">
+                            <div className="font-extrabold text-3xl text-primary">₹{selectedTest.price}</div>
                           </div>
 
                           {/* Details grid */}
                           <div className="grid grid-cols-3 gap-3 mb-5">
                             {[
-                              { label: 'Sample', value: getSampleType(selectedTest.category) },
-                              { label: 'Fasting', value: selectedTest.fastingRequired ? 'Yes (8 hrs)' : 'Not required' },
-                              { label: 'Report', value: selectedTest.turnaround },
+                              { label: 'Sample', value: 'Blood' }
                             ].map(({ label, value }) => (
                               <div key={label} className="bg-white rounded-xl p-3 border border-border text-center">
                                 <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">{label}</p>

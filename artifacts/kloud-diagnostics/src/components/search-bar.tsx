@@ -52,7 +52,7 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
 
   const handleAdd = (item: any, type: CartItemItemType) => {
     addItem({
-      itemId: item.id,
+      itemId: item.code || item.id,
       itemType: type,
       name: item.name,
       price: item.price,
@@ -122,27 +122,20 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
                     Lab Tests
                   </div>
                   {data.tests.map((test, index) => (
-                    <div key={test.id} className={`flex items-center justify-between p-3 rounded-xl transition-colors group cursor-pointer border ${index === focusedIndex ? 'bg-primary/8 border-primary/20' : 'border-transparent hover:bg-primary/5 hover:border-primary/10'}`}>
+                    <div key={test.code || index} className={`flex items-center justify-between p-3 rounded-xl transition-colors group cursor-pointer border ${index === focusedIndex ? 'bg-primary/8 border-primary/20' : 'border-transparent hover:bg-primary/5 hover:border-primary/10'}`}>
                       <div className="flex items-center gap-4 flex-1">
                         <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                          {test.category === 'imaging' ? <Activity className="w-5 h-5" /> : <Beaker className="w-5 h-5" />}
+                          <Beaker className="w-5 h-5" />
                         </div>
                         <div>
                           <h4 className="font-bold text-foreground group-hover:text-primary transition-colors">
                             <HighlightText text={test.name} query={debouncedQuery} />
                           </h4>
                           <div className="flex items-center gap-3 text-sm mt-1">
-                            {(test as any).code && (
+                            {test.code && (
                               <span className="text-xs font-mono text-muted-foreground/70 bg-gray-100 px-1.5 py-0.5 rounded">
-                                <HighlightText text={(test as any).code} query={debouncedQuery} />
+                                <HighlightText text={test.code} query={debouncedQuery} />
                               </span>
-                            )}
-                            <span className="text-muted-foreground flex items-center">
-                              <Clock className='w-3 h-3 inline mr-1 opacity-60' />
-                              {test.turnaround}
-                            </span>
-                            {test.fastingRequired && (
-                              <span className="text-xs font-medium text-warning bg-warning/10 px-2 py-0.5 rounded">Fasting Required</span>
                             )}
                           </div>
                         </div>
@@ -150,9 +143,6 @@ export function SearchBar({ className, autoFocus = false }: { className?: string
                       <div className="flex items-center gap-4 ml-4 shrink-0">
                         <div className="text-right">
                           <div className="font-bold text-lg">₹{test.price}</div>
-                          {test.mrp && test.mrp > test.price && (
-                            <div className="text-xs text-muted-foreground line-through">₹{test.mrp}</div>
-                          )}
                         </div>
                         <Button size="sm" onClick={() => handleAdd(test, 'test')} variant="outline" className="group-hover:bg-primary group-hover:text-white rounded-full">
                           Book Test <Plus className="w-4 h-4 ml-1" />

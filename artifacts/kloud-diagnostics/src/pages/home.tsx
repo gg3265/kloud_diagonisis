@@ -13,7 +13,7 @@ import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
 import { PackageCard } from '@/components/package-card';
 import { AnimatePresence } from 'framer-motion';
 
-const POPULAR_CHIPS = ['CBC', 'Vitamin D', 'HbA1c', 'Thyroid Profile', 'LFT', 'KFT', 'Lipid Profile', 'Vitamin B12', 'Dengue', 'Fever Profile'];
+const POPULAR_CHIPS = ['CBC', 'Vitamin D', 'HbA1c', 'Thyroid Profile', 'LFT', 'KFT', 'Lipid Profile', 'Vitamin B12', 'Dengue'];
 
 const FAQS = [
   {
