@@ -61,7 +61,7 @@ export default function ContactPage() {
               iconBg: 'bg-orange-100 text-orange-600',
               title: 'Head Office',
               sub: 'Mazgaon, Mumbai',
-              value: 'Shop No. 2, Abdul Rauf Manzil, Reay Road Station, Rambhau Bhogle Marg, Mazgaon, Mumbai – 400010',
+              value: 'Shop No 2, Abdul Rauf Manzil, Opposite Piramal Aranya, Rambhau Bhogale Marg, Mazgaon, Mumbai - 400010',
               href: 'https://maps.google.com/?q=Kloud+Diagnostics+Mazgaon+Mumbai+400010',
               label: 'Get Directions',
             },

@@ -18,11 +18,11 @@ const POPULAR_CHIPS = ['CBC', 'Vitamin D', 'HbA1c', 'Thyroid Profile', 'LFT', 'K
 const FAQS = [
   {
     question: "Do you process medical tests in your own laboratory?",
-    answer: "No, Kloud Diagnostics does not perform tests directly in-house. We are strategically associated with top NABL & ISO accredited network labs across Mumbai, such as Lupin Diagnostics, Max Healthcare, and other leading diagnostic partners, ensuring high accuracy and reliability for all your reports."
+    answer: "No, Kloud Diagnostics does not perform tests directly in-house. We are associated with all top labs across Mumbai, such as Metropolis, Apollo, Agilus, Lifenity, LDPL and more, ensuring high accuracy and reliability for all your reports."
   },
   {
     question: "Are your partner labs accredited and certified?",
-    answer: "Yes, absolutely. We work exclusively with top-tier, NABL & ISO accredited laboratories to guarantee that every test result meets strict quality standards."
+    answer: "Yes, absolutely. We are associated with all top labs to guarantee that every test result meets strict quality standards."
   },
   {
     question: "Is home sample collection available everywhere?",
