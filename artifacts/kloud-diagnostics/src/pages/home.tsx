@@ -43,9 +43,13 @@ export default function HomePage() {
   const packages = PACKAGES;
   const pkgsLoading = false;
   const testimonials = [
-    { id: '1', rating: 5, text: "Extremely professional and prompt service. The phlebotomist arrived right on time and was very gentle. Got my reports on WhatsApp within 12 hours.", name: "Rahul S.", area: "Andheri", service: "Home Collection" },
-    { id: '2', rating: 5, text: "Booked a comprehensive health package for my parents. The process was seamless from booking to report delivery. Highly recommended for senior citizens.", name: "Priya M.", area: "Bandra", service: "Health Package" },
-    { id: '3', rating: 5, text: "Very clean diagnostic center with helpful staff. Did my ultrasound here and was impressed by the advanced equipment and quick turnaround time.", name: "Amit K.", area: "Mazgaon", service: "Imaging" }
+    { id: '1', rating: 5, text: "Great diagnostic centre. Very quick and easy service with experienced staff. Highly recommended.", name: "Kanu Kedia", verified: true },
+    { id: '2', rating: 5, text: "Very Nice diagnostic centre. Quick service with expert staff.", name: "RAJENDRA PATIL", verified: true },
+    { id: '3', rating: 5, text: "Excellent diagnostic centre with quick service and great Staff.", name: "Triveni Lande", verified: true },
+    { id: '4', rating: 5, text: "Excellent diagnostic centre with quick service and great staff.", name: "abhishree goyal", verified: true },
+    { id: '5', rating: 5, text: "Good service and competitive rates.", name: "Ridhi Behal", verified: true },
+    { id: '6', rating: 5, text: "Fast & Good services 👌👍👏", name: "Tanishka G", verified: true },
+    { id: '7', rating: 5, text: "Very courteous and friendly.", name: "Darshit Jain", verified: true }
   ];
   const { openModal, openPackageModal } = useBookingModal();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -359,13 +363,22 @@ export default function HomePage() {
       <section className="py-24 bg-[#161616] text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-16">
-            <div className="text-sm font-bold uppercase tracking-widest mb-3 text-accent">Patient Stories</div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-[#C9A227] text-sm font-bold mb-4 border border-white/20">
+              <span className="font-extrabold text-white">5.0</span>
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+              </div>
+              <span className="text-white/80">(25+ Google Reviews)</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-4">Trusted by Mumbai</h2>
-            <p className="text-white/60 text-lg max-w-2xl mx-auto">Real words from real patients who've experienced the Kloud difference.</p>
+            <p className="text-white/60 text-lg max-w-2xl mx-auto">Real words from our patients about our quick service, expert staff, and competitive rates.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-            {testimonials?.slice(0, 3).map((testimonial, i) => (
+          <div className="flex overflow-x-auto pb-10 -mx-4 px-4 md:mx-0 md:px-0 gap-6 snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <style>{`
+              .hide-scrollbar::-webkit-scrollbar { display: none; }
+            `}</style>
+            {testimonials.map((testimonial, i) => (
               <motion.div
                 key={testimonial.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -373,23 +386,40 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-7 relative"
+                className="hide-scrollbar min-w-[300px] md:min-w-[360px] snap-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-7 relative flex flex-col justify-between h-full"
               >
-                <div className="flex gap-1 mb-5 text-[#C9A227]">
-                  {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="flex gap-1 text-[#C9A227]">
+                      {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+                    </div>
+                    {testimonial.verified && (
+                      <span className="flex items-center gap-1 text-[10px] uppercase tracking-wider font-bold text-success bg-success/10 px-2 py-1 rounded-full border border-success/20">
+                        <BadgeCheck className="w-3 h-3" /> Verified
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-base leading-relaxed mb-7 text-white/85 italic font-medium line-clamp-4">"{testimonial.text}"</p>
                 </div>
-                <p className="text-base leading-relaxed mb-7 text-white/85 italic">"{testimonial.text}"</p>
-                <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-full bg-primary flex items-center justify-center font-bold text-lg text-white">
+                <div className="flex items-center gap-4 mt-auto">
+                  <div className="w-11 h-11 rounded-full bg-primary flex items-center justify-center font-bold text-lg text-white shadow-md">
                     {testimonial.name.charAt(0)}
                   </div>
                   <div>
-                    <div className="font-bold text-white">{testimonial.name}</div>
-                    <div className="text-xs text-white/40 mt-0.5">{testimonial.area} · {testimonial.service}</div>
+                    <div className="font-bold text-white text-sm">{testimonial.name}</div>
+                    <div className="text-[11px] text-white/40 mt-0.5">Google Reviewer</div>
                   </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+          
+          <div className="text-center mt-6">
+            <a href="https://g.page/r/kloud-diagnostics/review" target="_blank" rel="noopener noreferrer">
+              <Button className="bg-[#C9A227] hover:bg-[#A07D10] text-[#161616] font-extrabold h-[50px] px-8 rounded-xl shadow-lg gap-2">
+                <Star className="w-4 h-4 fill-current" /> View All Google Reviews
+              </Button>
+            </a>
           </div>
         </div>
       </section>
