@@ -202,7 +202,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-6">
-              Mumbai's trusted diagnostic center. NABL accredited labs delivering precision healthcare with warmth and accuracy.
+              Mumbai's trusted diagnostic center. Associated with all NABL & ISO Accredited labs in Mumbai, delivering precision healthcare with warmth and accuracy.
             </p>
             <div className="flex flex-wrap gap-2">
               <div className="bg-primary/20 border border-primary/30 rounded-lg px-3 py-1.5 text-xs font-bold text-border">NABL Accredited</div>
