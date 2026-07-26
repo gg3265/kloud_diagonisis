@@ -27,7 +27,7 @@ export default function BookPage() {
   });
 
   const isHomeCollection = formData.collectionType === 'home';
-  const homeCollectionFee = isHomeCollection ? (total >= 1500 ? 0 : 150) : 0;
+  const homeCollectionFee = isHomeCollection ? 200 : 0;
   const grandTotal = total + homeCollectionFee;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -326,7 +326,7 @@ export default function BookPage() {
                     {isHomeCollection && (
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Home Collection</span>
-                        <span className="font-semibold">{homeCollectionFee === 0 ? 'FREE' : `₹${homeCollectionFee}`}</span>
+                        <span className="font-semibold">₹{homeCollectionFee}</span>
                       </div>
                     )}
                     <div className="pt-3 border-t border-border flex justify-between items-end">
@@ -334,16 +334,6 @@ export default function BookPage() {
                       <span className="text-2xl font-bold text-primary">₹{grandTotal}</span>
                     </div>
                   </div>
-
-                  {isHomeCollection && (
-                    <div className={`mb-6 p-3 rounded-xl text-sm font-semibold text-center transition-colors ${total >= 1500 ? 'bg-success/10 text-success border border-success/20' : 'bg-warning/10 text-warning-foreground border border-warning/20'}`}>
-                      {total >= 1500 ? (
-                        <span>You've unlocked FREE home collection 🎉</span>
-                      ) : (
-                        <span>Add ₹{1500 - total} more to unlock free home collection.</span>
-                      )}
-                    </div>
-                  )}
 
                   <Button 
                     type="submit" 

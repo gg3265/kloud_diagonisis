@@ -233,7 +233,7 @@ export default function HomePage() {
                 <ul className="space-y-3 mb-8">
                   {[
                     'Flexible slots: 7 AM to 8 PM',
-                    'Free collection above ₹1,500',
+                    'Standard collection fee of ₹200',
                     'PPE-equipped professionals',
                     'Same-day reports for most tests',
                   ].map((item, i) => (

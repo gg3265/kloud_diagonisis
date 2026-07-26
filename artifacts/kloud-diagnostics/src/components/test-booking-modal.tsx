@@ -74,7 +74,7 @@ export function TestBookingModal() {
   const tests: TestItem[] = (searchData?.tests || []) as TestItem[];
 
   const isHome = formData.collectionType === 'home';
-  const homeFee = isHome && selectedTest ? (selectedTest.price < 1500 ? 150 : 0) : 0;
+  const homeFee = isHome && selectedTest ? 200 : 0;
   const grandTotal = selectedTest ? selectedTest.price + homeFee : 0;
 
   // Reset state when modal opens
@@ -656,8 +656,7 @@ export function TestBookingModal() {
                       <div>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold mb-1">Total Amount</p>
                         <p className="text-2xl font-extrabold text-primary">₹{grandTotal}</p>
-                        {isHome && homeFee > 0 && <p className="text-xs text-orange-500 mt-0.5">Includes ₹150 home collection fee</p>}
-                        {isHome && homeFee === 0 && selectedTest && selectedTest.price >= 1500 && <p className="text-xs text-green-600 mt-0.5">Free home collection unlocked 🎉</p>}
+                        {isHome && homeFee > 0 && <p className="text-xs text-orange-500 mt-0.5">Includes ₹200 home collection fee</p>}
                       </div>
                       <Button
                         type="submit"

@@ -119,7 +119,7 @@ export function PackageBookingModal() {
     }
   };
 
-  const homeFee = 0;
+  const homeFee = isHome ? 200 : 0;
   const personCount = (selectedPackage as any)?.defaultQuantity || 1;
   const totalAmount = (selectedPackage as any)?.totalPrice || (selectedPackage ? selectedPackage.price * personCount + homeFee : 0);
 
@@ -310,6 +310,7 @@ export function PackageBookingModal() {
                       <div>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold mb-1">Total Amount</p>
                         <p className="text-2xl font-extrabold text-primary">₹{totalAmount}</p>
+                        {isHome && homeFee > 0 && <p className="text-xs text-orange-500 mt-0.5">Includes ₹200 home collection fee</p>}
                       </div>
                       <Button
                         type="submit"
