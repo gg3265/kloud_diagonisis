@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MapPin } from 'lucide-react';
+import { Phone, Menu, X, ChevronRight, Activity, CalendarCheck, MapPin, Instagram, Facebook } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useBookingModal } from '@/lib/booking-modal-context';
 import { getWhatsAppLink } from '@/lib/utils';
@@ -299,6 +299,34 @@ export function Footer() {
 export function FloatingButtons() {
   return (
     <div className="fixed bottom-6 right-6 z-40 flex flex-col gap-3 items-end">
+      {/* Facebook Button */}
+      <a
+        href="https://www.facebook.com/KLOUDDIAGNOSTICS?sfnsn=wiwspmo&mibextid=RUbZ1f"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-13 h-13 w-[52px] h-[52px] bg-[#1877F2] text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group"
+        aria-label="Visit our Facebook"
+      >
+        <span className="absolute right-full mr-4 bg-gray-900 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
+          Facebook
+        </span>
+        <Facebook className="w-5 h-5" />
+      </a>
+
+      {/* Instagram Button */}
+      <a
+        href="https://www.instagram.com/klouddiagnostics?utm_source=qr&igsh=N216aWwzd2FkN2J6"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-13 h-13 w-[52px] h-[52px] bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform relative group"
+        aria-label="Visit our Instagram"
+      >
+        <span className="absolute right-full mr-4 bg-gray-900 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
+          Instagram
+        </span>
+        <Instagram className="w-5 h-5" />
+      </a>
+
       {/* Call Button */}
       <a
         href="tel:9699977171"
