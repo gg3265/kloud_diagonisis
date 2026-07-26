@@ -140,6 +140,27 @@ export default function ContactPage() {
                 </Button>
               </a>
             </div>
+
+            <div className="bg-white rounded-3xl p-3 border border-border shadow-sm relative overflow-hidden group">
+              <iframe 
+                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Shop%20No%202,%20Abdul%20Rauf%20Manzil,%20Opposite%20Piramal%20Aranya,%20Rambhau%20Bhogale%20Marg,%20Mazgaon,%20Mumbai%20-%20400010+(Kloud%20Diagnostics)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+                width="100%" 
+                height="280" 
+                className="border-0 rounded-2xl grayscale-[0.2] contrast-[1.1] group-hover:grayscale-0 transition-all duration-500"
+                allowFullScreen={false} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Kloud Diagnostics Location on Map"
+              ></iframe>
+              <a 
+                href="https://maps.google.com/?q=Shop+No+2,+Abdul+Rauf+Manzil,+Opposite+Piramal+Aranya,+Rambhau+Bhogale+Marg,+Mazgaon,+Mumbai+-+400010" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="absolute top-6 right-6 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-bold text-gray-800 flex items-center gap-2 hover:bg-gray-50 hover:scale-105 transition-all z-10"
+              >
+                <MapPin className="w-4 h-4 text-primary" /> Open in Maps
+              </a>
+            </div>
           </div>
 
           <div className="md:col-span-7">
