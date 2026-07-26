@@ -12,6 +12,7 @@ interface PackageCardProps {
 
 export function PackageCard({ pkg, index, featured = false }: PackageCardProps) {
   const [quantity, setQuantity] = useState(1);
+  const [isExpanded, setIsExpanded] = useState(false);
   const { openPackageModal } = useBookingModal();
 
   const handleDecrease = () => setQuantity(prev => Math.max(1, prev - 1));
@@ -66,16 +67,21 @@ export function PackageCard({ pkg, index, featured = false }: PackageCardProps) 
       {pkg.includes && pkg.includes.length > 0 && (
         <div className="mb-5 flex-1">
           <ul className="space-y-1.5">
-            {pkg.includes.slice(0, 4).map((item, i) => (
+            {pkg.includes.slice(0, isExpanded ? pkg.includes.length : 4).map((item, i) => (
               <li key={i} className="text-xs flex items-center gap-2 text-foreground/70">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                 {item}
               </li>
             ))}
-            {pkg.includes.length > 4 && (
-              <li className="text-xs text-primary font-semibold pl-3.5">+ {pkg.includes.length - 4} more tests</li>
-            )}
           </ul>
+          {pkg.includes.length > 4 && (
+            <button 
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-3 text-xs font-bold text-primary hover:text-primary/80 transition-colors flex items-center gap-1 bg-primary/5 hover:bg-primary/10 px-3 py-1.5 rounded-full w-max"
+            >
+              {isExpanded ? '- View Less' : `+ ${pkg.includes.length - 4} More Tests`}
+            </button>
+          )}
         </div>
       )}
 
