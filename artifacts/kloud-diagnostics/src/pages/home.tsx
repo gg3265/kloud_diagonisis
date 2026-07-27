@@ -43,14 +43,14 @@ export default function HomePage() {
   const packages = PACKAGES;
   const pkgsLoading = false;
   const testimonials = [
+    { id: '8', rating: 5, text: "Very good and trained collection staff. Accurate reporting and over all very good service. I recommend to my most of my patients.", name: "Dr Vijay Kushvaha", verified: true, metadata: "2 reviews • Recent" },
     { id: '1', rating: 5, text: "Great diagnostic centre. Very quick and easy service with experienced staff. Highly recommended.", name: "Kanu Kedia", verified: true },
     { id: '2', rating: 5, text: "Very Nice diagnostic centre. Quick service with expert staff.", name: "RAJENDRA PATIL", verified: true },
     { id: '3', rating: 5, text: "Excellent diagnostic centre with quick service and great Staff.", name: "Triveni Lande", verified: true },
     { id: '4', rating: 5, text: "Excellent diagnostic centre with quick service and great staff.", name: "abhishree goyal", verified: true },
     { id: '5', rating: 5, text: "Good service and competitive rates.", name: "Ridhi Behal", verified: true },
     { id: '6', rating: 5, text: "Fast & Good services 👌👍👏", name: "Tanishka G", verified: true },
-    { id: '7', rating: 5, text: "Very courteous and friendly.", name: "Darshit Jain", verified: true },
-    { id: '8', rating: 5, text: "Very good and trained collection staff. Accurate reporting and over all very good service. I recommend to my most of my patients.", name: "Dr Vijay Kushvaha", verified: true, metadata: "2 reviews • Recent" }
+    { id: '7', rating: 5, text: "Very courteous and friendly.", name: "Darshit Jain", verified: true }
   ];
   const { openModal, openPackageModal } = useBookingModal();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
