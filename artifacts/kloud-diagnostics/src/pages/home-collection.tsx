@@ -35,9 +35,6 @@ export default function HomeCollectionPage() {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex flex-wrap justify-center gap-3 mb-8">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-white text-sm font-bold shadow-sm">
-                ₹200 Standard Fee
-              </div>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 text-red-600 text-sm font-bold shadow-sm border border-red-500/20">
                 <MapPin className="w-4 h-4" /> Available Only in Mumbai
               </div>
