@@ -94,11 +94,41 @@ export default function ContactPage() {
 
         {/* Form + info */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-
           <div className="md:col-span-5 space-y-6">
+            {/* Map */}
+            <div className="bg-white rounded-3xl p-3 border border-border shadow-sm relative overflow-hidden group">
+              <iframe 
+                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Shop%20No%202,%20Abdul%20Rauf%20Manzil,%20Opposite%20Piramal%20Aranya,%20Rambhau%20Bhogale%20Marg,%20Mazgaon,%20Mumbai%20-%20400010+(Kloud%20Diagnostics)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+                width="100%" 
+                className="h-[280px] md:h-[350px] border-0 rounded-2xl grayscale-[0.2] contrast-[1.1] group-hover:grayscale-0 transition-all duration-500"
+                allowFullScreen={false} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Kloud Diagnostics Location on Map"
+              ></iframe>
+              <a 
+                href="https://maps.google.com/?q=Shop+No+2,+Abdul+Rauf+Manzil,+Opposite+Piramal+Aranya,+Rambhau+Bhogale+Marg,+Mazgaon,+Mumbai+-+400010" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="absolute top-6 right-6 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-bold text-gray-800 flex items-center gap-2 hover:bg-gray-50 hover:scale-105 transition-all z-10"
+              >
+                <MapPin className="w-4 h-4 text-primary" /> Open in Maps
+              </a>
+            </div>
+
+            {/* Quick Info */}
             <div className="bg-white rounded-3xl p-7 border border-border shadow-sm">
               <h3 className="text-xl font-extrabold font-sans mb-6">Quick Info</h3>
               <div className="space-y-5">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm">Address</h4>
+                    <p className="text-muted-foreground text-sm mt-0.5">Shop No 2, Abdul Rauf Manzil, Opposite Piramal Aranya, Rambhau Bhogale Marg, Mazgaon, Mumbai - 400010</p>
+                  </div>
+                </div>
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
                     <Clock className="w-5 h-5" />
@@ -138,27 +168,6 @@ export default function ContactPage() {
                   <MessageSquare className="w-4 h-4" />
                   WhatsApp: 9699977171
                 </Button>
-              </a>
-            </div>
-
-            <div className="bg-white rounded-3xl p-3 border border-border shadow-sm relative overflow-hidden group">
-              <iframe 
-                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Shop%20No%202,%20Abdul%20Rauf%20Manzil,%20Opposite%20Piramal%20Aranya,%20Rambhau%20Bhogale%20Marg,%20Mazgaon,%20Mumbai%20-%20400010+(Kloud%20Diagnostics)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
-                width="100%" 
-                height="280" 
-                className="border-0 rounded-2xl grayscale-[0.2] contrast-[1.1] group-hover:grayscale-0 transition-all duration-500"
-                allowFullScreen={false} 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Kloud Diagnostics Location on Map"
-              ></iframe>
-              <a 
-                href="https://maps.google.com/?q=Shop+No+2,+Abdul+Rauf+Manzil,+Opposite+Piramal+Aranya,+Rambhau+Bhogale+Marg,+Mazgaon,+Mumbai+-+400010" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="absolute top-6 right-6 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-bold text-gray-800 flex items-center gap-2 hover:bg-gray-50 hover:scale-105 transition-all z-10"
-              >
-                <MapPin className="w-4 h-4 text-primary" /> Open in Maps
               </a>
             </div>
           </div>
