@@ -313,7 +313,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: BadgeCheck, color: 'bg-red-50 text-red-600', title: 'ISO 9001:2015', desc: 'Associated with all top certified labs meeting international standards for diagnostic accuracy.' },
+              { icon: BadgeCheck, color: 'bg-red-50 text-red-600', title: 'NABL & ISO Accredited', desc: 'Associated with all top ISO 9001:2015 certified labs meeting international standards for diagnostic accuracy.' },
               { icon: Zap, color: 'bg-[#C9A227]/10 text-[#A07D10]', title: 'Fast Reports', desc: 'Digital reports delivered within 24 hours. Urgent reports available in 4–6 hours.' },
               { icon: Home, color: 'bg-primary/10 text-primary', title: 'Home Collection', desc: 'Trained phlebotomists collect samples safely from your home at your preferred time.' },
               { icon: ShieldCheck, color: 'bg-success/10 text-success', title: '100% Accurate', desc: 'State-of-the-art equipment and rigorous QC protocols for reliable, precise results.' },
