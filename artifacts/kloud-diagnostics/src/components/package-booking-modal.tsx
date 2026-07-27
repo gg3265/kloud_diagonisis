@@ -119,9 +119,9 @@ export function PackageBookingModal() {
     }
   };
 
-  const homeFee = isHome ? 200 : 0;
+  const homeFee = 0; // Home collection is completely waived/free for packages
   const personCount = (selectedPackage as any)?.defaultQuantity || 1;
-  const totalAmount = (selectedPackage as any)?.totalPrice || (selectedPackage ? selectedPackage.price * personCount + homeFee : 0);
+  const totalAmount = (selectedPackage as any)?.totalPrice || (selectedPackage ? selectedPackage.price * personCount : 0);
 
   if (!isPackageModalOpen) return null;
 
@@ -190,10 +190,13 @@ export function PackageBookingModal() {
 
                     {/* Package reminder */}
                     <div className="flex items-center justify-between bg-primary/5 border border-primary/20 rounded-xl px-4 py-3">
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <Activity className="w-4 h-4 text-primary" />
                         <span className="text-sm font-bold">{selectedPackage.name}</span>
                         <span className="text-xs text-muted-foreground">· {personCount} {personCount === 1 ? 'person' : 'persons'}</span>
+                        <span className="ml-2 text-[10px] font-bold text-green-700 bg-green-50 px-2 py-0.5 rounded-full border border-green-200">
+                          ✨ Free Home Visit
+                        </span>
                       </div>
                       <span className="font-extrabold text-primary">₹{totalAmount}</span>
                     </div>
@@ -348,7 +351,7 @@ export function PackageBookingModal() {
                       <div>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold mb-1">Total Amount</p>
                         <p className="text-2xl font-extrabold text-primary">₹{totalAmount}</p>
-                        {isHome && homeFee > 0 && <p className="text-xs text-orange-500 mt-0.5">Includes ₹200 home collection fee</p>}
+                        {isHome && <p className="text-xs text-green-600 font-bold mt-1">✓ Free Home Collection Included</p>}
                       </div>
                       <Button
                         type="submit"

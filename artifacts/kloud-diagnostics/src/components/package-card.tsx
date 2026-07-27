@@ -52,11 +52,16 @@ export function PackageCard({ pkg, index, featured = false }: PackageCardProps) 
         </div>
       )}
 
-      <div className="flex items-center gap-2 mb-4 mt-2">
-        <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-          <Activity className="w-4 h-4" />
+      <div className="flex flex-wrap items-center gap-2 mb-4 mt-2">
+        <div className="flex items-center gap-2">
+          <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+            <Activity className="w-4 h-4" />
+          </div>
+          <span className="text-primary font-bold text-sm">{pkg.parameterCount} Parameters</span>
         </div>
-        <span className="text-primary font-bold text-sm">{pkg.parameterCount} Parameters</span>
+        <span className="ml-auto text-[10px] sm:text-xs font-bold text-green-700 bg-green-50 px-2.5 py-1 rounded-full border border-green-200 shrink-0">
+          ✨ Free Home Visit
+        </span>
       </div>
 
       <h3 className="text-xl font-extrabold font-sans mb-2 group-hover:text-primary transition-colors pr-16">{pkg.name}</h3>
