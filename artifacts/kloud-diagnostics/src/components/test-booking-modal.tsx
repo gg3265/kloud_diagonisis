@@ -557,6 +557,44 @@ export function TestBookingModal() {
                       </div>
                     </div>
 
+                    {/* Walk-in Info */}
+                    {formData.collectionType === 'walkin' && (
+                      <AnimatePresence>
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="mt-4 bg-primary/5 rounded-2xl p-4 md:p-6 border border-primary/10">
+                            <div className="flex flex-col md:flex-row gap-6">
+                              <div className="flex-1 space-y-5">
+                                <div>
+                                  <h4 className="font-bold text-primary flex items-center gap-2 mb-2"><MapPin className="w-4 h-4"/> Official Address</h4>
+                                  <p className="text-sm text-foreground/80 leading-relaxed">Shop No 2, Abdul Rauf Manzil, Opposite Piramal Aranya, Rambhau Bhogale Marg, Mazgaon, Mumbai - 400010</p>
+                                </div>
+                                <div>
+                                  <h4 className="font-bold text-primary flex items-center gap-2 mb-2"><Phone className="w-4 h-4"/> Contact / Collection Info</h4>
+                                  <p className="text-sm font-semibold">+91 9699977171 | Home Collection Available (₹200)</p>
+                                </div>
+                              </div>
+                              <div className="w-full md:w-1/2 h-[300px] md:h-[350px] rounded-xl overflow-hidden shadow-sm">
+                                <iframe
+                                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.338104871217!2d72.8398!3d18.9723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDU4JzIwLjMiTiA3MsKwNTAnMjMuMyJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin"
+                                  width="100%"
+                                  height="100%"
+                                  style={{ border: 0, minHeight: '280px', borderRadius: '12px' }}
+                                  allowFullScreen={false}
+                                  loading="lazy"
+                                  referrerPolicy="no-referrer-when-downgrade">
+                                </iframe>
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </AnimatePresence>
+                    )}
+
                     {/* Address (home only) */}
                     {isHome && (
                       <AnimatePresence>
