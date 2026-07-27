@@ -49,7 +49,8 @@ export default function HomePage() {
     { id: '4', rating: 5, text: "Excellent diagnostic centre with quick service and great staff.", name: "abhishree goyal", verified: true },
     { id: '5', rating: 5, text: "Good service and competitive rates.", name: "Ridhi Behal", verified: true },
     { id: '6', rating: 5, text: "Fast & Good services 👌👍👏", name: "Tanishka G", verified: true },
-    { id: '7', rating: 5, text: "Very courteous and friendly.", name: "Darshit Jain", verified: true }
+    { id: '7', rating: 5, text: "Very courteous and friendly.", name: "Darshit Jain", verified: true },
+    { id: '8', rating: 5, text: "Very good and trained collection staff. Accurate reporting and over all very good service. I recommend to my most of my patients.", name: "Dr Vijay Kushvaha", verified: true, metadata: "2 reviews • Recent" }
   ];
   const { openModal, openPackageModal } = useBookingModal();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -407,7 +408,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <div className="font-bold text-white text-sm">{testimonial.name}</div>
-                    <div className="text-[11px] text-white/40 mt-0.5">Google Reviewer</div>
+                    <div className="text-[11px] text-white/40 mt-0.5">{testimonial.metadata || 'Google Reviewer'}</div>
                   </div>
                 </div>
               </motion.div>
