@@ -55,10 +55,10 @@ export default function HomePage() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const heroStats = [
-    { label: 'Tests Available', value: stats?.testsCount || '500,000+', icon: Beaker },
-    { label: 'Years Experience', value: stats?.yearsExperience || '15+', icon: Clock },
-    { label: 'Happy Patients', value: stats?.patientsServed ? `${(stats.patientsServed / 1000000).toFixed(1)}M+` : '2M+', icon: Users },
-    { label: 'NABL Accredited', value: '100%', icon: BadgeCheck },
+    { label: 'Tests Available', value: stats?.testsCount || '500+', icon: Beaker },
+    { label: 'Years Experience', value: stats?.yearsExperience || '8+', icon: Clock },
+    { label: 'Happy Patients', value: stats?.patientsServed ? `${(stats.patientsServed / 1000).toFixed(0)}K+` : '500K+', icon: Users },
+    { label: 'Associated With All Top Labs', value: 'ISO & NABL', icon: BadgeCheck },
   ];
 
   return (
