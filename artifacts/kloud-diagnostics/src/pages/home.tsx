@@ -39,7 +39,7 @@ const FAQS = [
 ];
 
 export default function HomePage() {
-  const stats = { testsCount: '500+', yearsExperience: '15+', patientsServed: 2000000 };
+  const stats = { testsCount: '500+', yearsExperience: '8+', patientsServed: 500000 };
   const packages = PACKAGES;
   const pkgsLoading = false;
   const testimonials = [
