@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Upload, X, FileText, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope, Home } from 'lucide-react';
+import { Upload, X, FileText, User, Phone, MapPin, Clock, ShieldCheck, ChevronLeft, FileImage, BadgeCheck, Stethoscope, Home, Camera, Image as ImageIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBookingModal } from '@/lib/booking-modal-context';
 
@@ -9,8 +9,9 @@ export default function UploadPrescriptionPage() {
   const [files, setFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -38,8 +39,10 @@ export default function UploadPrescriptionPage() {
   const handleFiles = (newFiles: File[]) => {
     const valid = newFiles.filter(file => {
       if (file.size > 10 * 1024 * 1024) { alert(`"${file.name}" exceeds 10MB limit.`); return false; }
-      if (!file.type.startsWith('image/')) { alert(`"${file.name}" is not an image. The free uploader only supports images.`); return false; }
-      return true;
+      if (!file.type.startsWith('image/') && file.type !== 'application/pdf') { 
+        alert(`"${file.name}" is not supported. Please upload an image or PDF.`); 
+        return false; 
+      }      return true;
     });
     setFiles(prev => [...prev, ...valid]);
   };
@@ -78,31 +81,40 @@ export default function UploadPrescriptionPage() {
         fd.append('Pincode', formData.pincode);
       }
 
-      // 1. Upload all files to ImgBB
+      // 1. Process files
       const uploadedUrls: string[] = [];
       const IMGBB_API_KEY = '4db4c717a6e00d38f103c4f20d1a2d40';
       
+      let pdfCounter = 1;
+
       for (const file of files) {
-        const imgbbFormData = new FormData();
-        imgbbFormData.append('image', file);
-        
-        try {
-          const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-            method: 'POST',
-            body: imgbbFormData,
-          });
+        if (file.type === 'application/pdf') {
+          // Attach PDF directly to Web3Forms
+          fd.append(`pdf_attachment_${pdfCounter}`, file);
+          pdfCounter++;
+        } else {
+          // Upload Image to ImgBB
+          const imgbbFormData = new FormData();
+          imgbbFormData.append('image', file);
           
-          if (!imgbbRes.ok) throw new Error('ImgBB upload failed');
-          
-          const imgbbData = await imgbbRes.json();
-          if (imgbbData.success) {
-            uploadedUrls.push(imgbbData.data.url);
+          try {
+            const imgbbRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+              method: 'POST',
+              body: imgbbFormData,
+            });
+            
+            if (!imgbbRes.ok) throw new Error('ImgBB upload failed');
+            
+            const imgbbData = await imgbbRes.json();
+            if (imgbbData.success) {
+              uploadedUrls.push(imgbbData.data.url);
+            }
+          } catch (error) {
+            console.error("Failed to upload image to ImgBB:", error);
+            alert(`Failed to upload ${file.name}. Please try again.`);
+            setIsSubmitting(false);
+            return;
           }
-        } catch (error) {
-          console.error("Failed to upload image to ImgBB:", error);
-          alert(`Failed to upload ${file.name}. Please try again.`);
-          setIsSubmitting(false);
-          return;
         }
       }
 
@@ -219,37 +231,65 @@ export default function UploadPrescriptionPage() {
                     Upload Your Prescription
                   </h2>
 
-                  <div
-                    className={`border-2 border-dashed rounded-2xl p-8 md:p-12 text-center cursor-pointer transition-all duration-200 ${
-                      isDragging
-                        ? 'border-orange-400 bg-orange-50 scale-[1.02]'
-                        : 'border-border hover:border-orange-300 hover:bg-orange-50/30'
-                    }`}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      className="hidden"
-                      multiple
-                      accept="image/png, image/jpeg, image/jpg"
-                      onChange={e => { if (e.target.files) handleFiles(Array.from(e.target.files)); }}
-                    />
-                    <motion.div
-                      animate={isDragging ? { scale: 1.1 } : { scale: 1 }}
-                      className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-orange-600"
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <button
+                      type="button"
+                      onClick={() => cameraInputRef.current?.click()}
+                      className="flex flex-col items-center justify-center p-6 border-2 border-border hover:border-orange-400 hover:bg-orange-50/50 rounded-2xl transition-all duration-200 group"
                     >
-                      <Upload className="w-7 h-7" />
-                    </motion.div>
-                    <h3 className="text-lg font-bold mb-1">Drag & drop images here</h3>
-                    <p className="text-muted-foreground text-sm mb-4">or click to browse from your device</p>
-                    <span className="inline-block bg-orange-50 border border-orange-200 text-orange-700 text-xs font-bold px-4 py-1.5 rounded-full">
-                      JPG · PNG · Max 10MB
-                    </span>
+                      <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <Camera className="w-6 h-6 text-orange-600" />
+                      </div>
+                      <span className="font-bold text-sm">Take Photo</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => galleryInputRef.current?.click()}
+                      className="flex flex-col items-center justify-center p-6 border-2 border-border hover:border-blue-400 hover:bg-blue-50/50 rounded-2xl transition-all duration-200 group"
+                    >
+                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <ImageIcon className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <span className="font-bold text-sm">From Gallery</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => pdfInputRef.current?.click()}
+                      className="flex flex-col items-center justify-center p-6 border-2 border-border hover:border-red-400 hover:bg-red-50/50 rounded-2xl transition-all duration-200 group"
+                    >
+                      <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <FileText className="w-6 h-6 text-red-600" />
+                      </div>
+                      <span className="font-bold text-sm">Upload PDF</span>
+                    </button>
                   </div>
+
+                  <input
+                    type="file"
+                    ref={cameraInputRef}
+                    className="hidden"
+                    accept="image/*"
+                    capture="environment"
+                    onChange={e => { if (e.target.files) handleFiles(Array.from(e.target.files)); }}
+                  />
+                  <input
+                    type="file"
+                    ref={galleryInputRef}
+                    className="hidden"
+                    multiple
+                    accept="image/*"
+                    onChange={e => { if (e.target.files) handleFiles(Array.from(e.target.files)); }}
+                  />
+                  <input
+                    type="file"
+                    ref={pdfInputRef}
+                    className="hidden"
+                    multiple
+                    accept="application/pdf"
+                    onChange={e => { if (e.target.files) handleFiles(Array.from(e.target.files)); }}
+                  />
 
                   <AnimatePresence>
                     {files.length > 0 && (
