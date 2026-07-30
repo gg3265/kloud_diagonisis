@@ -27,7 +27,9 @@ export default function BookPage() {
   });
 
   const isHomeCollection = formData.collectionType === 'home';
-  const homeCollectionFee = isHomeCollection ? 200 : 0;
+  const standardHomeFee = 200;
+  const isFreeCollectionApplied = isHomeCollection && total >= 1500;
+  const homeCollectionFee = isHomeCollection ? (isFreeCollectionApplied ? 0 : standardHomeFee) : 0;
   const grandTotal = total + homeCollectionFee;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -318,6 +320,26 @@ export default function BookPage() {
                     ))}
                   </div>
 
+                  {isHomeCollection && !isFreeCollectionApplied && total > 0 && (
+                    <div className="mb-4 bg-blue-50/80 border border-blue-200 text-blue-800 text-sm px-4 py-3 rounded-xl flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                        <span className="text-base">✨</span>
+                      </div>
+                      <p className="font-medium">
+                        Add <span className="font-bold">₹{1500 - total}</span> more to get <span className="font-bold">FREE</span> Home Collection!
+                      </p>
+                    </div>
+                  )}
+
+                  {isFreeCollectionApplied && total > 0 && (
+                    <div className="mb-4 bg-green-50/80 border border-green-200 text-green-800 text-sm px-4 py-3 rounded-xl flex items-center gap-3">
+                      <CheckCircle2 className="w-6 h-6 text-green-600 shrink-0" />
+                      <p className="font-semibold">
+                        Free Home Collection Applied!
+                      </p>
+                    </div>
+                  )}
+
                   <div className="space-y-3 mb-6 bg-gray-50 p-4 rounded-2xl">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Tests Total</span>
@@ -326,7 +348,14 @@ export default function BookPage() {
                     {isHomeCollection && (
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">Home Collection</span>
-                        <span className="font-semibold">₹{homeCollectionFee}</span>
+                        {isFreeCollectionApplied ? (
+                          <div className="flex items-center gap-2">
+                            <span className="text-muted-foreground line-through">₹{standardHomeFee}</span>
+                            <span className="font-bold text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded text-xs uppercase">Free</span>
+                          </div>
+                        ) : (
+                          <span className="font-semibold">₹{homeCollectionFee}</span>
+                        )}
                       </div>
                     )}
                     <div className="pt-3 border-t border-border flex justify-between items-end">
