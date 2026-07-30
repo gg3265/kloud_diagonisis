@@ -14,7 +14,7 @@ export const TESTS = [
   {
     "name": "ALP-PHOS (ALKALINE PHOSPHATASE)",
     "code": "5844",
-    "price": 250
+    "price": 600
   },
   {
     "name": "AMH",
