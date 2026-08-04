@@ -27,17 +27,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [items]);
 
   const addItem = (newItem: CartItem) => {
-    setItems(prev => {
-      const existing = prev.find(i => i.itemId === newItem.itemId);
-      if (existing) {
-        return prev.map(i => 
-          i.itemId === newItem.itemId 
-            ? { ...i, quantity: i.quantity + newItem.quantity }
-            : i
-        );
-      }
-      return [...prev, newItem];
-    });
+    const existing = items.find(i => i.itemId === newItem.itemId);
+    if (existing) {
+      alert('Test already selected');
+      return;
+    }
+    setItems(prev => [...prev, newItem]);
   };
 
   const removeItem = (itemId: string) => {
