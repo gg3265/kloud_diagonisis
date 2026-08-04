@@ -213,7 +213,7 @@ export default function BookPage() {
                     </div>
                   </div>
 
-                  {isHomeCollection && (
+                  {isHomeCollection ? (
                     <>
                       <div className="space-y-2 md:col-span-2">
                         <label className="text-sm font-semibold text-foreground/80 flex items-center gap-2">
@@ -241,6 +241,29 @@ export default function BookPage() {
                         />
                       </div>
                     </>
+                  ) : (
+                    <div className="md:col-span-2 space-y-4 mb-2">
+                      <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-5">
+                        <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                          <MapPin className="w-5 h-5 text-blue-600" /> Walk-in Center Address
+                        </h4>
+                        <p className="text-sm text-blue-800 leading-relaxed font-medium">
+                          Shop No 2, Abdul Rauf Manzil, Opposite Piramal Aranya, Rambhau Bhogale Marg, Mazgaon, Mumbai - 400010
+                        </p>
+                      </div>
+                      <div className="rounded-2xl overflow-hidden border border-border shadow-sm h-48 w-full bg-gray-100">
+                        <iframe 
+                          src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Shop%20No%202,%20Abdul%20Rauf%20Manzil,%20Opposite%20Piramal%20Aranya,%20Rambhau%20Bhogale%20Marg,%20Mazgaon,%20Mumbai%20-%20400010+(Kloud%20Diagnostics)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+                          width="100%" 
+                          height="100%"
+                          className="border-0"
+                          allowFullScreen={false} 
+                          loading="lazy" 
+                          referrerPolicy="no-referrer-when-downgrade"
+                          title="Kloud Diagnostics Location on Map"
+                        ></iframe>
+                      </div>
+                    </div>
                   )}
 
                   <div className="space-y-2">
