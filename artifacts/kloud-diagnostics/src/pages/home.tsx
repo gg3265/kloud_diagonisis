@@ -8,8 +8,9 @@ import {
   ChevronRight, BadgeCheck, Zap, Users, ChevronDown, MessageCircle
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { useBookingModal, PackageInfo } from '@/lib/booking-modal-context';
+import { useCart } from '@/lib/cart-context';
 import { PackageCard } from '@/components/package-card';
 import { AnimatePresence } from 'framer-motion';
 
@@ -52,8 +53,23 @@ export default function HomePage() {
     { id: '6', rating: 5, text: "Fast & Good services 👌👍👏", name: "Tanishka G", verified: true },
     { id: '7', rating: 5, text: "Very courteous and friendly.", name: "Darshit Jain", verified: true }
   ];
-  const { openModal, openPackageModal } = useBookingModal();
+  const { openPackageModal } = useBookingModal();
+  const { addItem } = useCart();
+  const [, setLocation] = useLocation();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const handleTestClick = (chip: string, match?: any) => {
+    if (match) {
+      addItem({
+        itemId: match.code || match.id,
+        itemType: 'test',
+        name: match.name,
+        price: match.price,
+        quantity: 1
+      });
+    }
+    setLocation('/book');
+  };
 
   const heroStats = [
     { label: 'Tests Available', value: stats?.testsCount || '500+', icon: Beaker },
@@ -114,11 +130,7 @@ export default function HomePage() {
                     key={chip}
                     onClick={() => {
                       const match = searchItems(chip, "test")?.tests?.[0];
-                      if (match) {
-                        openModal(chip, match);
-                      } else {
-                        openModal(chip);
-                      }
+                      handleTestClick(chip, match);
                     }}
                     className="px-4 py-1.5 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full text-xs font-semibold text-foreground/80 hover:border-primary hover:text-primary hover:bg-primary/5 hover:-translate-y-0.5 transition-all duration-150 shadow-sm cursor-pointer"
                   >
@@ -150,7 +162,7 @@ export default function HomePage() {
 
             {/* CTA strip */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-              <Button size="lg" onClick={() => openModal()} className="text-base px-10 h-[54px] shadow-[0_8px_30px_rgba(27,58,107,0.28)] hover:shadow-[0_12px_40px_rgba(27,58,107,0.38)] hover:-translate-y-0.5 transition-all duration-200 rounded-xl gap-2 font-bold">
+              <Button size="lg" onClick={() => setLocation('/book')} className="text-base px-10 h-[54px] shadow-[0_8px_30px_rgba(27,58,107,0.28)] hover:shadow-[0_12px_40px_rgba(27,58,107,0.38)] hover:-translate-y-0.5 transition-all duration-200 rounded-xl gap-2 font-bold">
                 <Zap className="w-4 h-4" />
                 Book a Test Now
               </Button>
@@ -247,7 +259,7 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <Button
-                  onClick={() => openModal()}
+                  onClick={() => setLocation('/book')}
                   className="bg-white text-primary hover:bg-red-50 font-bold h-12 px-7 rounded-xl shadow-lg"
                 >
                   Book Home Collection

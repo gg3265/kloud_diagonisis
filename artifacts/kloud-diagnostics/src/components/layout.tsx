@@ -100,7 +100,7 @@ export function Header() {
             </Link>
 
             <Button
-              onClick={() => openModal()}
+              onClick={() => setLocation('/book')}
               className="gap-1.5 lg:gap-2 text-sm font-bold shadow-md whitespace-nowrap px-3 py-2 h-auto flex items-center justify-center inline-flex"
               size="sm"
             >
@@ -151,7 +151,7 @@ export function Header() {
               <div className="mt-8 space-y-3">
                 <Button
                   className="w-full gap-2 h-14 text-base"
-                  onClick={() => { setMobileOpen(false); openModal(); }}
+                  onClick={() => { setMobileOpen(false); setLocation('/book'); }}
                 >
                   <CalendarCheck className="w-5 h-5" />
                   Book a Test
