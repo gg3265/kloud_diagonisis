@@ -121,11 +121,6 @@ export function PackageBookingModal() {
       setIsSubmitting(false);
     }
   };
-
-  const homeFee = 0; // Home collection is completely waived/free for packages
-  const personCount = (selectedPackage as any)?.defaultQuantity || 1;
-  const totalAmount = (selectedPackage as any)?.totalPrice || (selectedPackage ? selectedPackage.price * personCount : 0);
-
   if (!isPackageModalOpen) return null;
 
   return (
