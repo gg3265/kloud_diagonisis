@@ -7,6 +7,12 @@ export const TESTS = [
     "price": 950
   },
   {
+    "name": "Hemogram (CBC + ESR)",
+    "code": "HEMO-1",
+    "price": 400,
+    "aliases": "hemogram cbc plus esr complete blood count"
+  },
+  {
     "name": "ALBUMIN",
     "code": "6238",
     "price": 200
@@ -751,7 +757,8 @@ export function searchItems(query: string, category: string) {
   let tests = TESTS.filter((t: any) => {
     const matchesQuery = !q ||
       t.name.toLowerCase().includes(q) ||
-      (t.code && t.code.toLowerCase().includes(q));
+      (t.code && t.code.toLowerCase().includes(q)) ||
+      (t.aliases && t.aliases.toLowerCase().includes(q));
     return matchesQuery;
   });
 
