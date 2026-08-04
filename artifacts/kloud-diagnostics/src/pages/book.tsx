@@ -105,18 +105,6 @@ export default function BookPage() {
           <p className="text-xl text-muted-foreground mb-8">
             Thank you. Your booking has been received. Our team will contact you shortly to confirm the details.
           </p>
-          <div className="bg-gray-50 p-6 rounded-2xl mb-8 text-left border border-border text-sm">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <span className="text-muted-foreground block mb-1">Date & Time</span>
-                <span className="font-semibold">{successDetails.date} | {successDetails.time}</span>
-              </div>
-              <div>
-                <span className="text-muted-foreground block mb-1">Type</span>
-                <span className="font-semibold capitalize">{successDetails.type}</span>
-              </div>
-            </div>
-          </div>
           <Button size="lg" onClick={() => setLocation('/')}>Return Home</Button>
         </motion.div>
       </div>
