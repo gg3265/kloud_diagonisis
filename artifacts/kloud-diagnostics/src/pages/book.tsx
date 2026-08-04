@@ -115,10 +115,6 @@ export default function BookPage() {
                 <span className="text-muted-foreground block mb-1">Type</span>
                 <span className="font-semibold capitalize">{successDetails.type}</span>
               </div>
-              <div>
-                <span className="text-muted-foreground block mb-1">Total Paid/Payable</span>
-                <span className="font-bold text-primary text-lg">₹{successDetails.amount}</span>
-              </div>
             </div>
           </div>
           <Button size="lg" onClick={() => setLocation('/')}>Return Home</Button>
