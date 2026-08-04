@@ -11,8 +11,8 @@ export default function BookPage() {
   const { items, removeItem, total, clearCart } = useCart();
   const [, setLocation] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
   const [isSuccess, setIsSuccess] = useState(false);
+  const [successDetails, setSuccessDetails] = useState<{ date: string, time: string, type: string, amount: number } | null>(null);
   const [formData, setFormData] = useState({
     patientName: '',
     patientAge: '',
@@ -71,6 +71,12 @@ export default function BookPage() {
       });
 
       if (res.ok) {
+        setSuccessDetails({
+          date: formData.preferredDate,
+          time: formData.preferredTimeSlot,
+          type: isHomeCollection ? 'home' : 'walk-in',
+          amount: grandTotal
+        });
         setIsSuccess(true);
         clearCart();
         window.scrollTo(0, 0);
@@ -84,7 +90,7 @@ export default function BookPage() {
     }
   };
 
-  if (isSuccess) {
+  if (isSuccess && successDetails) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center py-20 px-4">
         <motion.div 
@@ -97,21 +103,21 @@ export default function BookPage() {
           </div>
           <h1 className="text-4xl font-sans font-bold mb-4">Booking Confirmed!</h1>
           <p className="text-xl text-muted-foreground mb-8">
-            Thank you, {formData.patientName}. Your booking has been received. Our team will contact you shortly to confirm the details.
+            Thank you. Your booking has been received. Our team will contact you shortly to confirm the details.
           </p>
           <div className="bg-gray-50 p-6 rounded-2xl mb-8 text-left border border-border text-sm">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <span className="text-muted-foreground block mb-1">Date & Time</span>
-                <span className="font-semibold">{formData.preferredDate} | {formData.preferredTimeSlot}</span>
+                <span className="font-semibold">{successDetails.date} | {successDetails.time}</span>
               </div>
               <div>
                 <span className="text-muted-foreground block mb-1">Type</span>
-                <span className="font-semibold capitalize">{formData.collectionType}</span>
+                <span className="font-semibold capitalize">{successDetails.type}</span>
               </div>
               <div>
                 <span className="text-muted-foreground block mb-1">Total Paid/Payable</span>
-                <span className="font-bold text-primary text-lg">₹{grandTotal}</span>
+                <span className="font-bold text-primary text-lg">₹{successDetails.amount}</span>
               </div>
             </div>
           </div>

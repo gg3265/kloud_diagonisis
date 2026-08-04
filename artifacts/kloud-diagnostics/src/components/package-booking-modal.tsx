@@ -41,6 +41,11 @@ export function PackageBookingModal() {
   const [formData, setFormData] = useState<FormState>(emptyForm);
 
   const isHome = formData.collectionType === 'home';
+  const personCount = (selectedPackage as any)?.defaultQuantity || 1;
+  const packageTotal = selectedPackage ? ((selectedPackage as any)?.totalPrice || selectedPackage.price * personCount) : 0;
+  const isFreeCollectionApplied = isHome && packageTotal >= 1500;
+  const homeFee = isHome && !isFreeCollectionApplied ? 200 : 0;
+  const grandTotal = packageTotal + homeFee;
 
   useEffect(() => {
     if (isPackageModalOpen) {
@@ -72,8 +77,6 @@ export function PackageBookingModal() {
     setIsSubmitting(true);
 
     const { person1 } = formData;
-    const personCount = (selectedPackage as any)?.defaultQuantity || 1;
-    const totalPrice = (selectedPackage as any)?.totalPrice || selectedPackage.price * personCount;
     try {
       const fd = new FormData();
       fd.append('Package_Name', selectedPackage.name);
@@ -90,7 +93,7 @@ export function PackageBookingModal() {
       fd.append('Preferred_Date', formData.preferredDate);
       fd.append('Preferred_Time', formData.preferredTimeSlot);
       if (formData.notes) fd.append('Additional_Notes', formData.notes);
-      fd.append('Total_Amount', `₹${totalPrice}`);
+      fd.append('Total_Amount', `₹${grandTotal}`);
       // Unique subject to prevent Gmail threading
       const now = new Date();
       const timeStr = now.toTimeString().slice(0, 8);
@@ -350,7 +353,7 @@ export function PackageBookingModal() {
                     <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold mb-1">Total Amount</p>
-                        <p className="text-2xl font-extrabold text-primary">₹{totalAmount}</p>
+                        <p className="text-2xl font-extrabold text-primary">₹{grandTotal}</p>
                         {isHome && <p className="text-xs text-green-600 font-bold mt-1">✓ Free Home Collection Included</p>}
                       </div>
                       <Button

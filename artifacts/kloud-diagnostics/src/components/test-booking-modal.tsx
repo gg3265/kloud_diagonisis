@@ -61,7 +61,8 @@ export function TestBookingModal() {
   const tests: TestItem[] = (searchData?.tests || []) as TestItem[];
 
   const isHome = formData.collectionType === 'home';
-  const homeFee = isHome && selectedTest ? 200 : 0;
+  const isFreeCollectionApplied = isHome && selectedTest && selectedTest.price >= 1500;
+  const homeFee = isHome && selectedTest && !isFreeCollectionApplied ? 200 : 0;
   const grandTotal = selectedTest ? selectedTest.price + homeFee : 0;
 
   // Reset state when modal opens
