@@ -132,14 +132,17 @@ export default function UploadPrescriptionPage() {
       if (res.ok) {
         setFiles([]);
         setFormData({ name: '', phone: '', collectionType: 'home', address: '', city: '', pincode: '', preferredTimeSlot: 'Anytime', referringDoctor: '', notes: '' });
-        if (fileInputRef.current) fileInputRef.current.value = '';
+        if (cameraInputRef.current) cameraInputRef.current.value = '';
+        if (galleryInputRef.current) galleryInputRef.current.value = '';
+        if (pdfInputRef.current) pdfInputRef.current.value = '';
         showSuccessPopup('Our team will review your prescription and call you within 30 minutes.');
       } else {
         const errorData = await res.json().catch(() => ({}));
         alert(`Submission failed: ${errorData.message || 'Please check your access key or try again.'}`);
       }
-    } catch (err) {
-      alert('Network error. Please try again or call us directly.');
+    } catch (err: any) {
+      console.error(err);
+      alert(`Error: ${err.message || 'Network error'}. Please try again.`);
     } finally {
       setIsSubmitting(false);
     }
