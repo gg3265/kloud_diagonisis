@@ -58,7 +58,7 @@ export default function UploadPrescriptionPage() {
       const fd = new FormData();
       
       // Control fields
-      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '08af8615-e180-46cf-8efe-ae605c6c7c66');
       fd.append('from_name', 'Kloud Diagnostics');
       
       const now = new Date();

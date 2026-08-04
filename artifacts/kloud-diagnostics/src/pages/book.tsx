@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '@/lib/cart-context';
-import { useCreateBooking, BookingInputCollectionType, BookingInputPatientGender } from '@workspace/api-client-react';
+import { BookingInputCollectionType, BookingInputPatientGender } from '@workspace/api-client-react';
 import { SearchBar } from '@/components/search-bar';
 import { Button } from '@/components/ui/button';
 import { Trash2, Home, MapPin, Calendar, Clock, User, Phone, CheckCircle2, ChevronLeft, Search } from 'lucide-react';
@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 export default function BookPage() {
   const { items, removeItem, total, clearCart } = useCart();
   const [, setLocation] = useLocation();
-  const createBooking = useCreateBooking();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
@@ -32,25 +32,56 @@ export default function BookPage() {
   const homeCollectionFee = isHomeCollection ? (isFreeCollectionApplied ? 0 : standardHomeFee) : 0;
   const grandTotal = total + homeCollectionFee;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (items.length === 0) return;
+    setIsSubmitting(true);
 
-    createBooking.mutate({
-      data: {
-        ...formData,
-        patientAge: parseInt(formData.patientAge, 10),
-        items,
-        totalAmount: grandTotal,
-        homeCollectionFee
+    try {
+      const fd = new FormData();
+      fd.append('Patient_Name', formData.patientName);
+      fd.append('Age', formData.patientAge.toString());
+      fd.append('Gender', formData.patientGender);
+      fd.append('Mobile_Number', formData.phone);
+      
+      const testNames = items.map(i => `${i.name} (₹${i.price})`).join(', ');
+      fd.append('Booked_Tests', testNames);
+      
+      fd.append('Total_Amount', `₹${grandTotal}`);
+      fd.append('Collection_Type', isHomeCollection ? 'Home Collection' : 'Walk-in Center');
+      fd.append('Preferred_Date', formData.preferredDate);
+      fd.append('Preferred_Time', formData.preferredTimeSlot);
+      
+      if (isHomeCollection) {
+        fd.append('Address', formData.address);
+        fd.append('Pincode', formData.pincode);
       }
-    }, {
-      onSuccess: () => {
+
+      const now = new Date();
+      const timeStr = now.toTimeString().slice(0, 8);
+      const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
+      fd.append('subject', `New Cart Checkout - ${formData.patientName || 'Patient'} - ${timeStr} - ${uid}`);
+      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '08af8615-e180-46cf-8efe-ae605c6c7c66');
+      fd.append('from_name', 'Kloud Diagnostics Cart');
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (res.ok) {
         setIsSuccess(true);
         clearCart();
         window.scrollTo(0, 0);
+      } else {
+        alert('Booking failed. Please try again or call us.');
       }
-    });
+    } catch (error) {
+      alert('Network error. Please try again or call us.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -392,9 +423,9 @@ export default function BookPage() {
                     form="booking-form" 
                     size="lg" 
                     className="w-full"
-                    disabled={createBooking.isPending}
+                    disabled={isSubmitting}
                   >
-                    {createBooking.isPending ? 'Processing...' : 'Confirm Booking'}
+                    {isSubmitting ? 'Processing...' : 'Confirm Booking'}
                   </Button>
                   <p className="text-xs text-center text-muted-foreground mt-4">
                     By confirming, you agree to our Terms of Service & Privacy Policy.

@@ -96,7 +96,7 @@ export function PackageBookingModal() {
       const timeStr = now.toTimeString().slice(0, 8);
       const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
       const uniqueSubject = `New Package Booking - ${person1.name || 'Patient'} - ${timeStr} - ${uid}`;
-      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
+      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '08af8615-e180-46cf-8efe-ae605c6c7c66');
       fd.append('subject', uniqueSubject);
       fd.append('from_name', 'Kloud Diagnostics');
 
