@@ -196,7 +196,7 @@ export function PackageBookingModal() {
                           ✨ Free Home Visit
                         </span>
                       </div>
-                      <span className="font-extrabold text-primary">₹{totalAmount}</span>
+                      <span className="font-extrabold text-primary">₹{grandTotal}</span>
                     </div>
 
                     {/* Person 1 */}
