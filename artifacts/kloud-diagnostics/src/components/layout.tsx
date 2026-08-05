@@ -19,7 +19,7 @@ const NAV_LINKS = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const { openModal } = useBookingModal();
 
   useEffect(() => {
