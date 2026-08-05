@@ -13,6 +13,12 @@ export const TESTS = [
     "aliases": "hemogram cbc plus esr complete blood count"
   },
   {
+    "name": "KFT / RFT (Renal Function Test)",
+    "code": "36467",
+    "price": 900,
+    "aliases": "kft rft kidney function test"
+  },
+  {
     "name": "ALBUMIN",
     "code": "6238",
     "price": 200
