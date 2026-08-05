@@ -129,7 +129,7 @@ export default function BookPage() {
             <div className="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-border">
               <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <span className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">1</span>
-                Add Tests or Packages
+                {items.length > 0 ? "Add More Tests / Packages" : "Add Tests or Packages"}
               </h2>
               <SearchBar />
             </div>
