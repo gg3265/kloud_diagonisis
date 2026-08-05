@@ -321,7 +321,7 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-3 pb-3 border-b-[3px] border-[#C9A227] inline-block">Why Choose Kloud Diagnostics?</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-sans mb-3 pb-3 border-b-[3px] border-[#C9A227] inline-block">Why Choose KLOUD Diagnostics?</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Built on precision, trust, and care — here's what sets us apart.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
