@@ -7,10 +7,30 @@ import { getWhatsAppLink } from '@/lib/utils';
 
 export default function ContactPage() {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSuccess(true);
+    setIsSubmitting(true);
+    try {
+      const fd = new FormData(e.currentTarget as HTMLFormElement);
+      const uid = Math.random().toString(36).slice(2, 6).toUpperCase();
+      fd.append('access_key', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '08af8615-e180-46cf-8efe-ae605c6c7c66');
+      fd.append('subject', `New Contact Form Message - ${fd.get('First_Name')} - ${uid}`);
+      fd.append('from_name', 'Kloud Diagnostics Contact Page');
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: fd,
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) setIsSuccess(true);
+      else alert('Failed to send message. Please try again.');
+    } catch {
+      alert('Network error. Please try again or call us.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -194,28 +214,34 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-2">
                         <label className="text-sm font-semibold">First Name</label>
-                        <input required type="text" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="Priya" />
+                        <input name="First_Name" required type="text" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="Priya" />
                       </div>
                       <div className="space-y-2">
                         <label className="text-sm font-semibold">Last Name</label>
-                        <input required type="text" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="Sharma" />
+                        <input name="Last_Name" required type="text" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="Sharma" />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-semibold">Email Address</label>
-                      <input required type="email" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="priya@example.com" />
+                      <input name="Email" required type="email" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="priya@example.com" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-semibold">Mobile Number</label>
-                      <input required type="tel" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="10-digit number" />
+                      <input name="Mobile" required type="tel" className="w-full h-12 px-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all text-sm" placeholder="10-digit number" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-sm font-semibold">Your Message</label>
-                      <textarea required rows={4} className="w-full p-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all resize-none text-sm" placeholder="How can we help you?" />
+                      <textarea name="Message" required rows={4} className="w-full p-4 rounded-xl border border-input bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary outline-none transition-all resize-none text-sm" placeholder="How can we help you?" />
                     </div>
-                    <Button type="submit" size="lg" className="w-full h-13 h-[52px] text-base font-bold gap-2">
-                      <MessageSquare className="w-5 h-5" />
-                      Send Message
+                    <Button type="submit" size="lg" disabled={isSubmitting} className="w-full h-13 h-[52px] text-base font-bold gap-2">
+                      {isSubmitting ? (
+                        <>Submitting...</>
+                      ) : (
+                        <>
+                          <MessageSquare className="w-5 h-5" />
+                          Send Message
+                        </>
+                      )}
                     </Button>
                   </form>
                 </>
